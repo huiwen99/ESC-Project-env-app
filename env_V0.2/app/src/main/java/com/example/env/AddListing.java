@@ -13,12 +13,15 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,10 +35,16 @@ import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.logging.Logger;
+import org.apache.commons.codec.binary.Hex;
 
 import static android.graphics.ImageDecoder.createSource;
 
 public class AddListing extends AppCompatActivity {
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    //NOTE: wtf is this declaration correct im not sure - Dan
+
+    private String TAG = "ListingDebug";
 
     ImageView imageSelected;
     EditText newListingTitle;
@@ -86,6 +95,7 @@ public class AddListing extends AppCompatActivity {
         addNewListing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 int resultCode = Activity.RESULT_OK;
                 Intent resultIntent = new Intent();
 
@@ -93,6 +103,7 @@ public class AddListing extends AppCompatActivity {
                 String price = newListingPrice.getText().toString();
                 String category = newListingCategory.getSelectedItem().toString();
                 String description = newListingDescription.getText().toString();
+
 
 
                 if(bitmap==null){
@@ -112,6 +123,8 @@ public class AddListing extends AppCompatActivity {
 
                     resultIntent.putExtra(KEY_IMAGE, byteArray);
 
+                    pushListing(title, price, byteArray, category, description);
+
                     setResult(resultCode, resultIntent);
                     finish();
                 }
@@ -119,6 +132,19 @@ public class AddListing extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    // TODO: upload the info onto firebase
+    // THIS IS A TEST
+    // REPLACE LATER WITH PROPER DATA
+    private void pushListing(String title, String price, byte[] imageHex, String category,String description) {
+        long listingTimestamp = System.currentTimeMillis();
+        Log.d(TAG, "Entering pushListing function");
+        String imageHexString = new String(Hex.encodeHex(imageHex));
+        Log.d(TAG, "Converted to hex string");
+        ListingForDatabase listing = new ListingForDatabase(title, price, imageHexString, category, description);
+        mDatabase.child("testProducts").child(String.valueOf(listingTimestamp)).setValue(listing);
 
     }
 

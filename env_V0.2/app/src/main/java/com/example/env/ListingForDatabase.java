@@ -6,21 +6,21 @@ import android.util.Log;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Listing {
+public class ListingForDatabase {
     private String title;
     private String price;
-    private Bitmap image;
+    private String imageHex;
     private String category;
     private String description;
 
-    public Listing(String title, String price, Bitmap image, String category,String description){
+    public ListingForDatabase(String title, String price, String imageHex, String category,String description){
         this.title = title;
 
         BigDecimal p = new BigDecimal(price);
         p = p.setScale(2, RoundingMode.CEILING);
 
         this.price = "$"+p.toString();  //Note: might want to change this to an int later for calculation and shit - Dan
-        this.image = image;
+        this.imageHex = imageHex;
         this.category = category;
         this.description = description;
     }
@@ -31,8 +31,8 @@ public class Listing {
     public String getPrice(){
         return price;
     }
-    public Bitmap getImage(){
-        return image;
+    public String getImageHex(){
+        return imageHex;
     }
     public String getCategory(){
         return category;
