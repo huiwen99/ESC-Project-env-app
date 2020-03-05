@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">env</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Browse</string>
+    <string name="title_notifications">Chats</string>
+    <string name="title_activity_add_listing">Add Listing</string>
+    <string name="category_prompt">Pick Category</string>
+
+    <string-array name="categories">
+        <item>General</item>
+        <item>Robotic Mechanical</item>
+        <item>Microelectronics</item>
+    </string-array>
+
+
+</resources>
