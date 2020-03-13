@@ -29,6 +29,10 @@
         android:testOnly="true"
         android:theme="@style/AppTheme" >
         <activity
+            android:name="com.example.env.ui.home.EditListing"
+            android:label="@string/title_activity_edit_listing"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name="com.example.env.ui.home.ViewOwnListing"
             android:label="@string/title_activity_view_own_listing"
             android:theme="@style/AppTheme.NoActionBar" />
