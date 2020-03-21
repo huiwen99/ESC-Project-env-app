@@ -47,6 +47,6 @@ public class UserListings {
         return userListings.size();
     }
     public String getUser(int i){
-        return userListings.get(i).getDescription();
+        return userListings.get(i).getUser();
     }
 }

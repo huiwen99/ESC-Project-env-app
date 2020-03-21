@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -33,7 +34,7 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
 
     RecyclerView otherListingRecyclerView;
     ListingAdapter listingAdapter;
-    UserListings userListings;
+    UserListings masterListings; //to pull from firebase, list of all existing listings
 
     final int REQUEST_CODE_IMAGE = 1000;
 
@@ -58,7 +59,7 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
 
         ArrayList<Integer> drawableId = new ArrayList<Integer>();
         drawableId.add(R.drawable.fan);
-        userListings = new UserListings();
+        masterListings = new UserListings();
         for(Integer rid:drawableId){
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), rid);
             String imageName = context.getResources().getResourceEntryName(rid);
@@ -66,9 +67,9 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
             String category = "General";
             String description = "test";
             String user = "env@gmail.com";
-            userListings.addListing(imageName,price,bitmap, category, description, user);
+            masterListings.addListing(imageName,price,bitmap, category, description, user);
         }
-        listingAdapter = new ListingAdapter(context, userListings, this);
+        listingAdapter = new ListingAdapter(context, masterListings, this);
         otherListingRecyclerView.setAdapter(listingAdapter);
         otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -76,39 +77,40 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
         return root;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == REQUEST_CODE_IMAGE && resultCode== Activity.RESULT_OK){
-            String title = data.getStringExtra(AddListing.KEY_TITLE);
-            String price = data.getStringExtra(AddListing.KEY_PRICE);
-            String category = data.getStringExtra(AddListing.KEY_CATEGORY);
-            String description = data.getStringExtra(AddListing.KEY_DESCRIPTION);
-            String user = data.getStringExtra(AddListing.KEY_USER);
-
-            byte[] byteArray = data.getByteArrayExtra(AddListing.KEY_IMAGE);
-            Bitmap image = Utils.byteArrayToBitmap(byteArray);
-
-            userListings.addListing(title,price,image,category,description,user);
-            listingAdapter.notifyDataSetChanged();
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if(requestCode == REQUEST_CODE_IMAGE && resultCode== Activity.RESULT_OK){
+//            String title = data.getStringExtra(AddListing.KEY_TITLE);
+//            String price = data.getStringExtra(AddListing.KEY_PRICE);
+//            String category = data.getStringExtra(AddListing.KEY_CATEGORY);
+//            String description = data.getStringExtra(AddListing.KEY_DESCRIPTION);
+//            String user = data.getStringExtra(AddListing.KEY_USER);
+//
+//            byte[] byteArray = data.getByteArrayExtra(AddListing.KEY_IMAGE);
+//            Bitmap image = Utils.byteArrayToBitmap(byteArray);
+//
+//            userListings.addListing(title,price,image,category,description,user);
+//            listingAdapter.notifyDataSetChanged();
+//        }
+//    }
 
 
     @Override
     public void onItemClicked(int position) {
+        Toast.makeText(getActivity(), ""+position, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), ViewOtherListing.class);
 
         Bundle extras = new Bundle();
 
-        extras.putString("TITLE",userListings.getTitle(position));
-        extras.putString("PRICE",userListings.getPrice(position));
-        extras.putString("CATEGORY",userListings.getCategory(position));
-        extras.putString("DESCRIPTION",userListings.getDescription(position));
-        extras.putString("USER",userListings.getUser(position));
+        extras.putString("TITLE",masterListings.getTitle(position));
+        extras.putString("PRICE",masterListings.getPrice(position));
+        extras.putString("CATEGORY",masterListings.getCategory(position));
+        extras.putString("DESCRIPTION",masterListings.getDescription(position));
+        extras.putString("USER",masterListings.getUser(position));
 
-        Bitmap image = userListings.getImage(position);
+        Bitmap image = masterListings.getImage(position);
         byte[] byteArray = Utils.bitmapToByteArray(image);
 
         extras.putByteArray("IMAGE",byteArray);
