@@ -1,6 +1,7 @@
 package com.example.env.ui.dashboard;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -35,6 +36,10 @@ public class ViewOtherListing extends AppCompatActivity {
         chatButton = findViewById(R.id.chatButton);
         otherListingEmail = findViewById(R.id.otherListingEmail);
 
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         Intent intent = getIntent();
         final Bundle extras = intent.getExtras();
         String title = extras.getString("TITLE");
@@ -50,6 +55,7 @@ public class ViewOtherListing extends AppCompatActivity {
         otherListingImage.setImageBitmap(image);
         String user = extras.getString("User");
         otherListingEmail.setText(user);
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_other_listing);

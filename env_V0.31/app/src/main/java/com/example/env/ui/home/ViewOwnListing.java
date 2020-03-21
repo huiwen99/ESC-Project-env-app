@@ -28,7 +28,7 @@ public class ViewOwnListing extends AppCompatActivity {
     TextView listingDescription;
     Button editListingButton;
     Button deleteListingButton;
-    TextView listingEmail;
+    //TextView listingEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class ViewOwnListing extends AppCompatActivity {
         listingDescription = findViewById(R.id.listingDescription);
         editListingButton = findViewById(R.id.editListingButton);
         deleteListingButton = findViewById(R.id.deleteListingButton);
-        listingEmail = findViewById(R.id.listingEmail);
+       // listingEmail = findViewById(R.id.listingEmail);
 
         Intent intent = getIntent();
         final Bundle extras = intent.getExtras();

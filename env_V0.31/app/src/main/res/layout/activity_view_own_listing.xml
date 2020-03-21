@@ -89,18 +89,7 @@
         android:layout_marginRight="20dp"
         android:textSize="18sp"
         />
-    <TextView
-        android:id="@+id/listingEmail"
-        android:text="User Email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="start|top"
-        android:layout_marginTop="416dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:textSize="18sp"
-        />
+
 
     <Button
         android:id="@+id/editListingButton"

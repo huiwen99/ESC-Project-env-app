@@ -52,7 +52,7 @@ public class AddListing extends AppCompatActivity {
     Spinner newListingCategory;
     EditText newListingDescription;
     Button addNewListing;
-    EditText newListingUser;
+    //EditText newListingUser;
 
     Bitmap bitmap = null;
 
@@ -80,7 +80,7 @@ public class AddListing extends AppCompatActivity {
         newListingCategory = findViewById(R.id.newListingCateogry);
         newListingDescription = findViewById(R.id.newListingDescription);
         addNewListing = findViewById(R.id.addNewListing);
-        newListingUser = findViewById(R.id.newListingUser);
+        //newListingUser = findViewById(R.id.newListingUser);
 
         imageSelected.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +106,7 @@ public class AddListing extends AppCompatActivity {
                 String price = newListingPrice.getText().toString();
                 String category = newListingCategory.getSelectedItem().toString();
                 String description = newListingDescription.getText().toString();
-                String user = newListingUser.getText().toString();
+                //String user = newListingUser.getText().toString();
 
 
 
@@ -120,7 +120,7 @@ public class AddListing extends AppCompatActivity {
                     resultIntent.putExtra(KEY_PRICE, price);
                     resultIntent.putExtra(KEY_CATEGORY, category);
                     resultIntent.putExtra(KEY_DESCRIPTION, description);
-                    resultIntent.putExtra(KEY_USER, user);
+                    //resultIntent.putExtra(KEY_USER, user);
 
                     byte[] byteArray = Utils.bitmapToByteArray(bitmap);
 

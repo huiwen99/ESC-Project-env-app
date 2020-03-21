@@ -122,6 +122,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         extras.putString("CATEGORY",userListings.getCategory(position));
         extras.putString("DESCRIPTION",userListings.getDescription(position));
 
+
         Bitmap image = userListings.getImage(position);
         byte[] byteArray = Utils.bitmapToByteArray(image);
 
