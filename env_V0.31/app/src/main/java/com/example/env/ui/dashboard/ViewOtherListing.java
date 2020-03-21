@@ -63,9 +63,8 @@ public class ViewOtherListing extends AppCompatActivity {
 
     }
     @Override
-    public boolean onSupportNavigateUp() { //make back button go back to main activity
-        Intent intent = new Intent(ViewOtherListing.this, MainActivity.class);
-        startActivity(intent);
+    public boolean onSupportNavigateUp() {
+        finish();
         return true;
     }
 }
