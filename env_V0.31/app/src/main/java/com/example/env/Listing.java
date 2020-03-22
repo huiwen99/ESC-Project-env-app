@@ -38,6 +38,9 @@ public class Listing {
     public String getDescription(){
         return description;
     }
+    public String getUser(){
+        return user;
+    }
 
     public static String numInputToPriceText(String rawPrice){
         BigDecimal p = new BigDecimal(rawPrice);
@@ -53,9 +56,7 @@ public class Listing {
         return priceText;
     }
 
-    public String getUser(){
-        return user;
-    }
+
 
 
 }

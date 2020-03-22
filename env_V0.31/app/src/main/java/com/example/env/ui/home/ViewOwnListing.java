@@ -47,7 +47,7 @@ public class ViewOwnListing extends AppCompatActivity {
         listingDescription = findViewById(R.id.listingDescription);
         editListingButton = findViewById(R.id.editListingButton);
         deleteListingButton = findViewById(R.id.deleteListingButton);
-       // listingEmail = findViewById(R.id.listingEmail);
+        //listingEmail = findViewById(R.id.listingEmail);
 
         Intent intent = getIntent();
         final Bundle extras = intent.getExtras();
@@ -63,7 +63,7 @@ public class ViewOwnListing extends AppCompatActivity {
         Bitmap image = Utils.byteArrayToBitmap(byteArray);
         listingImage.setImageBitmap(image);
         String user = extras.getString("User");
-        listingEmail.setText(user);
+        //listingEmail.setText(user);
 
         setTitle(title); //title of the activity is set to title of listing
 

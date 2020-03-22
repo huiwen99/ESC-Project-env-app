@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.env.MainActivity;
 import com.example.env.R;
 import com.example.env.Utils;
 
@@ -26,6 +27,11 @@ public class ViewOtherListing extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_view_other_listing);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         otherListingImage = findViewById(R.id.otherListingImage);
         otherListingTitle = findViewById(R.id.otherListingTitle);
@@ -36,9 +42,6 @@ public class ViewOtherListing extends AppCompatActivity {
         chatButton = findViewById(R.id.chatButton);
         otherListingEmail = findViewById(R.id.otherListingEmail);
 
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         final Bundle extras = intent.getExtras();
@@ -53,11 +56,15 @@ public class ViewOtherListing extends AppCompatActivity {
         byte[] byteArray = extras.getByteArray("IMAGE");
         Bitmap image = Utils.byteArrayToBitmap(byteArray);
         otherListingImage.setImageBitmap(image);
-        String user = extras.getString("User");
+        String user = extras.getString("USER");
         otherListingEmail.setText(user);
 
+        setTitle(title+" by "+user);
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_other_listing);
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

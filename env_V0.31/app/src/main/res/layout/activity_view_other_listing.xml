@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.ViewOwnListing">
+    tools:context=".ui.dashboard.ViewOtherListing">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
+    <include layout="@layout/content_view_other_listing" />
 
     <ImageView
         android:id="@+id/otherListingImage"
@@ -92,10 +92,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:gravity="start|top"
-        android:layout_marginTop="416dp"
+        android:layout_gravity="bottom|left"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:textSize="18sp"
         />
 

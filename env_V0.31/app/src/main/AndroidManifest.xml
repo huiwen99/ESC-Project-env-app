@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.dashboard.ViewOtherListing"></activity>
+        <activity android:name=".ui.dashboard.ViewOtherListing"
+            android:label="@string/title_activity_view_other_listing"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
             android:name=".ui.home.EditListing"
             android:label="@string/title_activity_edit_listing"
