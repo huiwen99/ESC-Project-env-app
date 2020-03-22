@@ -20,6 +20,10 @@ public class UserListings {
         userListings.add(listing);
     }
 
+    //public void add(){
+
+    //}
+
     void removeListing(int position){
         userListings.remove(position);
     }

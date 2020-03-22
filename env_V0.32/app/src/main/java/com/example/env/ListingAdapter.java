@@ -18,7 +18,6 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ListingV
     Context context;
     LayoutInflater mInflater;
     UserListings userListings;
-
     static private RecyclerViewItemListener callback; //to get item position when clicked
 
     public ListingAdapter(Context context, UserListings userListings, RecyclerViewItemListener callback){
@@ -67,4 +66,8 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ListingV
 
     }
 
+    //search function: by name
+    //private ArrayList<Integer> listOfListings;
+    private List<Integer> listofListings;
+    private List<Integer> listOfListingsFull;
 }

@@ -14,7 +14,7 @@ public class Listing {
     private String description;
     private String user;
 
-    Listing(String title, String price, Bitmap image, String category, String description, String user){
+    public Listing(String title, String price, Bitmap image, String category,String description, String user){
         this.title = title;
         this.price = numInputToPriceText(price);
         this.image = image;
