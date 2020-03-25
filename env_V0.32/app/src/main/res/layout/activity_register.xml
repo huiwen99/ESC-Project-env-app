@@ -4,86 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".RegisterActivity">
 
-<!--    <include layout="@layout/app_bar_layout" android:id="@+id/login_toolbar"/>-->
+<!--    <include layout="@layout/app_bar_layout" android:id="@+id/register_toolbar"/>-->
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/login_email"
+        android:id="@+id/reg_display_name"
         android:layout_width="330dp"
         android:layout_height="40dp"
-        android:layout_marginTop="228dp"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
+        android:layout_marginTop="200dp"
+        android:hint="@string/display_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/login_password"
+        android:id="@+id/reg_email"
         android:layout_width="330dp"
         android:layout_height="40dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reg_display_name" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/reg_password"
+        android:layout_width="330dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="60dp"
         android:hint="@string/password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_email" />
+        app:layout_constraintTop_toBottomOf="@+id/reg_email" />
 
     <Button
-        android:id="@+id/login_btn"
+        android:id="@+id/reg_create_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#C0C0C0"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="@string/log_in"
+        android:text="@string/create_account"
         android:textColorHighlight="#9C27B0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.939"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_password"
+        app:layout_constraintTop_toBottomOf="@+id/reg_password"
         app:layout_constraintVertical_bias="0.069" />
 
     <TextView
         android:id="@+id/textView_Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/log_in"
+        android:text="@string/create_a_new_account"
         android:textColor="#000000"
         android:textColorLink="#FFFFFF"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/login_email"
+        app:layout_constraintBottom_toTopOf="@+id/reg_display_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintHorizontal_bias="0.224"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_toolbar"
-        app:layout_constraintVertical_bias="0.482" />
-
-    <Button
-        android:id="@+id/login_to_create"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/register_here"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/no_account"
-        app:layout_constraintVertical_bias="0.055" />
-
-    <TextView
-        android:id="@+id/no_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="132dp"
-        android:text="@string/don_t_have_an_account"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.153"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_password" />
-
+        app:layout_constraintTop_toBottomOf="@+id/register_toolbar"
+        app:layout_constraintVertical_bias="0.455" />
 </androidx.constraintlayout.widget.ConstraintLayout>

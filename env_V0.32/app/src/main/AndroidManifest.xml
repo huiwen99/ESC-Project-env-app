@@ -33,6 +33,7 @@
                 android:value="com.example.env.MainActivity" />
         </activity>
         <activity android:name=".MainActivity" />
+        <activity android:name=".RegisterActivity"/>
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name">

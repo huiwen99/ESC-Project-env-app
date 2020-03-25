@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +31,6 @@ import androidx.navigation.ui.NavigationUI;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnSignOut;
-    GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
 
     @Override
@@ -51,38 +51,63 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-
-
         btnSignOut = findViewById(R.id.sign_out_button);
 
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
-        if(account !=null){
-            String personName = account.getDisplayName();
-            String personGivenName = account.getGivenName();
-            String personFamilyName = account.getFamilyName();
-            String personEmail = account.getEmail();
-            String personId = account.getId();
-            Uri personPhoto = account.getPhotoUrl();
-
-            Toast.makeText(MainActivity.this,personName + personEmail,Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public void logout(final View view) {
-        mAuth.getInstance().signOut();
-        GoogleSignIn.getClient(this, new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build())
-                .signOut().addOnSuccessListener(new OnSuccessListener<Void>() {
+        btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(Void aVoid) {
-                startActivity(new Intent(view.getContext(),LoginActivity.class));
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MainActivity.this, "Sign Out Failed", Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                sendToStart();
             }
         });
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            sendToStart();
+        }
+    }
+
+    private void sendToStart() {
+        Intent startIntent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(startIntent);
+        finish();
+    }
+
+
+
+//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+//        if(account !=null){
+//            String personName = account.getDisplayName();
+//            String personGivenName = account.getGivenName();
+//            String personFamilyName = account.getFamilyName();
+//            String personEmail = account.getEmail();
+//            String personId = account.getId();
+//            Uri personPhoto = account.getPhotoUrl();
+//
+//            Toast.makeText(MainActivity.this,personName + personEmail,Toast.LENGTH_SHORT).show();
+//        }
+//    }
+//
+//    public void logout(final View view) {
+//        mAuth.getInstance().signOut();
+//        GoogleSignIn.getClient(this, new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build())
+//                .signOut().addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void aVoid) {
+//                startActivity(new Intent(view.getContext(),LoginActivity.class));
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(MainActivity.this, "Sign Out Failed", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     public void showButton() {
         btnSignOut.setVisibility(View.VISIBLE);
@@ -91,5 +116,5 @@ public class MainActivity extends AppCompatActivity {
     public void hideButton(){
         btnSignOut.setVisibility(View.INVISIBLE);
     }
-
+//
 }
