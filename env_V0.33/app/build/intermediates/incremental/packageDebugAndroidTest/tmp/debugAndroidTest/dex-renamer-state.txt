@@ -1,7 +1,7 @@
-#Wed Mar 25 21:10:54 SGT 2020
-base.0=C\:\\Users\\65842\\Documents\\SUTD\\Term 5\\Software Construction\\env prototypes\\env_V0.33\\app\\build\\intermediates\\dex\\debugAndroidTest\\mergeExtDexDebugAndroidTest\\out\\classes.dex
+#Wed Mar 25 22:55:38 SGT 2020
+base.0=C\:\\Users\\65842\\Documents\\GitHub\\ESC-clone\\ESC-Project-env-app-master\\env_V0.33\\app\\build\\intermediates\\dex\\debugAndroidTest\\mergeExtDexDebugAndroidTest\\out\\classes.dex
 path.1=classes.dex
 renamed.1=classes2.dex
 path.0=classes.dex
 renamed.0=classes.dex
-base.1=C\:\\Users\\65842\\Documents\\SUTD\\Term 5\\Software Construction\\env prototypes\\env_V0.33\\app\\build\\intermediates\\dex\\debugAndroidTest\\mergeProjectDexDebugAndroidTest\\out\\classes.dex
+base.1=C\:\\Users\\65842\\Documents\\GitHub\\ESC-clone\\ESC-Project-env-app-master\\env_V0.33\\app\\build\\intermediates\\dex\\debugAndroidTest\\mergeProjectDexDebugAndroidTest\\out\\classes.dex

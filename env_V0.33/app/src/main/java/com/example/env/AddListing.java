@@ -80,6 +80,7 @@ public class AddListing extends AppCompatActivity {
         newListingCategory = findViewById(R.id.newListingCateogry);
         newListingDescription = findViewById(R.id.newListingDescription);
         addNewListing = findViewById(R.id.addNewListing);
+
         //newListingUser = findViewById(R.id.newListingUser);
 
         imageSelected.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +113,8 @@ public class AddListing extends AppCompatActivity {
 
                 if(bitmap==null){
                     Toast.makeText(AddListing.this, "Please choose a photo", Toast.LENGTH_SHORT).show();
-                }else if(title.equals("")||price.equals("")||description.equals("")){
+                }else
+                    if(title.equals("")||price.equals("")||description.equals("")){
                     Toast.makeText(AddListing.this, "Please fill in the blanks", Toast.LENGTH_SHORT).show();
                 }else{
 
@@ -126,7 +128,7 @@ public class AddListing extends AppCompatActivity {
 
                     resultIntent.putExtra(KEY_IMAGE, byteArray);
 
-                    pushListing(title, price, byteArray, category, description);
+                    //pushListing(title, price, byteArray, category, description);
 
                     setResult(resultCode, resultIntent);
                     finish();
@@ -141,15 +143,15 @@ public class AddListing extends AppCompatActivity {
     // TODO: upload the info onto firebase
     // THIS IS A TEST
     // REPLACE LATER WITH PROPER DATA
-    private void pushListing(String title, String price, byte[] imageHex, String category,String description) {
-        long listingTimestamp = System.currentTimeMillis();
-        Log.d(TAG, "Entering pushListing function");
-        String imageHexString = new String(Hex.encodeHex(imageHex));
-        Log.d(TAG, "Converted to hex string");
-        ListingForDatabase listing = new ListingForDatabase(title, price, imageHexString, category, description);
-        mDatabase.child("testProducts").child(String.valueOf(listingTimestamp)).setValue(listing);
-
-    }
+//    private void pushListing(String title, String price, byte[] imageHex, String category,String description) {
+//        long listingTimestamp = System.currentTimeMillis();
+//        Log.d(TAG, "Entering pushListing function");
+//        String imageHexString = new String(Hex.encodeHex(imageHex));
+//        Log.d(TAG, "Converted to hex string");
+//        ListingForDatabase listing = new ListingForDatabase(title, price, imageHexString, category, description);
+//        mDatabase.child("testProducts").child(String.valueOf(listingTimestamp)).setValue(listing);
+//
+//    }
 
     //select image from files
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

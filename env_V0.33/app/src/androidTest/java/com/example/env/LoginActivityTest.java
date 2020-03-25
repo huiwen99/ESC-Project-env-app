@@ -33,7 +33,7 @@ public class LoginActivityTest {
         pauseTestFor(1);
         //click button
         onView(withId(R.id.login_btn)).perform(ViewActions.click());
-        pauseTestFor(20);
+        pauseTestFor(30);
     }
     @Test
     public void testInvalidUserInputLogin(){
@@ -46,7 +46,7 @@ public class LoginActivityTest {
         pauseTestFor(1);
         //click button
         onView(withId(R.id.login_btn)).perform(ViewActions.click());
-        pauseTestFor(20);
+        pauseTestFor(30);
     }
 
 

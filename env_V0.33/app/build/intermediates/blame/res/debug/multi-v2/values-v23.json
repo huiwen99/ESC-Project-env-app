@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\65842\\Documents\\SUTD\\Term 5\\Software Construction\\env prototypes\\env_V0.33\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v23\\values-v23.xml",
+            "outputFile": "C:\\Users\\65842\\Documents\\GitHub\\ESC-clone\\ESC-Project-env-app-master\\env_V0.33\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v23\\values-v23.xml",
             "map": [
                 {
                     "source": "C:\\Users\\65842\\.gradle\\caches\\transforms-2\\files-2.1\\9e025505c94c04007a8190f74982d1e9\\cardview-1.0.0\\res\\values-v23\\values-v23.xml",
