@@ -234,7 +234,7 @@ public class AddListing extends AppCompatActivity {
 
         System.out.println("declared stringurl");*/
 
-        ListingForDatabase listing = new ListingForDatabase(title, price, category, description, currentUser);
+        ListingForDatabase listing = new ListingForDatabase(String.valueOf(listingTimestamp), title, price, category, description, currentUser);
         mDatabase.child("testProducts").child(String.valueOf(listingTimestamp)).setValue(listing);
         //String imageHexString = new String(Hex.encodeHex(imageHex));
         //Log.d(TAG, "Converted to hex string");

@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class ListingForDatabase {
+    private String imgNumber;
     private String title;
     private String price;
     private String category;
@@ -17,7 +18,8 @@ public class ListingForDatabase {
         // blank constructor needed for somme Firebase fuckery, dont delete
     }
 
-    public ListingForDatabase(String title, String price, String category, String description, String user){
+    public ListingForDatabase(String imgNumber, String title, String price, String category, String description, String user){
+        this.imgNumber = imgNumber;
         this.title = title;
 
         BigDecimal p = new BigDecimal(price);
@@ -41,8 +43,10 @@ public class ListingForDatabase {
     public String getDescription(){
         return description;
     }
-
     public String getUser() {
         return user;
+    }
+    public String getImgNumber() {
+        return imgNumber;
     }
 }

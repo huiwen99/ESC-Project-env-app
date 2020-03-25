@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.env.AddListing;
 import com.example.env.Listing;
 import com.example.env.ListingAdapter;
+import com.example.env.ListingForDatabase;
 import com.example.env.MainActivity;
 import com.example.env.R;
 import com.example.env.RecyclerViewItemListener;
@@ -34,6 +36,13 @@ import com.example.env.User;
 import com.example.env.UserListings;
 import com.example.env.Utils;
 import com.example.env.ui.home.ViewOwnListing;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -44,11 +53,19 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
     UserListings masterListings; //to pull from firebase, list of all existing listings
     UserListings filteredList; // a copy of masterListings
 
+    // for Firebase Storage
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    // Create a storage reference from our app
+    StorageReference storageRef = storage.getReferenceFromUrl("gs://envfirebaseproject.appspot.com/");
+
     private SearchView search;
+
 
     final int REQUEST_CODE_IMAGE = 1000;
 
     private DashboardViewModel dashboardViewModel;
+
+    private DatabaseReference mProductsReference = FirebaseDatabase.getInstance().getReference().child("testProducts");
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -91,6 +108,32 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
             masterListings.addListing(imageName, price, bitmap, category, description, user);
 
         }
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    ListingForDatabase listing = ds.getValue(ListingForDatabase.class);
+                    String imageName = String.format("%s.jpg", listing.getImgNumber());
+                    System.out.println(imageName);
+
+                    StorageReference imageref = storageRef.child(imageName);
+                    //TODO: pulling data not done
+
+                }
+                //ListingForDatabase listing = dataSnapshot.getValue(ListingForDatabase.class) ;
+                //System.out.println(listing.getTitle());
+                // ...
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("Dashboard", "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+        mProductsReference.addValueEventListener(postListener);
         listingAdapter = new ListingAdapter(context, masterListings, this);
         otherListingRecyclerView.setAdapter(listingAdapter);
         otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
