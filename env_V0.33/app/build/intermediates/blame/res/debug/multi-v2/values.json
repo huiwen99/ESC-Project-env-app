@@ -1,25 +1,23 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\65842\\Documents\\GitHub\\ESC-clone\\ESC-Project-env-app-master\\env_V0.32\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+            "outputFile": "C:\\Users\\65842\\Documents\\SUTD\\Term 5\\Software Construction\\env prototypes\\env_V0.33\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\65842\\Documents\\GitHub\\ESC-clone\\ESC-Project-env-app-master\\env_V0.32\\app\\src\\main\\res\\values\\strings.xml",
+                    "source": "C:\\Users\\65842\\Documents\\SUTD\\Term 5\\Software Construction\\env prototypes\\env_V0.33\\app\\src\\main\\res\\values\\ids.xml",
                     "from": {
-                        "startLines": "8,35,34,1,6,36,32,29,39,30,16,21,22,37,33,40,27,18,31,19,38,17,28,5,23,14,13,3,2,4",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "340,1634,1585,17,279,1697,1481,1338,1868,1393,721,941,1012,1768,1540,1943,1224,853,1434,892,1811,786,1277,211,1096,585,509,104,59,156",
-                        "endLines": "12,35,34,1,6,36,32,29,39,30,16,21,22,37,33,40,27,18,31,19,38,17,28,5,23,14,13,3,2,4",
-                        "endColumns": "19,61,47,40,57,69,57,53,73,39,63,69,82,41,43,39,51,37,45,45,55,65,59,66,67,78,74,50,43,53",
-                        "endOffsets": "503,1691,1628,53,332,1762,1534,1387,1937,1428,780,1006,1090,1805,1579,1978,1271,886,1475,933,1862,847,1332,273,1159,659,579,150,98,205"
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "57",
+                        "endColumns": "33",
+                        "endOffsets": "86"
                     },
                     "to": {
-                        "startLines": "2,584,585,586,589,610,611,613,614,615,619,625,626,628,629,630,634,635,636,642,644,646,647,649,650,651,652,653,654,655",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "150,35055,35117,35165,35487,38069,38139,38341,38395,38469,38936,39517,39587,39823,39865,39909,40193,40245,40283,41131,41256,41365,41431,41562,41629,41697,41776,41851,41902,41946",
-                        "endLines": "6,584,585,586,589,610,611,613,614,615,619,625,626,628,629,630,634,635,636,642,644,646,647,649,650,651,652,653,654,655",
-                        "endColumns": "19,61,47,40,57,69,57,53,73,39,63,69,82,41,43,39,51,37,45,45,55,65,59,66,67,78,74,50,43,53",
-                        "endOffsets": "309,35112,35160,35201,35540,38134,38192,38390,38464,38504,38995,39582,39665,39860,39904,39944,40240,40278,40324,41172,41307,41426,41486,41624,41692,41771,41846,41897,41941,41995"
+                        "startLines": "495",
+                        "startColumns": "4",
+                        "startOffsets": "29697",
+                        "endColumns": "32",
+                        "endOffsets": "29725"
                     }
                 },
                 {
@@ -118,22 +116,39 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\65842\\Documents\\GitHub\\ESC-clone\\ESC-Project-env-app-master\\env_V0.32\\app\\src\\main\\res\\values\\styles.xml",
+                    "source": "C:\\Users\\65842\\Documents\\SUTD\\Term 5\\Software Construction\\env prototypes\\env_V0.33\\app\\src\\main\\res\\values\\strings.xml",
                     "from": {
-                        "startLines": "3,17,12,19",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "57,641,497,735",
-                        "endLines": "10,17,15,19",
-                        "endColumns": "12,90,8,80",
-                        "endOffsets": "489,727,633,811"
+                        "startLines": "8,35,34,1,6,36,32,29,39,30,16,21,22,37,33,40,27,18,31,19,38,17,28,5,23,14,13,3,2,4",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "340,1634,1585,17,279,1697,1481,1338,1868,1393,721,941,1012,1768,1540,1943,1224,853,1434,892,1811,786,1277,211,1096,585,509,104,59,156",
+                        "endLines": "12,35,34,1,6,36,32,29,39,30,16,21,22,37,33,40,27,18,31,19,38,17,28,5,23,14,13,3,2,4",
+                        "endColumns": "19,61,47,40,57,69,57,53,73,39,63,69,82,41,43,39,51,37,45,45,55,65,59,66,67,78,74,50,43,53",
+                        "endOffsets": "503,1691,1628,53,332,1762,1534,1387,1937,1428,780,1006,1090,1805,1579,1978,1271,886,1475,933,1862,847,1332,273,1159,659,579,150,98,205"
                     },
                     "to": {
-                        "startLines": "665,673,674,678",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "42719,43149,43239,43377",
-                        "endLines": "672,673,677,678",
-                        "endColumns": "12,89,8,79",
-                        "endOffsets": "43144,43234,43372,43452"
+                        "startLines": "2,584,585,586,589,610,611,613,614,615,619,625,626,628,629,630,634,635,636,642,644,646,647,649,650,651,652,653,654,655",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "150,35055,35117,35165,35487,38069,38139,38341,38395,38469,38936,39517,39587,39823,39865,39909,40193,40245,40283,41131,41256,41365,41431,41562,41629,41697,41776,41851,41902,41946",
+                        "endLines": "6,584,585,586,589,610,611,613,614,615,619,625,626,628,629,630,634,635,636,642,644,646,647,649,650,651,652,653,654,655",
+                        "endColumns": "19,61,47,40,57,69,57,53,73,39,63,69,82,41,43,39,51,37,45,45,55,65,59,66,67,78,74,50,43,53",
+                        "endOffsets": "309,35112,35160,35201,35540,38134,38192,38390,38464,38504,38995,39582,39665,39860,39904,39944,40240,40278,40324,41172,41307,41426,41486,41624,41692,41771,41846,41897,41941,41995"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\65842\\Documents\\SUTD\\Term 5\\Software Construction\\env prototypes\\env_V0.33\\app\\src\\main\\res\\values\\colors.xml",
+                    "from": {
+                        "startLines": "4,2,3",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "157,57,105",
+                        "endColumns": "45,46,50",
+                        "endOffsets": "198,99,151"
+                    },
+                    "to": {
+                        "startLines": "197,198,199",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "10137,10183,10230",
+                        "endColumns": "45,46,50",
+                        "endOffsets": "10178,10225,10276"
                     }
                 },
                 {
@@ -154,20 +169,20 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\65842\\Documents\\GitHub\\ESC-clone\\ESC-Project-env-app-master\\env_V0.32\\app\\build\\generated\\res\\google-services\\debug\\values\\values.xml",
+                    "source": "C:\\Users\\65842\\Documents\\SUTD\\Term 5\\Software Construction\\env prototypes\\env_V0.33\\app\\src\\main\\res\\values\\dimens.xml",
                     "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,199,312,394,498,607,727,829",
-                        "endColumns": "143,112,81,103,108,119,101,78",
-                        "endOffsets": "194,307,389,493,602,722,824,903"
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "90,149,206",
+                        "endColumns": "57,55,41",
+                        "endOffsets": "143,200,243"
                     },
                     "to": {
-                        "startLines": "612,618,620,621,622,623,624,643",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "38197,38823,39000,39082,39186,39295,39415,41177",
-                        "endColumns": "143,112,81,103,108,119,101,78",
-                        "endOffsets": "38336,38931,39077,39181,39290,39410,39512,41251"
+                        "startLines": "346,347,404",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "20275,20333,24024",
+                        "endColumns": "57,55,41",
+                        "endOffsets": "20328,20384,24061"
                     }
                 },
                 {
@@ -188,37 +203,39 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\65842\\Documents\\GitHub\\ESC-clone\\ESC-Project-env-app-master\\env_V0.32\\app\\src\\main\\res\\values\\dimens.xml",
+                    "source": "C:\\Users\\65842\\Documents\\SUTD\\Term 5\\Software Construction\\env prototypes\\env_V0.33\\app\\src\\main\\res\\values\\styles.xml",
                     "from": {
-                        "startLines": "2,3,4",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "90,149,206",
-                        "endColumns": "57,55,41",
-                        "endOffsets": "143,200,243"
+                        "startLines": "3,17,12,19",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "57,641,497,735",
+                        "endLines": "10,17,15,19",
+                        "endColumns": "12,90,8,80",
+                        "endOffsets": "489,727,633,811"
                     },
                     "to": {
-                        "startLines": "346,347,404",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "20275,20333,24024",
-                        "endColumns": "57,55,41",
-                        "endOffsets": "20328,20384,24061"
+                        "startLines": "665,673,674,678",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "42719,43149,43239,43377",
+                        "endLines": "672,673,677,678",
+                        "endColumns": "12,89,8,79",
+                        "endOffsets": "43144,43234,43372,43452"
                     }
                 },
                 {
-                    "source": "C:\\Users\\65842\\Documents\\GitHub\\ESC-clone\\ESC-Project-env-app-master\\env_V0.32\\app\\src\\main\\res\\values\\colors.xml",
+                    "source": "C:\\Users\\65842\\Documents\\SUTD\\Term 5\\Software Construction\\env prototypes\\env_V0.33\\app\\build\\generated\\res\\google-services\\debug\\values\\values.xml",
                     "from": {
-                        "startLines": "4,2,3",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "157,57,105",
-                        "endColumns": "45,46,50",
-                        "endOffsets": "198,99,151"
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,199,312,394,498,607,727,829",
+                        "endColumns": "143,112,81,103,108,119,101,78",
+                        "endOffsets": "194,307,389,493,602,722,824,903"
                     },
                     "to": {
-                        "startLines": "197,198,199",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "10137,10183,10230",
-                        "endColumns": "45,46,50",
-                        "endOffsets": "10178,10225,10276"
+                        "startLines": "612,618,620,621,622,623,624,643",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "38197,38823,39000,39082,39186,39295,39415,41177",
+                        "endColumns": "143,112,81,103,108,119,101,78",
+                        "endOffsets": "38336,38931,39077,39181,39290,39410,39512,41251"
                     }
                 },
                 {
@@ -255,23 +272,6 @@
                         "endLines": "4346,4352,4356,4359,4371",
                         "endColumns": "24,24,24,24,24",
                         "endOffsets": "278958,279202,279355,279488,280485"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\65842\\Documents\\GitHub\\ESC-clone\\ESC-Project-env-app-master\\env_V0.32\\app\\src\\main\\res\\values\\ids.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "57",
-                        "endColumns": "33",
-                        "endOffsets": "86"
-                    },
-                    "to": {
-                        "startLines": "495",
-                        "startColumns": "4",
-                        "startOffsets": "29697",
-                        "endColumns": "32",
-                        "endOffsets": "29725"
                     }
                 },
                 {

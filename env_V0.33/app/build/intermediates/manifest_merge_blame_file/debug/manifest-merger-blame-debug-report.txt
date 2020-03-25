@@ -6,13 +6,13 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="16"
-8-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml
+8-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="29" />
-9-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml
+9-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml
 10
 11    <uses-permission android:name="android.permission.INTERNET" />
-11-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:5:5-67
-11-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:5:22-64
+11-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:5:5-67
+11-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:5:22-64
 12
 13    <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
 14    <!-- <uses-sdk android:minSdkVersion="14" /> -->
@@ -30,87 +30,87 @@
 18-->[com.google.android.gms:play-services-measurement:17.2.3] C:\Users\65842\.gradle\caches\transforms-2\files-2.1\493b977d77656374211b333eaefc270a\jetified-play-services-measurement-17.2.3\AndroidManifest.xml:26:22-107
 19
 20    <application
-20-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:7:5-46:19
+20-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:7:5-46:19
 21        android:name="androidx.multidex.MultiDexApplication"
 22        android:allowBackup="true"
-22-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:8:9-35
+22-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:8:9-35
 23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 23-->[androidx.core:core:1.0.1] C:\Users\65842\.gradle\caches\transforms-2\files-2.1\baab1d635d6299aaa7cd48a6c4ae1902\core-1.0.1\AndroidManifest.xml:22:18-86
 24        android:debuggable="true"
 25        android:icon="@mipmap/ic_launcher"
-25-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:9:9-43
+25-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:9:9-43
 26        android:label="@string/app_name"
-26-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:10:9-41
+26-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:10:9-41
 27        android:roundIcon="@mipmap/ic_launcher_round"
-27-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:11:9-54
+27-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:11:9-54
 28        android:supportsRtl="true"
-28-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:12:9-35
+28-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:12:9-35
 29        android:testOnly="true"
 30        android:theme="@style/AppTheme" >
-30-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:13:9-40
+30-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:13:9-40
 31        <activity
-31-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:14:9-17:20
+31-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:14:9-17:20
 32            android:name="com.example.env.ui.dashboard.ViewOtherListing"
-32-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:14:19-64
+32-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:14:19-64
 33            android:label="@string/title_activity_view_other_listing"
-33-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:15:13-70
+33-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:15:13-70
 34            android:theme="@style/AppTheme.NoActionBar" >
-34-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:16:13-56
+34-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:16:13-56
 35        </activity>
 36        <activity
-36-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:18:9-21:59
+36-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:18:9-21:59
 37            android:name="com.example.env.ui.home.EditListing"
-37-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:19:13-48
+37-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:19:13-48
 38            android:label="@string/title_activity_edit_listing"
-38-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:20:13-64
+38-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:20:13-64
 39            android:theme="@style/AppTheme.NoActionBar" />
-39-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:21:13-56
+39-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:21:13-56
 40        <activity
-40-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:22:9-25:59
+40-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:22:9-25:59
 41            android:name="com.example.env.ui.home.ViewOwnListing"
-41-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:23:13-51
+41-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:23:13-51
 42            android:label="@string/title_activity_view_own_listing"
-42-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:24:13-68
+42-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:24:13-68
 43            android:theme="@style/AppTheme.NoActionBar" />
-43-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:25:13-56
+43-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:25:13-56
 44        <activity
-44-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:26:9-34:20
+44-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:26:9-34:20
 45            android:name="com.example.env.AddListing"
-45-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:27:13-39
+45-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:27:13-39
 46            android:label="@string/title_activity_add_listing"
-46-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:28:13-63
+46-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:28:13-63
 47            android:parentActivityName="com.example.env.MainActivity"
-47-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:29:13-55
+47-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:29:13-55
 48            android:theme="@style/AppTheme.NoActionBar" >
-48-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:30:13-56
+48-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:30:13-56
 49            <meta-data
-49-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:31:13-33:64
+49-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:31:13-33:64
 50                android:name="android.support.PARENT_ACTIVITY"
-50-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:32:17-63
+50-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:32:17-63
 51                android:value="com.example.env.MainActivity" />
-51-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:33:17-61
+51-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:33:17-61
 52        </activity>
 53        <activity android:name="com.example.env.MainActivity" />
-53-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:35:9-50
-53-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:35:19-47
+53-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:35:9-50
+53-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:35:19-47
 54        <activity android:name="com.example.env.RegisterActivity" />
-54-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:36:9-53
-54-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:36:19-51
+54-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:36:9-53
+54-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:36:19-51
 55        <activity
-55-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:37:9-45:20
+55-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:37:9-45:20
 56            android:name="com.example.env.LoginActivity"
-56-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:38:13-42
+56-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:38:13-42
 57            android:label="@string/app_name" >
-57-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:39:13-45
+57-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:39:13-45
 58            <intent-filter>
-58-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:40:13-44:29
+58-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:40:13-44:29
 59                <action android:name="android.intent.action.MAIN" />
-59-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:41:17-69
-59-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:41:25-66
+59-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:41:17-69
+59-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:41:25-66
 60
 61                <category android:name="android.intent.category.LAUNCHER" />
-61-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:43:17-77
-61-->C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.32\app\src\main\AndroidManifest.xml:43:27-74
+61-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:43:17-77
+61-->C:\Users\65842\Documents\SUTD\Term 5\Software Construction\env prototypes\env_V0.33\app\src\main\AndroidManifest.xml:43:27-74
 62            </intent-filter>
 63        </activity>
 64        <activity

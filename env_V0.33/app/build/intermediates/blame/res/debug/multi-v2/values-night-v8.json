@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\65842\\Documents\\GitHub\\ESC-clone\\ESC-Project-env-app-master\\env_V0.32\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
+            "outputFile": "C:\\Users\\65842\\Documents\\SUTD\\Term 5\\Software Construction\\env prototypes\\env_V0.33\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
             "map": [
                 {
                     "source": "C:\\Users\\65842\\.gradle\\caches\\transforms-2\\files-2.1\\a518426e46579177e15d07df26dcbd4d\\appcompat-1.0.2\\res\\values-night-v8\\values-night-v8.xml",
