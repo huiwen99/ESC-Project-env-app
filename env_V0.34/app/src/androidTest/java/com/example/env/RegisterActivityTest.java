@@ -39,8 +39,9 @@ public class RegisterActivityTest {
         onView(withId(R.id.reg_create_btn)).perform(ViewActions.click());
         pauseTestFor(10);
     }
+
     @Test
-    public void testInvalidUserInputLogin(){
+    public void testInvalidRegistration(){
         //let activity load
         pauseTestFor(3);
         //input text
@@ -48,13 +49,12 @@ public class RegisterActivityTest {
         pauseTestFor(1);
         onView(withId(R.id.reg_email)).perform(replaceText("invalid_email"));
         pauseTestFor(1);
-        onView(withId(R.id.reg_password)).perform(replaceText("wrongPassword"));
+        onView(withId(R.id.reg_password)).perform(replaceText("wrong password"));
         pauseTestFor(1);
         //click button
-        onView(withId(R.id.login_btn)).perform(ViewActions.click());
-        pauseTestFor(30);
+        onView(withId(R.id.reg_create_btn)).perform(ViewActions.click());
+        pauseTestFor(10);
     }
-
 
     private void pauseTestFor(long seconds) {
         try {
