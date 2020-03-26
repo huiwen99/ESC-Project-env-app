@@ -46,7 +46,15 @@ public class LoginActivityTest {
         pauseTestFor(1);
         //click button
         onView(withId(R.id.login_btn)).perform(ViewActions.click());
-        pauseTestFor(30);
+        pauseTestFor(10);
+    }
+
+    @Test
+    public void testRegistrationActivity(){
+        pauseTestFor(1);
+        //click button
+        onView(withId(R.id.login_to_create)).perform(ViewActions.click());
+        pauseTestFor(10);
     }
 
 
