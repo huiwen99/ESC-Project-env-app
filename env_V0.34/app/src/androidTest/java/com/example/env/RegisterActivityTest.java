@@ -20,6 +20,7 @@ public class RegisterActivityTest {
     public ActivityTestRule<RegisterActivity> mActivityTestRule = new ActivityTestRule<>(RegisterActivity.class);
 
     private String user = "Testing display name";
+    private String user_fail = "Testing invalid account";
     private String email = "abcdefg@gmail.com";
     private String password = "1000000";
 
@@ -32,22 +33,22 @@ public class RegisterActivityTest {
         pauseTestFor(1);
         onView(withId(R.id.reg_email)).perform(replaceText(email));
         pauseTestFor(1);
-        onView(withId(R.id.reg_email)).perform(replaceText(password));
+        onView(withId(R.id.reg_password)).perform(replaceText(password));
         pauseTestFor(1);
         //click button
         onView(withId(R.id.reg_create_btn)).perform(ViewActions.click());
-        pauseTestFor(30);
+        pauseTestFor(10);
     }
     @Test
     public void testInvalidUserInputLogin(){
         //let activity load
         pauseTestFor(3);
         //input text
-        onView(withId(R.id.reg_display_name)).perform(replaceText(user));
+        onView(withId(R.id.reg_display_name)).perform(replaceText(user_fail));
         pauseTestFor(1);
-        onView(withId(R.id.login_email)).perform(replaceText("invalid_email"));
+        onView(withId(R.id.reg_email)).perform(replaceText("invalid_email"));
         pauseTestFor(1);
-        onView(withId(R.id.login_password)).perform(replaceText("wrongPassword"));
+        onView(withId(R.id.reg_password)).perform(replaceText("wrongPassword"));
         pauseTestFor(1);
         //click button
         onView(withId(R.id.login_btn)).perform(ViewActions.click());
