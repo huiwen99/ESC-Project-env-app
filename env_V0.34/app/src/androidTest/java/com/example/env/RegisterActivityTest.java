@@ -15,40 +15,46 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.*;
 
-public class LoginActivityTest {
+public class RegisterActivityTest {
     @Rule
-    public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
+    public ActivityTestRule<RegisterActivity> mActivityTestRule = new ActivityTestRule<>(RegisterActivity.class);
 
-    private String username = "koh.huiwen99@gmail.com";
-    private String password = "1003593";
+    private String user = "Testing display name";
+    private String user_fail = "Testing invalid account";
+    private String email = "abcdefg@gmail.com";
+    private String password = "1000000";
 
     @Test
-    public void testValidUserInputLogin(){
+    public void testValidRegistration(){
         //let activity load
         pauseTestFor(3);
         //input text
-        onView(withId(R.id.login_email)).perform(replaceText(username));
+        onView(withId(R.id.reg_display_name)).perform(replaceText(user));
         pauseTestFor(1);
-        onView(withId(R.id.login_password)).perform(replaceText(password));
+        onView(withId(R.id.reg_email)).perform(replaceText(email));
+        pauseTestFor(1);
+        onView(withId(R.id.reg_password)).perform(replaceText(password));
         pauseTestFor(1);
         //click button
-        onView(withId(R.id.login_btn)).perform(ViewActions.click());
+        onView(withId(R.id.reg_create_btn)).perform(ViewActions.click());
         pauseTestFor(10);
     }
+
     @Test
-    public void testInvalidUserInputLogin(){
+    public void testInvalidRegistration(){
         //let activity load
         pauseTestFor(3);
         //input text
-        onView(withId(R.id.login_email)).perform(replaceText(username));
+        onView(withId(R.id.reg_display_name)).perform(replaceText(user_fail));
         pauseTestFor(1);
-        onView(withId(R.id.login_password)).perform(replaceText("wrongPassword"));
+        onView(withId(R.id.reg_email)).perform(replaceText("invalid_email"));
+        pauseTestFor(1);
+        onView(withId(R.id.reg_password)).perform(replaceText("wrong password"));
         pauseTestFor(1);
         //click button
-        onView(withId(R.id.login_btn)).perform(ViewActions.click());
-        pauseTestFor(30);
+        onView(withId(R.id.reg_create_btn)).perform(ViewActions.click());
+        pauseTestFor(10);
     }
-
 
     private void pauseTestFor(long seconds) {
         try {
@@ -57,8 +63,4 @@ public class LoginActivityTest {
             e.printStackTrace();
         }
     }
-
 }
-
-
-
