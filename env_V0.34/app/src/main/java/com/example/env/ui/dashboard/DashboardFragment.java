@@ -170,26 +170,27 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        //Context context = container.getContext();
+        ViewGroup container = (ViewGroup) getView().getParent();
+        Context context = container.getContext();
         if (newText == null || newText.trim().isEmpty()){ //if nothing is entered in the search bar, it should show all listings
             //TODO:show all listings (show masterListings)
             //show recycler view of masterListings
-            //listingAdapter = new ListingAdapter(context, masterListings, this);
+            listingAdapter = new ListingAdapter(context, masterListings, this);
             otherListingRecyclerView.setAdapter(listingAdapter);
             otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             return false;
         }
         filteredList = new UserListings(); //create a new array List called filteredList so that we can add listings(items) inside when it matches the search and then show it
         for (Listing item : masterListings.userListings) { //for every listing in masterListings
-            if(item.getTitle().toLowerCase().contains(newText.toLowerCase())) { // if search bar query contains characters same as the title of the listing
-               //filteredList.add(item); //add that listing(item) to filteredList
-                //show recycler view of filteredList
-                //listingAdapter = new ListingAdapter(context, masterListings, this);
-                otherListingRecyclerView.setAdapter(listingAdapter);
-                otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            if(item.getTitle().toLowerCase().contains(newText.toLowerCase())||item.getDescription().toLowerCase().contains(newText.toLowerCase())) { // if search bar query contains characters same as the title of the listing
+               filteredList.addListing(item); //add that listing(item) to filteredList
             }
-
         }
+        //show recycler view of filteredList
+        listingAdapter = new ListingAdapter(context, filteredList, this);
+        otherListingRecyclerView.setAdapter(listingAdapter);
+        otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         return true;
     }
 

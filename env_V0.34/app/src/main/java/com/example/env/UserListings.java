@@ -19,6 +19,9 @@ public class UserListings {
         Listing listing = new Listing(title, price, image, category, description, user);
         userListings.add(listing);
     }
+    public void addListing(Listing listing){
+        userListings.add(listing);
+    }
 
     //public void add(){
 
