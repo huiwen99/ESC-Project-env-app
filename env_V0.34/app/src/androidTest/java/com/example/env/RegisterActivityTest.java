@@ -29,7 +29,7 @@ public class RegisterActivityTest {
         //let activity load
         pauseTestFor(3);
         //input text
-        onView(withId(R.id.reg_display_name)).perform(replaceText(user));
+        onView(withId(R.id.reg_telegram_user)).perform(replaceText(user));
         pauseTestFor(1);
         onView(withId(R.id.reg_email)).perform(replaceText(email));
         pauseTestFor(1);
@@ -45,7 +45,7 @@ public class RegisterActivityTest {
         //let activity load
         pauseTestFor(3);
         //input text
-        onView(withId(R.id.reg_display_name)).perform(replaceText(user_fail));
+        onView(withId(R.id.reg_telegram_user)).perform(replaceText(user_fail));
         pauseTestFor(1);
         onView(withId(R.id.reg_email)).perform(replaceText("invalid_email"));
         pauseTestFor(1);
