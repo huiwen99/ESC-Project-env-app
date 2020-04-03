@@ -66,7 +66,7 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
                 ViewModelProviders.of(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(this, new Observer<String>() {
+        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
@@ -82,15 +82,30 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
         categorySpinner = root.findViewById(R.id.categorySpinner);
         categorySpinner.setAdapter(new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1, categories));
 
-        categorySpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        categorySpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+////                ViewGroup container = (ViewGroup) getView().getParent();
+////                Context context = container.getContext();
+////                if (position == 0) {
+////                    defaultCategory();
+////                } else if (position == 1) {
+////                    getGeneralCategory();
+////                } else if (position == 2) {
+////                    getRoboticMechanicalCategory();
+////                } else {
+////                    getMicroelectronicsCategory();
+////                }
+////                listingAdapter.notifyDataSetChanged();
+//            }
+//        });
+
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ViewGroup container = (ViewGroup) getView().getParent();
-                Context context = container.getContext();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
-                    listingAdapter = new ListingAdapter(context, masterListings, this);
-                    otherListingRecyclerView.setAdapter(listingAdapter);
-                    otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    Toast.makeText(getContext(), ""+position, Toast.LENGTH_SHORT).show();
+                    defaultCategory();
                 } else if (position == 1) {
                     getGeneralCategory();
                 } else if (position == 2) {
@@ -99,6 +114,11 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
                     getMicroelectronicsCategory();
                 }
                 listingAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                defaultCategory();
             }
         });
 
@@ -224,6 +244,15 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
 
         return true;
     }
+
+    private void defaultCategory(){
+        ViewGroup container = (ViewGroup) getView().getParent();
+        Context context = container.getContext();
+        listingAdapter = new ListingAdapter(context, masterListings, this);
+        otherListingRecyclerView.setAdapter(listingAdapter);
+        otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
     private void getGeneralCategory() {
         Log.d("mw","General category: ");
         ViewGroup container = (ViewGroup) getView().getParent();
