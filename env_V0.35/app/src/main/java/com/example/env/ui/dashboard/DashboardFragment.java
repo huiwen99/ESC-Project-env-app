@@ -261,11 +261,12 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
         for (Listing item : masterListings.userListings) {
             if (item.getCategory().equals("General")) {
                 generalList.addListing(item);
-                listingAdapter = new ListingAdapter(context, generalList, this);
-                otherListingRecyclerView.setAdapter(listingAdapter);
-                otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
             }
         }
+        listingAdapter = new ListingAdapter(context, generalList, this);
+        otherListingRecyclerView.setAdapter(listingAdapter);
+        otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
     }
@@ -278,12 +279,12 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
         for (Listing item : masterListings.userListings) {
             if (item.getCategory().equals("Robotic Mechanical")) {
                 roboticMechanicalList.addListing(item);
-                listingAdapter = new ListingAdapter(context, roboticMechanicalList,this);
-                otherListingRecyclerView.setAdapter(listingAdapter);
-                otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
             }
         }
-
+        listingAdapter = new ListingAdapter(context, roboticMechanicalList,this);
+        otherListingRecyclerView.setAdapter(listingAdapter);
+        otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
     private void getMicroelectronicsCategory() {
@@ -294,12 +295,12 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
         for (Listing item : masterListings.userListings) {
             if (item.getCategory().equals("Microelectronics")) {
                 microElectronicsList.addListing(item);
-                listingAdapter = new ListingAdapter(context, microElectronicsList, this);
-                otherListingRecyclerView.setAdapter(listingAdapter);
-                otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
             }
         }
-
+        listingAdapter = new ListingAdapter(context, microElectronicsList, this);
+        otherListingRecyclerView.setAdapter(listingAdapter);
+        otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
 
