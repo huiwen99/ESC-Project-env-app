@@ -27,7 +27,7 @@
 <!--    addition for registration and login screen-->
     <string name="new_account">New Account</string>
     <string name="start_activitiy">START ACTIVITIY</string>
-    <string name="display_name">Display Name</string>
+<!--    <string name="display_name">Display Name</string>-->
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="create_account">Create Account</string>
@@ -39,6 +39,7 @@
     <string name="register_here">Register Here</string>
     <string name="don_t_have_an_account">Don\'t Have an Account?</string>
     <string name="login">Login</string>
+    <string name="telegram_username">Telegram Username</string>
 
 
 </resources>

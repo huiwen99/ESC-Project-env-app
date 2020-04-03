@@ -49,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         //progress dialogue
         mRegProgress = new ProgressDialog(this);
 
-        mDisplayName = (TextInputEditText) findViewById(R.id.reg_display_name);
+        mDisplayName = (TextInputEditText) findViewById(R.id.reg_telegram_user);
         mEmail = (TextInputEditText) findViewById(R.id.reg_email);
         mPassword = (TextInputEditText) findViewById(R.id.reg_password);
         mCreateBtn = (Button) findViewById(R.id.reg_create_btn);
@@ -57,23 +57,23 @@ public class RegisterActivity extends AppCompatActivity {
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String display_name = mDisplayName.getText().toString();
+                String tele_user = mDisplayName.getText().toString();
                 String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
 
-                if(!TextUtils.isEmpty(display_name)||!TextUtils.isEmpty(email)||!TextUtils.isEmpty(password)){
+                if(!TextUtils.isEmpty(tele_user)||!TextUtils.isEmpty(email)||!TextUtils.isEmpty(password)){
 
                     mRegProgress.setTitle("Registering User");
                     mRegProgress.setMessage("Please wait while account is being created");
                     mRegProgress.setCanceledOnTouchOutside(false);
                     mRegProgress.show();
-                    register_user(display_name, email, password);
+                    register_user(tele_user, email, password);
                 }
             }
         });
     }
 
-    private void register_user(String display_name, String email, String password) {
+    private void register_user(String tele_user, String email, String password) {
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

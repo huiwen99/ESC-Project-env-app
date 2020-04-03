@@ -5,7 +5,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -60,6 +62,17 @@ public class ViewOtherListing extends AppCompatActivity {
         otherListingEmail.setText(user);
 
         setTitle(title+" by "+user);
+
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://t.me/HeizerSpider";
+//              string url will be changed to a dynamic url, concatenating the telegram username(from firebase) at the end of "https://t.me/"
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
 
     }
     @Override

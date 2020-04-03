@@ -9,11 +9,11 @@
 <!--    <include layout="@layout/app_bar_layout" android:id="@+id/register_toolbar"/>-->
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/reg_display_name"
+        android:id="@+id/reg_telegram_user"
         android:layout_width="330dp"
         android:layout_height="40dp"
         android:layout_marginTop="200dp"
-        android:hint="@string/display_name"
+        android:hint="@string/telegram_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_display_name" />
+        app:layout_constraintTop_toBottomOf="@+id/reg_telegram_user" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/reg_password"
@@ -67,7 +67,7 @@
         android:textColor="#000000"
         android:textColorLink="#FFFFFF"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/reg_display_name"
+        app:layout_constraintBottom_toTopOf="@+id/reg_telegram_user"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.224"
         app:layout_constraintStart_toStartOf="parent"
