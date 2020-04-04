@@ -149,7 +149,7 @@ public class AddListing extends AppCompatActivity {
                     resultIntent.putExtra(KEY_IMAGE, byteArray);
 
                     try {
-                        pushListing(title, price, byteArray, category, description);
+                        FirebaseUtils.pushListing(title, price, byteArray, category, description, currentUser);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -167,7 +167,7 @@ public class AddListing extends AppCompatActivity {
     // TODO: upload the info onto firebase
     // THIS IS A TEST
     // REPLACE LATER WITH PROPER DATA
-    private void pushListing(String title, String price, byte[] imageBytes, String category, String description) throws InterruptedException {
+    /*private void pushListing(String title, String price, byte[] imageBytes, String category, String description) throws InterruptedException {
         // will be the item name in our DB
 
         long listingTimestamp = System.currentTimeMillis();
@@ -228,11 +228,11 @@ public class AddListing extends AppCompatActivity {
 
         );
 
-        /*System.out.println("supposedly done getting URL?");
+        *//*System.out.println("supposedly done getting URL?");
 
         String stringURL = imageref.getDownloadUrl().getResult().toString();
 
-        System.out.println("declared stringurl");*/
+        System.out.println("declared stringurl");*//*
 
         ListingForDatabase listing = new ListingForDatabase(title, price, category, description, currentUser);
         mDatabase.child("testProducts").child(String.valueOf(listingTimestamp)).setValue(listing);
@@ -240,7 +240,7 @@ public class AddListing extends AppCompatActivity {
         //Log.d(TAG, "Converted to hex string");
 
 
-    }
+    }*/
 
     //select image from files
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
