@@ -40,6 +40,7 @@ dependencies {
     }
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.firebase:firebase-core:17.2.3'
@@ -50,6 +51,7 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'org.apache.commons:commons-lang3:3.4'
     implementation 'commons-codec:commons-codec:1.13'
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
 
 
 }

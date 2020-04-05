@@ -13,6 +13,7 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -42,6 +43,7 @@ import static android.graphics.ImageDecoder.createSource;
 
 public class AddListing extends AppCompatActivity {
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
     //NOTE: wtf is this declaration correct im not sure - Dan
 
     private String TAG = "ListingDebug";
@@ -128,7 +130,11 @@ public class AddListing extends AppCompatActivity {
 
                     resultIntent.putExtra(KEY_IMAGE, byteArray);
 
-                    //pushListing(title, price, byteArray, category, description);
+                        try {
+                            FirebaseUtils.pushListing(title, price, byteArray, category, description, currentUser);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
 
                     setResult(resultCode, resultIntent);
                     finish();
@@ -154,17 +160,17 @@ public class AddListing extends AppCompatActivity {
 //    }
 
     //select image from files
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_GET && resultCode == RESULT_OK) {
             Uri fullPhotoUri = data.getData();
             imageSelected.setImageURI(fullPhotoUri);
-            try{
-                bitmap = Utils.decodeUri(this,fullPhotoUri,200,300);
-                }
-            catch(FileNotFoundException ex){
+            try {
+                bitmap = Utils.decodeUri(this, fullPhotoUri, 200, 300);
+            } catch (FileNotFoundException ex) {
                 Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show();
-            }
-            catch(Exception ex){
+            } catch (Exception ex) {
                 Toast.makeText(this, "Exception caught", Toast.LENGTH_SHORT).show();
             }
         }

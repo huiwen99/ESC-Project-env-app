@@ -61,6 +61,8 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
 
         Context context = container.getContext();
 
+        System.out.println("Home fragment initiated");
+
         addListingButton = root.findViewById(R.id.addListingButton);
         recyclerView = root.findViewById(R.id.userListingRecyclerView);
 
@@ -87,6 +89,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         addListingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("Add listing initiated");
                 Intent intent = new Intent(getActivity(), AddListing.class);
                 startActivityForResult(intent, REQUEST_CODE_IMAGE);
             }

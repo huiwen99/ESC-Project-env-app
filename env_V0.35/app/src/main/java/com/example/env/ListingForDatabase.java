@@ -9,20 +9,26 @@ import java.math.RoundingMode;
 public class ListingForDatabase {
     private String title;
     private String price;
-    private String imageHex;
     private String category;
     private String description;
+    private String user;
+    private String imgNumber;
 
-    public ListingForDatabase(String title, String price, String imageHex, String category,String description){
+    public ListingForDatabase() {
+        // blank constructor needed for somme Firebase fuckery, dont delete
+    }
+
+    public ListingForDatabase(String title, String price, String imgNumber, String category, String description, String user){
         this.title = title;
 
         BigDecimal p = new BigDecimal(price);
         p = p.setScale(2, RoundingMode.CEILING);
 
         this.price = "$"+p.toString();  //Note: might want to change this to an int later for calculation and shit - Dan
-        this.imageHex = imageHex;
         this.category = category;
         this.description = description;
+        this.user = user;
+        this.imgNumber = imgNumber;
     }
 
     public String getTitle(){
@@ -31,9 +37,6 @@ public class ListingForDatabase {
     public String getPrice(){
         return price;
     }
-    public String getImageHex(){
-        return imageHex;
-    }
     public String getCategory(){
         return category;
     }
@@ -41,5 +44,11 @@ public class ListingForDatabase {
         return description;
     }
 
+    public String getImgNumber() {
+        return imgNumber;
+    }
 
+    public String getUser() {
+        return user;
+    }
 }

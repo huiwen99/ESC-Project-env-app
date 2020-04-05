@@ -75,20 +75,20 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
         otherListingRecyclerView = root.findViewById(R.id.otherListingRecyclerView);
 
         ArrayList<Integer> drawableId = new ArrayList<Integer>();
-            drawableId.add(R.drawable.fan);
-            drawableId.add(R.drawable.peltierchip);
-            drawableId.add(R.drawable.threedprinter);
-            drawableId.add(R.drawable.battery);
-            drawableId.add(R.drawable.plywood);
-            masterListings = new UserListings();
-            for(Integer rid:drawableId){
-                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), rid);
-                String imageName = context.getResources().getResourceEntryName(rid);
-                String price = "5";
-                String category = "General";
-                String description = "test";
-                String user = "env@gmail.com";
-            masterListings.addListing(imageName,price,bitmap, category, description, user);
+        drawableId.add(R.drawable.fan);
+        drawableId.add(R.drawable.peltierchip);
+        drawableId.add(R.drawable.threedprinter);
+        drawableId.add(R.drawable.battery);
+        drawableId.add(R.drawable.plywood);
+        masterListings = new UserListings();
+        for (Integer rid : drawableId) {
+            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), rid);
+            String imageName = context.getResources().getResourceEntryName(rid);
+            String price = "5";
+            String category = "General";
+            String description = "test";
+            String user = "env@gmail.com";
+            masterListings.addListing(imageName, price, bitmap, category, description, user);
 
         }
         listingAdapter = new ListingAdapter(context, masterListings, this);
@@ -121,21 +121,21 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
 
     @Override
     public void onItemClicked(int position) {
-        Toast.makeText(getActivity(), ""+position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "" + position, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), ViewOtherListing.class);
 
         Bundle extras = new Bundle();
 
-        extras.putString("TITLE",masterListings.getTitle(position));
-        extras.putString("PRICE",masterListings.getPrice(position));
-        extras.putString("CATEGORY",masterListings.getCategory(position));
-        extras.putString("DESCRIPTION",masterListings.getDescription(position));
-        extras.putString("USER",masterListings.getUser(position));
+        extras.putString("TITLE", masterListings.getTitle(position));
+        extras.putString("PRICE", masterListings.getPrice(position));
+        extras.putString("CATEGORY", masterListings.getCategory(position));
+        extras.putString("DESCRIPTION", masterListings.getDescription(position));
+        extras.putString("USER", masterListings.getUser(position));
 
         Bitmap image = masterListings.getImage(position);
         byte[] byteArray = Utils.bitmapToByteArray(image);
 
-        extras.putByteArray("IMAGE",byteArray);
+        extras.putByteArray("IMAGE", byteArray);
 
         intent.putExtras(extras);
 
@@ -170,29 +170,44 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        ViewGroup container = (ViewGroup) getView().getParent();
-        Context context = container.getContext();
-        if (newText == null || newText.trim().isEmpty()){ //if nothing is entered in the search bar, it should show all listings
-            //TODO:show all listings (show masterListings)
-            //show recycler view of masterListings
-            listingAdapter = new ListingAdapter(context, masterListings, this);
-            otherListingRecyclerView.setAdapter(listingAdapter);
-            otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            return false;
-        }
-        filteredList = new UserListings(); //create a new array List called filteredList so that we can add listings(items) inside when it matches the search and then show it
-        for (Listing item : masterListings.userListings) { //for every listing in masterListings
-            if(item.getTitle().toLowerCase().contains(newText.toLowerCase())||item.getDescription().toLowerCase().contains(newText.toLowerCase())) { // if search bar query contains characters same as the title of the listing
-               filteredList.addListing(item); //add that listing(item) to filteredList
+
+        //Context context = container.getContext();
+        if (newText == null || newText.trim().isEmpty()) { //if nothing is entered in the search bar, it should show all listings
+
+            ViewGroup container = (ViewGroup) getView().getParent();
+            Context context = container.getContext();
+            if (newText == null || newText.trim().isEmpty()) { //if nothing is entered in the search bar, it should show all listings
+
+                //TODO:show all listings (show masterListings)
+                //show recycler view of masterListings
+                listingAdapter = new ListingAdapter(context, masterListings, this);
+                otherListingRecyclerView.setAdapter(listingAdapter);
+                otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                return false;
             }
+            filteredList = new UserListings(); //create a new array List called filteredList so that we can add listings(items) inside when it matches the search and then show it
+            for (Listing item : masterListings.userListings) { //for every listing in masterListings
+
+                if (item.getTitle().toLowerCase().contains(newText.toLowerCase())) { // if search bar query contains characters same as the title of the listing
+                    //filteredList.add(item); //add that listing(item) to filteredList
+                    //show recycler view of filteredList
+                    //listingAdapter = new ListingAdapter(context, masterListings, this);
+                    otherListingRecyclerView.setAdapter(listingAdapter);
+                    otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+                    if (item.getTitle().toLowerCase().contains(newText.toLowerCase()) || item.getDescription().toLowerCase().contains(newText.toLowerCase())) { // if search bar query contains characters same as the title of the listing
+                        filteredList.addListing(item); //add that listing(item) to filteredList
+                    }
+                }
+                //show recycler view of filteredList
+                listingAdapter = new ListingAdapter(context, filteredList, this);
+                otherListingRecyclerView.setAdapter(listingAdapter);
+                otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+                return true;
+            }
+
         }
-        //show recycler view of filteredList
-        listingAdapter = new ListingAdapter(context, filteredList, this);
-        otherListingRecyclerView.setAdapter(listingAdapter);
-        otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        return true;
-    }
-
-    }
+    return true;}
+}
 

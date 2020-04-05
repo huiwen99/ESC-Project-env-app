@@ -11,11 +11,22 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -36,6 +47,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.logging.Logger;
+
 import org.apache.commons.codec.binary.Hex;
 
 import static android.graphics.ImageDecoder.createSource;
@@ -44,7 +56,16 @@ public class AddListing extends AppCompatActivity {
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     //NOTE: wtf is this declaration correct im not sure - Dan
 
+    // for Firebase Storage
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    // Create a storage reference from our app
+    StorageReference storageRef = storage.getReferenceFromUrl("gs://envfirebaseproject.appspot.com/");
+
     private String TAG = "ListingDebug";
+    public static Uri downloadUri;
+
+    // get user for pushing listing
+    String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     ImageView imageSelected;
     EditText newListingTitle;
@@ -67,6 +88,7 @@ public class AddListing extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("We're in AddListing");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_listing);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -110,13 +132,11 @@ public class AddListing extends AppCompatActivity {
                 //String user = newListingUser.getText().toString();
 
 
-
-                if(bitmap==null){
+                if (bitmap == null) {
                     Toast.makeText(AddListing.this, "Please choose a photo", Toast.LENGTH_SHORT).show();
-                }else
-                    if(title.equals("")||price.equals("")||description.equals("")){
+                } else if (title.equals("") || price.equals("") || description.equals("")) {
                     Toast.makeText(AddListing.this, "Please fill in the blanks", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
 
                     resultIntent.putExtra(KEY_TITLE, title);
                     resultIntent.putExtra(KEY_PRICE, price);
@@ -128,7 +148,11 @@ public class AddListing extends AppCompatActivity {
 
                     resultIntent.putExtra(KEY_IMAGE, byteArray);
 
-                    //pushListing(title, price, byteArray, category, description);
+                    try {
+                        FirebaseUtils.pushListing(title, price, byteArray, category, description, currentUser);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
                     setResult(resultCode, resultIntent);
                     finish();
@@ -143,33 +167,95 @@ public class AddListing extends AppCompatActivity {
     // TODO: upload the info onto firebase
     // THIS IS A TEST
     // REPLACE LATER WITH PROPER DATA
-//    private void pushListing(String title, String price, byte[] imageHex, String category,String description) {
-//        long listingTimestamp = System.currentTimeMillis();
-//        Log.d(TAG, "Entering pushListing function");
-//        String imageHexString = new String(Hex.encodeHex(imageHex));
-//        Log.d(TAG, "Converted to hex string");
-//        ListingForDatabase listing = new ListingForDatabase(title, price, imageHexString, category, description);
-//        mDatabase.child("testProducts").child(String.valueOf(listingTimestamp)).setValue(listing);
-//
-//    }
+    /*private void pushListing(String title, String price, byte[] imageBytes, String category, String description) throws InterruptedException {
+        // will be the item name in our DB
+
+        long listingTimestamp = System.currentTimeMillis();
+        //Log.d(TAG, "Entering pushListing function");
+
+        String imageName = String.format("%d.jpg", listingTimestamp);
+        System.out.println(imageName);
+
+        final StorageReference imageref = storageRef.child(imageName);
+
+        UploadTask uploadTask = imageref.putBytes(imageBytes);
+        System.out.println("upload task created");
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+                System.out.println("Upload failed");
+                System.out.println(exception);
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                // ...
+                System.out.println("Successful upload");
+                System.out.println(taskSnapshot.getMetadata());
+            }
+        });
+
+        System.out.println("preparing for urltask");
+
+
+        //supposed to get us the URL to download this image
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                // Continue with the task to get the download URL
+                return imageref.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                     @Override
+                                     public void onComplete(@NonNull Task<Uri> task) {
+                                         if (task.isSuccessful()) {
+
+                                             System.out.println("Get Uri successful");
+                                             downloadUri = task.getResult();
+
+                                         } else {
+                                             System.out.println("Get Uri failed");
+                                         }
+
+                                     }
+                                 }
+
+        );
+
+        *//*System.out.println("supposedly done getting URL?");
+
+        String stringURL = imageref.getDownloadUrl().getResult().toString();
+
+        System.out.println("declared stringurl");*//*
+
+        ListingForDatabase listing = new ListingForDatabase(title, price, category, description, currentUser);
+        mDatabase.child("testProducts").child(String.valueOf(listingTimestamp)).setValue(listing);
+        //String imageHexString = new String(Hex.encodeHex(imageHex));
+        //Log.d(TAG, "Converted to hex string");
+
+
+    }*/
 
     //select image from files
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_GET && resultCode == RESULT_OK) {
             Uri fullPhotoUri = data.getData();
             imageSelected.setImageURI(fullPhotoUri);
-            try{
-                bitmap = Utils.decodeUri(this,fullPhotoUri,200,300);
-                }
-            catch(FileNotFoundException ex){
+            try {
+                bitmap = Utils.decodeUri(this, fullPhotoUri, 200, 300);
+            } catch (FileNotFoundException ex) {
                 Toast.makeText(this, "File not found", Toast.LENGTH_SHORT).show();
-            }
-            catch(Exception ex){
+            } catch (Exception ex) {
                 Toast.makeText(this, "Exception caught", Toast.LENGTH_SHORT).show();
             }
         }
     }
-
 
 
 }
