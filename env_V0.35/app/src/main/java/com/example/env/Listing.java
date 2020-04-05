@@ -23,6 +23,14 @@ public class Listing {
         this.user = user;
     }
 
+    public void editListingDetails(String title, String price, Bitmap image, String category,String description){
+        this.title = title;
+        this.price = numInputToPriceText(price);
+        this.image = image;
+        this.category = category;
+        this.description = description;
+    }
+
     public String getTitle(){
         return title;
     }

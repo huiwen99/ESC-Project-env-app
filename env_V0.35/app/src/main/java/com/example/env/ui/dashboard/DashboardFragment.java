@@ -47,15 +47,12 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
     ListingAdapter listingAdapter;
     UserListings masterListings; //to pull from firebase, list of all existing listings
     UserListings filteredList; // a copy of masterListings
-    UserListings generalList;
-    UserListings roboticMechanicalList;
-    UserListings microElectronicsList;
-    String[] categories = {"All", "General", "Robotic Mechanical", "Microelectronics"};
+    UserListings categoryList;
     Spinner categorySpinner;
 
-    private SearchView search;
+    private SearchView searchView;
+    private String searchText;
 
-    final int REQUEST_CODE_IMAGE = 1000;
 
     private DashboardViewModel dashboardViewModel;
 
@@ -77,51 +74,8 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
 
         ((MainActivity) getActivity()).hideButton();
 
-
         Context context = container.getContext();
         categorySpinner = root.findViewById(R.id.categorySpinner);
-        categorySpinner.setAdapter(new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1, categories));
-
-//        categorySpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-////                ViewGroup container = (ViewGroup) getView().getParent();
-////                Context context = container.getContext();
-////                if (position == 0) {
-////                    defaultCategory();
-////                } else if (position == 1) {
-////                    getGeneralCategory();
-////                } else if (position == 2) {
-////                    getRoboticMechanicalCategory();
-////                } else {
-////                    getMicroelectronicsCategory();
-////                }
-////                listingAdapter.notifyDataSetChanged();
-//            }
-//        });
-
-        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    Toast.makeText(getContext(), ""+position, Toast.LENGTH_SHORT).show();
-                    defaultCategory();
-                } else if (position == 1) {
-                    getGeneralCategory();
-                } else if (position == 2) {
-                    getRoboticMechanicalCategory();
-                } else {
-                    getMicroelectronicsCategory();
-                }
-                listingAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                defaultCategory();
-            }
-        });
-
 
         otherListingRecyclerView = root.findViewById(R.id.otherListingRecyclerView);
 
@@ -132,59 +86,64 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
             drawableId.add(R.drawable.battery);
             drawableId.add(R.drawable.plywood);
             masterListings = new UserListings();
+            filteredList = new UserListings();
             for(Integer rid:drawableId){
                 Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), rid);
                 String imageName = context.getResources().getResourceEntryName(rid);
                 String price = "5";
                 String category = "General";
+                if(rid%2==0){
+                    category = "Microelectronics";
+                }else if(rid%2==1){
+                    category = "Robotic Mechanical";
+                }
                 String description = "test";
                 String user = "env@gmail.com";
             masterListings.addListing(imageName,price,bitmap, category, description, user);
-
+            filteredList.addListing(imageName,price,bitmap, category, description, user);
         }
-        listingAdapter = new ListingAdapter(context, masterListings, this);
+        listingAdapter = new ListingAdapter(context, filteredList, this);
         otherListingRecyclerView.setAdapter(listingAdapter);
         otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) { //display all listings if category is "General"
+                    defaultListings();
+                } else {
+                    String category = categorySpinner.getSelectedItem().toString();
+                    getCategorizedListing(category);
+                    getSearchFilteredListing();
+                    refreshRecyclerView(filteredList);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                defaultListings();
+            }
+        });
 
         return root;
     }
 
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if(requestCode == REQUEST_CODE_IMAGE && resultCode== Activity.RESULT_OK){
-//            String title = data.getStringExtra(AddListing.KEY_TITLE);
-//            String price = data.getStringExtra(AddListing.KEY_PRICE);
-//            String category = data.getStringExtra(AddListing.KEY_CATEGORY);
-//            String description = data.getStringExtra(AddListing.KEY_DESCRIPTION);
-//            String user = data.getStringExtra(AddListing.KEY_USER);
-//
-//            byte[] byteArray = data.getByteArrayExtra(AddListing.KEY_IMAGE);
-//            Bitmap image = Utils.byteArrayToBitmap(byteArray);
-//
-//            userListings.addListing(title,price,image,category,description,user);
-//            listingAdapter.notifyDataSetChanged();
-//        }
-//    }
-
 
     @Override
     public void onItemClicked(int position) {
-        Toast.makeText(getActivity(), ""+position, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), ViewOtherListing.class);
 
         Bundle extras = new Bundle();
 
-        extras.putString("TITLE",masterListings.getTitle(position));
-        extras.putString("PRICE",masterListings.getPrice(position));
-        extras.putString("CATEGORY",masterListings.getCategory(position));
-        extras.putString("DESCRIPTION",masterListings.getDescription(position));
-        extras.putString("USER",masterListings.getUser(position));
+        extras.putString("TITLE",filteredList.getTitle(position));
+        extras.putString("PRICE",filteredList.getPrice(position));
+        extras.putString("CATEGORY",filteredList.getCategory(position));
+        extras.putString("DESCRIPTION",filteredList.getDescription(position));
+        extras.putString("USER",filteredList.getUser(position));
 
-        Bitmap image = masterListings.getImage(position);
+        Bitmap image = filteredList.getImage(position);
         byte[] byteArray = Utils.bitmapToByteArray(image);
 
         extras.putByteArray("IMAGE",byteArray);
@@ -198,9 +157,10 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.search_menu, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
         searchView.setQueryHint("Search Listing");
+        searchText = searchView.getQuery().toString();
 
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -222,86 +182,62 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        ViewGroup container = (ViewGroup) getView().getParent();
-        Context context = container.getContext();
-        if (newText == null || newText.trim().isEmpty()){ //if nothing is entered in the search bar, it should show all listingsx
-            //show recycler view of masterListings
-            listingAdapter = new ListingAdapter(context, masterListings, this);
-            otherListingRecyclerView.setAdapter(listingAdapter);
-            otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        searchText = newText;
+        getCategorizedListing(categorySpinner.getSelectedItem().toString());
+        getSearchFilteredListing();
+        refreshRecyclerView(filteredList);
+
+        if(newText == null || newText.trim().isEmpty()){
             return false;
+        }else{
+            return true;
         }
-        filteredList = new UserListings(); //create a new array List called filteredList so that we can add listings(items) inside when it matches the search and then show it
-        for (Listing item : masterListings.userListings) { //for every listing in masterListings
-            if(item.getTitle().toLowerCase().contains(newText.toLowerCase())||item.getDescription().toLowerCase().contains(newText.toLowerCase())) { // if search bar query contains characters same as the title of the listing
-               filteredList.addListing(item); //add that listing(item) to filteredList
-            }
-        }
-        //show recycler view of filteredList
-        listingAdapter = new ListingAdapter(context, filteredList, this);
-        otherListingRecyclerView.setAdapter(listingAdapter);
-        otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        return true;
     }
 
-    private void defaultCategory(){
-        ViewGroup container = (ViewGroup) getView().getParent();
-        Context context = container.getContext();
-        listingAdapter = new ListingAdapter(context, masterListings, this);
-        otherListingRecyclerView.setAdapter(listingAdapter);
-        otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    }
-
-    private void getGeneralCategory() {
-        Log.d("mw","General category: ");
-        ViewGroup container = (ViewGroup) getView().getParent();
-        Context context = container.getContext();
-        generalList = new UserListings();
+    private void defaultListings(){
         for (Listing item : masterListings.userListings) {
-            if (item.getCategory().equals("General")) {
-                generalList.addListing(item);
-
-            }
+            filteredList.addListing(item);
         }
-        listingAdapter = new ListingAdapter(context, generalList, this);
-        otherListingRecyclerView.setAdapter(listingAdapter);
-        otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-
+        refreshRecyclerView(filteredList);
     }
 
-    private void getRoboticMechanicalCategory() {
-        Log.d("mw","Robotic mechanical category: ");
-        ViewGroup container = (ViewGroup) getView().getParent();
-        Context context = container.getContext();
-        roboticMechanicalList = new UserListings();
-        for (Listing item : masterListings.userListings) {
-            if (item.getCategory().equals("Robotic Mechanical")) {
-                roboticMechanicalList.addListing(item);
-
+    private void getCategorizedListing(String category){
+        categoryList = new UserListings();
+        if(category.equals("General")){
+            for (Listing item : masterListings.userListings) {
+                categoryList.addListing(item);
+            }
+        }else {
+            for (Listing item : masterListings.userListings) {
+                if (item.getCategory().equals(category)) {
+                    categoryList.addListing(item);
+                }
             }
         }
-        listingAdapter = new ListingAdapter(context, roboticMechanicalList,this);
-        otherListingRecyclerView.setAdapter(listingAdapter);
-        otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
     }
-    private void getMicroelectronicsCategory() {
-        Log.d("mw","Microelectronics category: ");
-        ViewGroup container = (ViewGroup) getView().getParent();
-        Context context = container.getContext();
-        microElectronicsList = new UserListings();
-        for (Listing item : masterListings.userListings) {
-            if (item.getCategory().equals("Microelectronics")) {
-                microElectronicsList.addListing(item);
 
+    private void getSearchFilteredListing(){
+        filteredList = new UserListings();
+        if (searchText == null || searchText.trim().isEmpty()){ //if nothing is entered in the search bar, it should show all listings of that category
+            for (Listing item : categoryList.userListings){
+                filteredList.addListing(item);
+            }
+        }else {
+            for (Listing item : categoryList.userListings) {
+                if (item.getTitle().toLowerCase().contains(searchText.toLowerCase()) || item.getDescription().toLowerCase().contains(searchText.toLowerCase())) { // if search bar query contains characters same as the title of the listing
+                    filteredList.addListing(item);
+                }
             }
         }
-        listingAdapter = new ListingAdapter(context, microElectronicsList, this);
+    }
+
+    private void refreshRecyclerView(UserListings listings){
+        ViewGroup container = (ViewGroup) getView().getParent();
+        Context context = container.getContext();
+        listingAdapter = new ListingAdapter(context, listings, this);
         otherListingRecyclerView.setAdapter(listingAdapter);
         otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        listingAdapter.notifyDataSetChanged();
     }
 
     }

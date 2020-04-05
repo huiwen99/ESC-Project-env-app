@@ -23,7 +23,8 @@
         android:id="@+id/categorySpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:drawable/editbox_dropdown_light_frame" />
+        android:background="@android:drawable/editbox_dropdown_light_frame"
+        android:entries="@array/categories"/>
 
 
     <androidx.recyclerview.widget.RecyclerView

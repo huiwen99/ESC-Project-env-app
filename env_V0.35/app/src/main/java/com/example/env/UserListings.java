@@ -23,9 +23,10 @@ public class UserListings {
         userListings.add(listing);
     }
 
-    //public void add(){
-
-    //}
+    public void editListing(int position, String title, String price, Bitmap image, String category,String description){
+        Listing listingToChange = userListings.get(position);
+        listingToChange.editListingDetails(title, price, image, category, description);
+    }
 
     void removeListing(int position){
         userListings.remove(position);

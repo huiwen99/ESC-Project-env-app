@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
 
+import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.ViewAction;
@@ -27,6 +28,8 @@ import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -77,7 +80,25 @@ public class HomeFragmentTest {
         onView(withId(R.id.editDescription)).perform(replaceText("editedDescription"));
         pauseTestFor(1);
         onView(withId(R.id.editListing)).perform(click());
-        pauseTestFor(3);
+        pauseTestFor(2);
+
+        onView(withId(R.id.listingTitle)).check(matches(withText("editedTitle")));
+        onView(withId(R.id.listingPrice)).check(matches(withText("$1.00")));
+        onView(withId(R.id.listingCategory)).check(matches(withText("Microelectronics")));
+        onView(withId(R.id.listingDescription)).check(matches(withText("editedDescription")));
+
+    }
+
+    @Test
+    public void logOutTest(){
+        pauseTestFor(1);
+        onView(withId(R.id.sign_out_button)).perform(click());
+        pauseTestFor(2);
+        try{
+            onView(withId(R.id.login_btn)).check(matches(isDisplayed()));
+        }catch(NoMatchingViewException e){
+            fail();
+        }
     }
 
     private void pauseTestFor(long seconds) {

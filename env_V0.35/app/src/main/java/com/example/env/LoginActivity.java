@@ -57,13 +57,15 @@ public class LoginActivity extends AppCompatActivity {
                 String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
 
-                if (!TextUtils.isEmpty(email) || !TextUtils.isEmpty(password)) {
+                if (!(TextUtils.isEmpty(email) || TextUtils.isEmpty(password))) {
 
                     mLoginProgress.setTitle("Logging in");
                     mLoginProgress.setMessage("Please wait while we verify your account");
                     mLoginProgress.setCanceledOnTouchOutside(false);
                     mLoginProgress.show();
                     login_user(email, password);
+                }else{
+                    Toast.makeText(LoginActivity.this, "Please enter your email/password", Toast.LENGTH_LONG).show();
                 }
             }
         });
