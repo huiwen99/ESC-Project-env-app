@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class HomeFragment extends Fragment implements RecyclerViewItemListener {
 
@@ -90,8 +92,12 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-                ListingForDatabase listing = dataSnapshot.getValue(ListingForDatabase.class);
+                Log.d("HOME_TAG", "getting value");
+                Object allListing = dataSnapshot.getValue();
                 // ...
+                HashMap allListingHashmap = ((HashMap) allListing); // cast this bitch into a hashmap
+                System.out.println(allListingHashmap);
+
             }
 
             @Override
