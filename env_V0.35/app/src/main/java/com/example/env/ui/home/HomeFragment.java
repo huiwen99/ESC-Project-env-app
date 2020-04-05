@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +24,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.env.AddListing;
 import com.example.env.ListingAdapter;
+import com.example.env.ListingForDatabase;
 import com.example.env.MainActivity;
 import com.example.env.R;
 import com.example.env.RecyclerViewItemListener;
 import com.example.env.UserListings;
 import com.example.env.Utils;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -41,6 +50,13 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
     UserListings userListings;
 
     final int REQUEST_CODE_IMAGE = 1000;
+
+    static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+    // for Firebase Storage
+    static FirebaseStorage storage = FirebaseStorage.getInstance();
+    // Create a storage reference from our app
+    static StorageReference storageRef = storage.getReferenceFromUrl("gs://envfirebaseproject.appspot.com/");
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -68,6 +84,27 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         ArrayList<Integer> drawableId = new ArrayList<Integer>();
         drawableId.add(R.drawable.fan);
         userListings = new UserListings();
+
+        //collect listings from firebase
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                ListingForDatabase listing = dataSnapshot.getValue(ListingForDatabase.class);
+                // ...
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("HOME_TAG", "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+        mDatabase.child("testProducts").addListenerForSingleValueEvent(postListener);
+
+        //TODO: display this info
+
         for(Integer rid:drawableId){
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), rid);
             String imageName = context.getResources().getResourceEntryName(rid);

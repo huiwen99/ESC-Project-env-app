@@ -130,8 +130,10 @@ public class AddListing extends AppCompatActivity {
 
                     resultIntent.putExtra(KEY_IMAGE, byteArray);
 
+                    long listingTimestamp = System.currentTimeMillis();
+
                         try {
-                            FirebaseUtils.pushListing(title, price, byteArray, category, description, currentUser);
+                            FirebaseUtils.pushListing(listingTimestamp, title, price, byteArray, category, description, currentUser);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

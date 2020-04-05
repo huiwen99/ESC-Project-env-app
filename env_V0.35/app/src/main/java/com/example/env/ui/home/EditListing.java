@@ -18,9 +18,11 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.env.AddListing;
+import com.example.env.FirebaseUtils;
 import com.example.env.Listing;
 import com.example.env.R;
 import com.example.env.Utils;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.FileNotFoundException;
 
@@ -41,6 +43,8 @@ public class EditListing extends AppCompatActivity {
     String price;
     String category;
     String description;
+
+    String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,10 +125,18 @@ public class EditListing extends AppCompatActivity {
 
                     extras.putByteArray("IMAGE",byteArray);
 
+                    //push this to firebase
+                    long listingTimestamp = System.currentTimeMillis();
+                    try {
+                        FirebaseUtils.pushListing(listingTimestamp, title, price, byteArray, category, description, currentUser);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
                     intent.putExtras(extras);
                     startActivity(intent);
 
-                    //not pushed to firebase yet*****
+
 
 
                 }

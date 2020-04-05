@@ -27,13 +27,13 @@ public class FirebaseUtils {
     // Create a storage reference from our app
     static StorageReference storageRef = storage.getReferenceFromUrl("gs://envfirebaseproject.appspot.com/");
 
-    public static void pushListing(String title, String price, byte[] imageBytes, String category, String description, String currentUser) throws InterruptedException {
+    public static void pushListing(long timestamp, String title, String price, byte[] imageBytes, String category, String description, String currentUser) throws InterruptedException {
         // will be the item name in our DB
 
-        long listingTimestamp = System.currentTimeMillis();
+        //long listingTimestamp = System.currentTimeMillis();
         //Log.d(TAG, "Entering pushListing function");
 
-        String imageName = String.format("%d.jpg", listingTimestamp);
+        String imageName = String.format("%d.jpg", timestamp);
         System.out.println(imageName);
 
         final StorageReference imageref = storageRef.child(imageName);
@@ -94,8 +94,8 @@ public class FirebaseUtils {
 
         System.out.println("declared stringurl");*/
 
-        ListingForDatabase listing = new ListingForDatabase(title, price, String.valueOf(listingTimestamp), category, description, currentUser);
-        mDatabase.child("testProducts").child(String.valueOf(listingTimestamp)).setValue(listing);
+        ListingForDatabase listing = new ListingForDatabase(title, price, String.valueOf(timestamp), category, description, currentUser);
+        mDatabase.child("testProducts").child(String.valueOf(timestamp)).setValue(listing);
         //String imageHexString = new String(Hex.encodeHex(imageHex));
         //Log.d(TAG, "Converted to hex string");
 
