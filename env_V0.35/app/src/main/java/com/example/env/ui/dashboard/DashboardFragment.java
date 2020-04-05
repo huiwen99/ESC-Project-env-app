@@ -111,7 +111,6 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) { //display all listings if category is "General"
-                    Toast.makeText(getContext(), ""+position, Toast.LENGTH_SHORT).show();
                     defaultListings();
                 } else {
                     String category = categorySpinner.getSelectedItem().toString();

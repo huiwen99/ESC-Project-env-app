@@ -101,7 +101,7 @@ public class LoginActivityTest {
             do{
                 fuzzedPassword=mutate(password);
             }while(fuzzedPassword.equals(password));
-            Log.i("cali",fuzzedPassword);
+            Log.i("pw",fuzzedPassword);
             onView(withId(R.id.login_password)).perform(replaceText(fuzzedPassword));
             pauseTestFor(1);
             onView(withId(R.id.login_btn)).perform(ViewActions.click());
