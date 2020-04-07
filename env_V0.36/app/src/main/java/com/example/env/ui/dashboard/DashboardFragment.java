@@ -38,8 +38,19 @@ import com.example.env.User;
 import com.example.env.UserListings;
 import com.example.env.Utils;
 import com.example.env.ui.home.ViewOwnListing;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DashboardFragment extends Fragment implements RecyclerViewItemListener, SearchView.OnQueryTextListener, MenuItem.OnActionExpandListener {
 
@@ -52,6 +63,15 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
 
     private SearchView searchView;
     private String searchText;
+
+    static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+    // for Firebase Storage
+    static FirebaseStorage storage = FirebaseStorage.getInstance();
+    // Create a storage reference from our app
+    static StorageReference storageRef = storage.getReferenceFromUrl("gs://envfirebaseproject.appspot.com/");
+
+    String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
     private DashboardViewModel dashboardViewModel;
@@ -102,6 +122,70 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
             masterListings.addListing(imageName,price,bitmap, category, description, user);
             filteredList.addListing(imageName,price,bitmap, category, description, user);
         }
+
+        //collect listings from firebase
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get object and use the values to update the UI
+                Log.d("HOME_TAG", "getting value");
+                Object allListing = dataSnapshot.getValue();
+                // ...
+                HashMap allListingHashmap = ((HashMap) allListing); // cast this bitch into a hashmap
+                System.out.println(allListingHashmap);
+
+                for (Object item : allListingHashmap.values()) {
+                    final HashMap itemHashmap = ((HashMap) item); // this is the hashmap of each item
+                    System.out.println(itemHashmap);
+
+                    String imageName = String.format("%s.jpg", itemHashmap.get("imgNumber").toString());
+                    StorageReference imageref = storageRef.child(imageName);
+
+                    imageref.getBytes(1024*1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Bitmap imgBitmap = Utils.byteArrayToBitmap(bytes);
+                            String imageName = itemHashmap.get("title").toString();
+                            String price = itemHashmap.get("price").toString().substring(1);
+                            String category = itemHashmap.get("category").toString();
+                            String description = itemHashmap.get("description").toString();
+                            String user = itemHashmap.get("user").toString();
+
+                            Log.d("HOME_TAG", currentUser);
+                            Log.d("HOME_TAG", user);
+                            Log.d("HOME_TAG", String.valueOf(currentUser.equals(user)));
+
+
+                            masterListings.addListing(imageName, price, imgBitmap, category, description, user);
+                            filteredList.addListing(imageName, price, imgBitmap, category, description, user);
+
+                            Log.d("HOME_TAG", "added item");
+                            //Log.d("HOME_TAG", String.valueOf(userListings.userListings));
+                            refreshRecyclerView(filteredList);
+
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            Log.d("HOME_TAG", String.valueOf(exception));
+                        }
+                    });
+
+                }
+                refreshRecyclerView(filteredList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("HOME_TAG", "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+        mDatabase.child("testProducts").addListenerForSingleValueEvent(postListener);
+
+
         listingAdapter = new ListingAdapter(context, filteredList, this);
         otherListingRecyclerView.setAdapter(listingAdapter);
         otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
