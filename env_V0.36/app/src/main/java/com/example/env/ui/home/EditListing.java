@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -23,9 +24,19 @@ import com.example.env.FirebaseUtils;
 import com.example.env.Listing;
 import com.example.env.R;
 import com.example.env.Utils;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 
 import static com.example.env.AddListing.REQUEST_IMAGE_GET;
 
@@ -46,6 +57,11 @@ public class EditListing extends AppCompatActivity {
     String description;
 
     String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    // for Firebase Storage
+    static FirebaseStorage storage = FirebaseStorage.getInstance();
+    // Create a storage reference from our app
+    static StorageReference storageRef = storage.getReferenceFromUrl("gs://envfirebaseproject.appspot.com/");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +83,15 @@ public class EditListing extends AppCompatActivity {
         title = extras.getString("TITLE");
         editTitle.setText(title);
         price = extras.getString("PRICE");
+        final String oldPrice = price;
         price = Listing.priceTextToNumString(price);
         editPrice.setText(price);
         category = extras.getString("CATEGORY");
+
+        //NOTE: might need
+        final String oldTitle = title;
+
+
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.categories, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -80,6 +102,7 @@ public class EditListing extends AppCompatActivity {
         }
 
         description = extras.getString("DESCRIPTION");
+        final String oldDescription = description;
         editDescription.setText(description);
         byte[] byteArray = extras.getByteArray("IMAGE");
         bitmap = Utils.byteArrayToBitmap(byteArray);
@@ -110,6 +133,46 @@ public class EditListing extends AppCompatActivity {
                     Toast.makeText(EditListing.this, "Please fill in the blanks", Toast.LENGTH_SHORT).show();
                 }else{
                     Intent intent = new Intent(EditListing.this,ViewOwnListing.class);
+
+                    //TODO: delete old listing
+                    ValueEventListener postListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            // Get object and use the values to update the UI
+                            Log.d("EDIT_TAG", "getting values");
+                            Object allListing = dataSnapshot.getValue();
+                            // ...
+                            HashMap allListingHashmap = ((HashMap) allListing); // cast this bitch into a hashmap
+                            //System.out.println(allListingHashmap);
+
+                            for (Object item : allListingHashmap.values()) {
+                                final HashMap itemHashmap = ((HashMap) item); // this is the hashmap of each item
+                                System.out.println(itemHashmap);
+                                String cloudTitle = (String) itemHashmap.get("title");
+                                String cloudPrice = (String) itemHashmap.get("price");
+                                String cloudDescription = (String) itemHashmap.get("description");
+                                Log.d("EDIT_TAG", "Cloud: " + cloudTitle +" "+ cloudPrice +" "+ cloudDescription);
+                                Log.d("EDIT_TAG", "Old: " + oldTitle +" "+ oldPrice +" "+ oldDescription);
+
+                                if (cloudTitle.equals(oldTitle) && cloudDescription.equals(oldDescription)
+                                && cloudPrice.equals(oldPrice)) {
+                                    DatabaseReference toDelete = mDatabase.child("testProducts").child((String) itemHashmap.get("imgNumber"));
+                                    toDelete.removeValue();
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            // Getting Post failed, log a message
+                            Log.w("HOME_TAG", "loadPost:onCancelled", databaseError.toException());
+                            // ...
+                        }
+                    };
+                    mDatabase.child("testProducts").addListenerForSingleValueEvent(postListener);
+
+                    //end of workaround
 
                     title = editTitle.getText().toString();
                     price = editPrice.getText().toString();
