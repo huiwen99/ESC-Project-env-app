@@ -40,9 +40,9 @@ public class DashboardFragmentTest {
 
     @Test
     public void testNavigationBrowse(){
-        pauseTestFor(3);
+        pauseTestFor(5);
         onView(withContentDescription("Browse")).perform(click());
-        pauseTestFor(1);
+        pauseTestFor(5);
         try{
             onView(withId(R.id.categorySpinner)).check(matches(isDisplayed()));
         }catch(NoMatchingViewException e){
@@ -52,9 +52,9 @@ public class DashboardFragmentTest {
 
     @Test
     public void testSearchCategory(){
-        pauseTestFor(3);
+        pauseTestFor(5);
         onView(withContentDescription("Browse")).perform(click());
-        pauseTestFor(1);
+        pauseTestFor(5);
 
         onView(withId(R.id.categorySpinner)).perform(click());
         pauseTestFor(1);
@@ -76,9 +76,9 @@ public class DashboardFragmentTest {
 
     @Test
     public void testSearchTitleAndCategory(){
-        pauseTestFor(3);
+        pauseTestFor(5);
         onView(withContentDescription("Browse")).perform(click());
-        pauseTestFor(1);
+        pauseTestFor(5);
 
         onView(withId(R.id.categorySpinner)).perform(click());
         pauseTestFor(1);

@@ -96,16 +96,16 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
 
         //TODO: display this info
 
-        for(Integer rid:drawableId){
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), rid);
-            String imageName = context.getResources().getResourceEntryName(rid);
-            String price = "5";
-            String category = "General";
-            String description = "test";
-            String user = "env@gmail.com";
-            userListings.addListing(imageName,price,bitmap, category, description, user);
-            Log.d("HOME_TAG", String.valueOf(userListings.userListings));
-        }
+//        for(Integer rid:drawableId){
+//            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), rid);
+//            String imageName = context.getResources().getResourceEntryName(rid);
+//            String price = "5";
+//            String category = "General";
+//            String description = "test";
+//            String user = "env@gmail.com";
+//            userListings.addListing(imageName,price,bitmap, category, description, user);
+//            Log.d("HOME_TAG", String.valueOf(userListings.userListings));
+//        }
 
         //collect listings from firebase
         ValueEventListener postListener = new ValueEventListener() {
