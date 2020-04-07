@@ -129,7 +129,7 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get object and use the values to update the UI
-                Log.d("HOME_TAG", "getting value");
+                Log.d("DASHBOARD_TAG", "getting value");
                 Object allListing = dataSnapshot.getValue();
                 // ...
                 HashMap allListingHashmap = ((HashMap) allListing); // cast this bitch into a hashmap
@@ -152,15 +152,12 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
                             String description = itemHashmap.get("description").toString();
                             String user = itemHashmap.get("user").toString();
 
-                            Log.d("HOME_TAG", currentUser);
-                            Log.d("HOME_TAG", user);
-                            Log.d("HOME_TAG", String.valueOf(currentUser.equals(user)));
 
 
                             masterListings.addListing(imageName, price, imgBitmap, category, description, user);
                             filteredList.addListing(imageName, price, imgBitmap, category, description, user);
 
-                            Log.d("HOME_TAG", "added item");
+                            Log.d("DASHBOARD_TAG", "added item");
                             //Log.d("HOME_TAG", String.valueOf(userListings.userListings));
                             refreshRecyclerView(filteredList);
 
@@ -169,7 +166,7 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
-                            Log.d("HOME_TAG", String.valueOf(exception));
+                            Log.d("DASHBOARD_TAG", String.valueOf(exception));
                         }
                     });
 
@@ -180,7 +177,7 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Getting Post failed, log a message
-                Log.w("HOME_TAG", "loadPost:onCancelled", databaseError.toException());
+                Log.w("DASHBOARD_TAG", "loadPost:onCancelled", databaseError.toException());
                 // ...
             }
         };
