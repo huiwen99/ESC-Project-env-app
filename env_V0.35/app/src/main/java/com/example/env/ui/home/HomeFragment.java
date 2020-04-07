@@ -31,6 +31,9 @@ import com.example.env.R;
 import com.example.env.RecyclerViewItemListener;
 import com.example.env.UserListings;
 import com.example.env.Utils;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,6 +63,8 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
     // Create a storage reference from our app
     static StorageReference storageRef = storage.getReferenceFromUrl("gs://envfirebaseproject.appspot.com/");
 
+    String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -87,27 +92,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         drawableId.add(R.drawable.fan);
         userListings = new UserListings();
 
-        //collect listings from firebase
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                Log.d("HOME_TAG", "getting value");
-                Object allListing = dataSnapshot.getValue();
-                // ...
-                HashMap allListingHashmap = ((HashMap) allListing); // cast this bitch into a hashmap
-                System.out.println(allListingHashmap);
 
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w("HOME_TAG", "loadPost:onCancelled", databaseError.toException());
-                // ...
-            }
-        };
-        mDatabase.child("testProducts").addListenerForSingleValueEvent(postListener);
 
         //TODO: display this info
 
@@ -119,7 +104,63 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
             String description = "test";
             String user = "env@gmail.com";
             userListings.addListing(imageName,price,bitmap, category, description, user);
+            Log.d("HOME_TAG", String.valueOf(userListings.userListings));
         }
+
+        //collect listings from firebase
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get object and use the values to update the UI
+                Log.d("HOME_TAG", "getting value");
+                Object allListing = dataSnapshot.getValue();
+                // ...
+                HashMap allListingHashmap = ((HashMap) allListing); // cast this bitch into a hashmap
+                System.out.println(allListingHashmap);
+
+                for (Object item : allListingHashmap.values()) {
+                    final HashMap itemHashmap = ((HashMap) item); // this is the hashmap of each item
+                    System.out.println(itemHashmap);
+
+                    String imageName = String.format("%s.jpg", itemHashmap.get("imgNumber").toString());
+                    StorageReference imageref = storageRef.child(imageName);
+
+                    imageref.getBytes(1024*1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Bitmap imgBitmap = Utils.byteArrayToBitmap(bytes);
+                            String imageName = itemHashmap.get("title").toString();
+                            String price = itemHashmap.get("price").toString().substring(1);
+                            String category = itemHashmap.get("category").toString();
+                            String description = itemHashmap.get("description").toString();
+                            String user = itemHashmap.get("user").toString();
+
+                            if (true) {
+                                userListings.addListing(imageName, price, imgBitmap, category, description, user);
+                                Log.d("HOME_TAG", "added item");
+                                //Log.d("HOME_TAG", String.valueOf(userListings.userListings));
+                            }
+
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            Log.d("HOME_TAG", String.valueOf(exception));
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("HOME_TAG", "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+        mDatabase.child("testProducts").addListenerForSingleValueEvent(postListener);
+
 
         //initializing recyclerview
         listingAdapter = new ListingAdapter(context, userListings, this);
@@ -154,6 +195,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
             Bitmap image = Utils.byteArrayToBitmap(byteArray);
 
             userListings.addListing(title,price,image,category,description,user);
+            Log.d("HOME_TAG", String.valueOf(userListings.userListings));
             listingAdapter.notifyDataSetChanged();
         }
     }

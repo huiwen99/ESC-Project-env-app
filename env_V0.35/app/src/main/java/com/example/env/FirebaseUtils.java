@@ -34,7 +34,6 @@ public class FirebaseUtils {
         //Log.d(TAG, "Entering pushListing function");
 
         String imageName = String.format("%d.jpg", timestamp);
-        System.out.println(imageName);
 
         final StorageReference imageref = storageRef.child(imageName);
 
@@ -99,6 +98,10 @@ public class FirebaseUtils {
         //String imageHexString = new String(Hex.encodeHex(imageHex));
         //Log.d(TAG, "Converted to hex string");
 
+
+    }
+
+    public static void getImage() {
 
     }
 }
