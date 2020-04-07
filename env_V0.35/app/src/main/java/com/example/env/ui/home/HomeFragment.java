@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(this, new Observer<String>() {
+        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
@@ -139,6 +139,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
                                 userListings.addListing(imageName, price, imgBitmap, category, description, user);
                                 Log.d("HOME_TAG", "added item");
                                 //Log.d("HOME_TAG", String.valueOf(userListings.userListings));
+                                refreshRecyclerView();
                             }
 
 
@@ -149,7 +150,9 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
                             Log.d("HOME_TAG", String.valueOf(exception));
                         }
                     });
+
                 }
+                refreshRecyclerView();
             }
 
             @Override
@@ -163,14 +166,15 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
 
 
         //initializing recyclerview
-        listingAdapter = new ListingAdapter(context, userListings, this);
-        recyclerView.setAdapter(listingAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        listingAdapter = new ListingAdapter(context, userListings, this);
+//        recyclerView.setAdapter(listingAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
         addListingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getContext(), "SIZE IS "+userListings.userListings.size(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), AddListing.class);
                 startActivityForResult(intent, REQUEST_CODE_IMAGE);
             }
@@ -221,4 +225,15 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
 
         startActivity(intent);
     }
+
+    private void refreshRecyclerView(){
+        ViewGroup container = (ViewGroup) getView().getParent();
+        Context context = container.getContext();
+        listingAdapter = new ListingAdapter(context, userListings, this);
+        recyclerView.setAdapter(listingAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        listingAdapter.notifyDataSetChanged();
+    }
+
+
 }
