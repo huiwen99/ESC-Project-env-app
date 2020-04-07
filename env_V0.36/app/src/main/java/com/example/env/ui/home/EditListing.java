@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -128,7 +129,8 @@ public class EditListing extends AppCompatActivity {
                     //push this to firebase
                     long listingTimestamp = System.currentTimeMillis();
                     try {
-                        FirebaseUtils.pushListing(listingTimestamp, title, price, byteArray, category, description, currentUser);
+                        Log.d("EDIT_TAG", "prepare to push listing");
+                        FirebaseUtils.pushListing(listingTimestamp, title, price.substring(1), byteArray, category, description, currentUser);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
