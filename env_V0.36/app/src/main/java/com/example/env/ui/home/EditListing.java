@@ -134,7 +134,7 @@ public class EditListing extends AppCompatActivity {
                 }else{
                     Intent intent = new Intent(EditListing.this,ViewOwnListing.class);
 
-                    //TODO: delete old listing
+                    // delete old listing, reuse this for delete button also
                     ValueEventListener postListener = new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
