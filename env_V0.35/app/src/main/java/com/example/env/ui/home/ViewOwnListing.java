@@ -46,7 +46,7 @@ public class ViewOwnListing extends AppCompatActivity {
         listingCategory = findViewById(R.id.listingCategory);
         listingDescription = findViewById(R.id.listingDescription);
         editListingButton = findViewById(R.id.editListingButton);
-        deleteListingButton = findViewById(R.id.deleteListingButton);
+        //deleteListingButton = findViewById(R.id.deleteListingButton); //uncommented this and removed the delete listing button in viewownlisting
         //listingEmail = findViewById(R.id.listingEmail);
 
         Intent intent = getIntent();
@@ -77,12 +77,12 @@ public class ViewOwnListing extends AppCompatActivity {
             }
         });
 
-        deleteListingButton.setOnClickListener(new View.OnClickListener() {
+       /* deleteListingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
-        });
+        });*/
 
     }
 
