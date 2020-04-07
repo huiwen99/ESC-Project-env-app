@@ -107,6 +107,7 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
             drawableId.add(R.drawable.plywood);
             masterListings = new UserListings();
             filteredList = new UserListings();
+            //TODO: please remove hardcoded listings
             for(Integer rid:drawableId){
                 Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), rid);
                 String imageName = context.getResources().getResourceEntryName(rid);
