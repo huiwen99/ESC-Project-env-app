@@ -62,7 +62,7 @@ public class HomeFragmentTest {
 
     @Test
     public void testViewAndEditListing(){
-        pauseTestFor(3);
+        pauseTestFor(5);
         onView(withId(R.id.userListingRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         pauseTestFor(1);
         onView(withId(R.id.editListingButton)).perform(click());
@@ -80,7 +80,7 @@ public class HomeFragmentTest {
         onView(withId(R.id.editDescription)).perform(replaceText("editedDescription"));
         pauseTestFor(1);
         onView(withId(R.id.editListing)).perform(click());
-        pauseTestFor(2);
+        pauseTestFor(5);
 
         onView(withId(R.id.listingTitle)).check(matches(withText("editedTitle")));
         onView(withId(R.id.listingPrice)).check(matches(withText("$1.00")));
@@ -91,7 +91,7 @@ public class HomeFragmentTest {
 
     @Test
     public void logOutTest(){
-        pauseTestFor(1);
+        pauseTestFor(5);
         onView(withId(R.id.sign_out_button)).perform(click());
         pauseTestFor(2);
         try{

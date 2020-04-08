@@ -24,6 +24,11 @@ public class UnitTest {
     }
 
     @Test
+    public void priceTextToNumStringPassTest3(){
+        String result = Listing.priceTextToNumString("$0.342985");
+        assertEquals("0.342985", result );
+    }
+    @Test
     public void numInputToPriceTextPassTest1() {
         String result = Listing.numInputToPriceText("0.3234983249");
         assertEquals("$0.33", result);

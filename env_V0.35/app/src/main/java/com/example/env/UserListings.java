@@ -57,4 +57,12 @@ public class UserListings {
     public String getUser(int i){
         return userListings.get(i).getUser();
     }
+    public void addListing(int position, Listing item) {
+        userListings.add(position, item);
+    }
+
+    public Listing get(int adapterPosition) {
+        Listing listing = userListings.get(adapterPosition);
+        return listing;
+    }
 }

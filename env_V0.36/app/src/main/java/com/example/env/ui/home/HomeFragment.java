@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,12 +20,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.env.AddListing;
-import com.example.env.Listing;
 import com.example.env.ListingAdapter;
 import com.example.env.ListingForDatabase;
 import com.example.env.MainActivity;
@@ -37,7 +33,6 @@ import com.example.env.UserListings;
 import com.example.env.Utils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -58,8 +53,6 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
     ListingAdapter listingAdapter;
     Button addListingButton;
     UserListings userListings;
-    private LinearLayout linearLayout;
-
 
     final int REQUEST_CODE_IMAGE = 1000;
 
@@ -80,7 +73,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(this, new Observer<String>() {
+        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
@@ -93,7 +86,6 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
 
         addListingButton = root.findViewById(R.id.addListingButton);
         recyclerView = root.findViewById(R.id.userListingRecyclerView);
-        linearLayout = root.findViewById(R.id.linearLayout);
 
         //adding to userListings
         ArrayList<Integer> drawableId = new ArrayList<Integer>();
@@ -104,16 +96,16 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
 
         //TODO: display this info
 
-        for(Integer rid:drawableId){
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), rid);
-            String imageName = context.getResources().getResourceEntryName(rid);
-            String price = "5";
-            String category = "General";
-            String description = "test";
-            String user = "env@gmail.com";
-            userListings.addListing(imageName,price,bitmap, category, description, user);
-            Log.d("HOME_TAG", String.valueOf(userListings.userListings));
-        }
+//        for(Integer rid:drawableId){
+//            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), rid);
+//            String imageName = context.getResources().getResourceEntryName(rid);
+//            String price = "5";
+//            String category = "General";
+//            String description = "test";
+//            String user = "env@gmail.com";
+//            userListings.addListing(imageName,price,bitmap, category, description, user);
+//            Log.d("HOME_TAG", String.valueOf(userListings.userListings));
+//        }
 
         //collect listings from firebase
         ValueEventListener postListener = new ValueEventListener() {
@@ -143,10 +135,16 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
                             String description = itemHashmap.get("description").toString();
                             String user = itemHashmap.get("user").toString();
 
-                            if (true) {
+                            Log.d("HOME_TAG", currentUser);
+                            Log.d("HOME_TAG", user);
+                            Log.d("HOME_TAG", String.valueOf(currentUser.equals(user)));
+
+
+                            if (user.equals(currentUser)) {
                                 userListings.addListing(imageName, price, imgBitmap, category, description, user);
                                 Log.d("HOME_TAG", "added item");
                                 //Log.d("HOME_TAG", String.valueOf(userListings.userListings));
+                                refreshRecyclerView();
                             }
 
 
@@ -157,7 +155,9 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
                             Log.d("HOME_TAG", String.valueOf(exception));
                         }
                     });
+
                 }
+                refreshRecyclerView();
             }
 
             @Override
@@ -171,14 +171,15 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
 
 
         //initializing recyclerview
-        listingAdapter = new ListingAdapter(context, userListings, this);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView); //added this line for for the swipe gesture
-        recyclerView.setAdapter(listingAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        listingAdapter = new ListingAdapter(context, userListings, this);
+//        recyclerView.setAdapter(listingAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
 
         addListingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getContext(), "SIZE IS "+userListings.userListings.size(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), AddListing.class);
                 startActivityForResult(intent, REQUEST_CODE_IMAGE);
             }
@@ -230,36 +231,14 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         startActivity(intent);
     }
 
-    //swipe to delete listing method
-    ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+    private void refreshRecyclerView(){
+        ViewGroup container = (ViewGroup) getView().getParent();
+        Context context = container.getContext();
+        listingAdapter = new ListingAdapter(context, userListings, this);
+        recyclerView.setAdapter(listingAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        listingAdapter.notifyDataSetChanged();
+    }
 
-        @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-            return false;
-        }
 
-        @Override
-        public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
-            String name = userListings.getTitle(viewHolder.getAdapterPosition());
-            //listingAdapter.notifyDataSetChanged();
-
-            //backup of removed item for undo purpose
-            final Listing deletedItem = userListings.get(viewHolder.getAdapterPosition());
-            final int position = viewHolder.getAdapterPosition();
-
-            //removing item from recyclerview
-            listingAdapter.remove(viewHolder.getAdapterPosition());
-
-            Snackbar snackbar = Snackbar.make(linearLayout, name + " Listing Removed!", Snackbar.LENGTH_LONG);
-            snackbar.setAction("UNDO", new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listingAdapter.restore(deletedItem, position);
-                    recyclerView.scrollToPosition(position);
-                }
-            });
-            snackbar.setActionTextColor(Color.RED);
-            snackbar.show();
-        }
-    };
 }

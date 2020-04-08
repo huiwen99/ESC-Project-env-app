@@ -65,9 +65,12 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ListingV
         }
 
     }
-
-    //search function: by name
-    //private ArrayList<Integer> listOfListings;
-    private List<Integer> listofListings;
-    private List<Integer> listOfListingsFull;
+    public void remove(int position) {
+        userListings.removeListing(position);
+        notifyItemRemoved(position);
+    }
+    public void restore(Listing item, int position) {
+        userListings.addListing(position, item);
+        notifyItemInserted(position);
+    }
 }

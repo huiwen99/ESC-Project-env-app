@@ -155,6 +155,7 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        //show search bar
         inflater.inflate(R.menu.search_menu, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) searchItem.getActionView();
