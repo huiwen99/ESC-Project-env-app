@@ -11,10 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.dashboard.ViewOtherListing"
+        <activity android:name=".LoginActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity
+            android:name=".ui.dashboard.ViewOtherListing"
             android:label="@string/title_activity_view_other_listing"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".ui.home.EditListing"
             android:label="@string/title_activity_edit_listing"
@@ -33,16 +35,21 @@
                 android:value="com.example.env.MainActivity" />
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".RegisterActivity"/>
+        <activity android:name=".RegisterActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
-            android:name=".LoginActivity"
+            android:name=".StartScreen"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

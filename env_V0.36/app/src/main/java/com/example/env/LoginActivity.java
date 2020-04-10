@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private TextInputEditText mEmail;
     private TextInputEditText mPassword;
+    private TextView tvRegister;
 
     private FirebaseAuth mAuth;
 
@@ -32,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
         //Toolbar set
@@ -48,8 +52,9 @@ public class LoginActivity extends AppCompatActivity {
 
         mEmail = (TextInputEditText) findViewById(R.id.login_email);
         mPassword = (TextInputEditText) findViewById(R.id.login_password);
+        tvRegister = (TextView) findViewById(R.id.tvRegister);
         Button mlogin_btn = (Button) findViewById(R.id.login_btn);
-        Button mregister_btn = (Button) findViewById(R.id.login_to_create);
+        //Button mregister_btn = (Button) findViewById(R.id.login_to_create);
 
         mlogin_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        mregister_btn.setOnClickListener(new View.OnClickListener() {
+        tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent mainIntent = new Intent(LoginActivity.this, RegisterActivity.class);
