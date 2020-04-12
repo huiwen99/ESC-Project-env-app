@@ -98,6 +98,14 @@
         android:textSize="18sp"
         />
 
+    <Button
+        android:id="@+id/bookmarkButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="120dp"
+        android:layout_marginBottom="20dp"
+        android:text="Bookmark" />
 
     <Button
         android:id="@+id/chatButton"

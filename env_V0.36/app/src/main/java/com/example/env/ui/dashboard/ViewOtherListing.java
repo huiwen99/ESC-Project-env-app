@@ -25,6 +25,7 @@ public class ViewOtherListing extends AppCompatActivity {
     TextView otherListingDescriptionText;
     TextView otherListingDescription;
     Button chatButton;
+    Button bookmarkButton;
     TextView otherListingEmail;
 
     @Override
@@ -42,6 +43,7 @@ public class ViewOtherListing extends AppCompatActivity {
         otherListingDescriptionText = findViewById(R.id.otherListingDescriptionText);
         otherListingDescription = findViewById(R.id.otherListingDescription);
         chatButton = findViewById(R.id.chatButton);
+        bookmarkButton = findViewById(R.id.bookmarkButton);
         otherListingEmail = findViewById(R.id.otherListingEmail);
 
 
@@ -71,6 +73,14 @@ public class ViewOtherListing extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
+            }
+        });
+
+        bookmarkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //push listing to firebase bookmarks listing for that user
+
             }
         });
 

@@ -99,30 +99,30 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
 
         otherListingRecyclerView = root.findViewById(R.id.otherListingRecyclerView);
 
-        ArrayList<Integer> drawableId = new ArrayList<Integer>();
-            drawableId.add(R.drawable.fan);
-            drawableId.add(R.drawable.peltierchip);
-            drawableId.add(R.drawable.threedprinter);
-            drawableId.add(R.drawable.battery);
-            drawableId.add(R.drawable.plywood);
+//        ArrayList<Integer> drawableId = new ArrayList<Integer>();
+//            drawableId.add(R.drawable.fan);
+//            drawableId.add(R.drawable.peltierchip);
+//            drawableId.add(R.drawable.threedprinter);
+//            drawableId.add(R.drawable.battery);
+//            drawableId.add(R.drawable.plywood);
             masterListings = new UserListings();
             filteredList = new UserListings();
             //TODO: please remove hardcoded listings
-            for(Integer rid:drawableId){
-                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), rid);
-                String imageName = context.getResources().getResourceEntryName(rid);
-                String price = "5";
-                String category = "General";
-                if(rid%2==0){
-                    category = "Microelectronics";
-                }else if(rid%2==1){
-                    category = "Robotic Mechanical";
-                }
-                String description = "test";
-                String user = "env@gmail.com";
-            masterListings.addListing(imageName,price,bitmap, category, description, user);
-            filteredList.addListing(imageName,price,bitmap, category, description, user);
-        }
+//            for(Integer rid:drawableId){
+//                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), rid);
+//                String imageName = context.getResources().getResourceEntryName(rid);
+//                String price = "5";
+//                String category = "General";
+//                if(rid%2==0){
+//                    category = "Microelectronics";
+//                }else if(rid%2==1){
+//                    category = "Robotic Mechanical";
+//                }
+//                String description = "test";
+//                String user = "env@gmail.com";
+//            masterListings.addListing(imageName,price,bitmap, category, description, user);
+//            filteredList.addListing(imageName,price,bitmap, category, description, user);
+//        }
 
         //collect listings from firebase
         ValueEventListener postListener = new ValueEventListener() {
