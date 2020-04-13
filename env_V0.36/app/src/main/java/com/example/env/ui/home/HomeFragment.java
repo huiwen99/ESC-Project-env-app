@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,7 +58,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
 
     RecyclerView recyclerView;
     ListingAdapter listingAdapter;
-    Button addListingButton;
+    ImageButton addListingButton;
     UserListings userListings;
     private LinearLayout linearLayout;
 
@@ -95,6 +97,8 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         addListingButton = root.findViewById(R.id.addListingButton);
         recyclerView = root.findViewById(R.id.userListingRecyclerView);
         linearLayout = root.findViewById(R.id.linearLayout);
+
+
 
         //adding to userListings
         ArrayList<Integer> drawableId = new ArrayList<Integer>();
@@ -246,7 +250,11 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         listingAdapter = new ListingAdapter(context, userListings, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView); //added this line for for the swipe gesture
         recyclerView.setAdapter(listingAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context,2);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         listingAdapter.notifyDataSetChanged();
     }
     //swipe to delete listing method
