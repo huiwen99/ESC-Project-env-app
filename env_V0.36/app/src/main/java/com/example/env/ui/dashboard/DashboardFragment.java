@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -186,7 +187,8 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
 
         listingAdapter = new ListingAdapter(context, filteredList, this);
         otherListingRecyclerView.setAdapter(listingAdapter);
-        otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context,2);
+        otherListingRecyclerView.setLayoutManager(gridLayoutManager);
 
 
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -319,7 +321,10 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
         Context context = container.getContext();
         listingAdapter = new ListingAdapter(context, listings, this);
         otherListingRecyclerView.setAdapter(listingAdapter);
-        otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context,2);
+        otherListingRecyclerView.setLayoutManager(gridLayoutManager);
+//        otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         listingAdapter.notifyDataSetChanged();
     }
 

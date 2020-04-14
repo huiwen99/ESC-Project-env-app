@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -80,17 +81,9 @@ public class NotificationsFragment extends Fragment implements RecyclerViewItemL
 
         listingAdapter = new ListingAdapter(context, bookmarkedListings, this);
         bookmarksRecyclerView.setAdapter(listingAdapter);
-        bookmarksRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context,2);
+        bookmarksRecyclerView.setLayoutManager(gridLayoutManager);
         return root;
-    }
-
-    private void refreshRecyclerView(UserListings listings){
-        ViewGroup container = (ViewGroup) getView().getParent();
-        Context context = container.getContext();
-        listingAdapter = new ListingAdapter(context, listings, this);
-        bookmarksRecyclerView.setAdapter(listingAdapter);
-        bookmarksRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        listingAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -113,5 +106,17 @@ public class NotificationsFragment extends Fragment implements RecyclerViewItemL
         intent.putExtras(extras);
 
         startActivity(intent);
+    }
+
+    private void refreshRecyclerView(UserListings listings){
+        ViewGroup container = (ViewGroup) getView().getParent();
+        Context context = container.getContext();
+        listingAdapter = new ListingAdapter(context, listings, this);
+        bookmarksRecyclerView.setAdapter(listingAdapter);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context,2);
+        bookmarksRecyclerView.setLayoutManager(gridLayoutManager);
+//        otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        listingAdapter.notifyDataSetChanged();
     }
 }

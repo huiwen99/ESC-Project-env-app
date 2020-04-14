@@ -52,6 +52,9 @@ public class Listing {
 
     public static String numInputToPriceText(String rawPrice){
         BigDecimal p = new BigDecimal(rawPrice);
+        if(p.compareTo(new BigDecimal("9999.99"))>0){
+            p=new BigDecimal("9999.99");
+        }
         p = p.setScale(2, RoundingMode.CEILING);
         String price = "$"+p.toString();  //Note: might want to change this to an int later for calculation and shit - Dan
         return price;

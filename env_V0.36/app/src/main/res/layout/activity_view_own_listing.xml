@@ -25,92 +25,138 @@
 
 
 
-    <ImageView
-        android:id="@+id/listingImage"
-        android:src="@drawable/addpics"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="80dp"
-        android:background="#7000"
-        android:padding="1dp"/>
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_marginBottom="60dp">
 
-    <TextView
-        android:id="@+id/listingTitle"
-        android:text="Default Title"
-        android:textStyle="bold"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <ImageView
+                android:id="@+id/listingImage"
+                android:src="@drawable/addpics"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="80dp"
+                android:background="#72667860"
+                android:padding="1dp"/>
+            <TextView
+                android:id="@+id/listingTitle"
+                android:text="Default Title"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/listingImage"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="25sp"
+
+                />
+
+            <TextView
+                android:id="@+id/listingPrice"
+                android:text="Default Price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/listingTitle"
+                android:ems="10"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="20sp"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/ic_price"
+                android:drawableTint="@color/colorDarkGreen"
+                />
+
+            <TextView
+                android:id="@+id/listingCategory"
+                android:text="Default Category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/listingPrice"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="20sp"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/ic_category"
+                android:drawableTint="@color/colorDarkGreen"/>
+
+            <TextView
+                android:id="@+id/listingDescriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/listingCategory"
+                android:text="Description:"
+                android:textStyle="italic"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="20sp"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/ic_description"
+                android:drawableTint="@color/colorDarkGreen"
+                />
+
+            <TextView
+                android:id="@+id/listingDescription"
+                android:text="Default Description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/listingDescriptionText"
+                android:ems="10"
+                android:gravity="start|top"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="18sp"
+                />
+
+        </RelativeLayout>
+   </ScrollView>
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="290dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="25sp"
-        />
-
-    <TextView
-        android:id="@+id/listingPrice"
-        android:text="Default Price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginTop="330dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="20sp"/>
-
-    <TextView
-        android:id="@+id/listingCategory"
-        android:text="Default Category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="330dp"
-
-        android:layout_marginRight="20dp"
-        android:layout_gravity="right"
-        android:textSize="20sp"/>
-
-    <TextView
-        android:id="@+id/listingDescriptionText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Description:"
-        android:textStyle="italic"
-        android:layout_marginTop="360dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="20sp"
-        />
-
-    <TextView
-        android:id="@+id/listingDescription"
-        android:text="Default Description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="start|top"
-        android:layout_marginTop="388dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:textSize="18sp"
-        />
-
-
-    <Button
-        android:id="@+id/editListingButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit Listing"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
         android:layout_gravity="bottom"
-        />
-    <Button
-        android:id="@+id/deleteListingButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete Listing"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_gravity="bottom|right"
-        />
+        android:background="@color/colorLightGreen">
+
+        <ImageButton
+            android:id="@+id/deleteListingButton"
+            android:src="@drawable/ic_delete"
+            android:background="@drawable/circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete Listing"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_alignParentRight="true"
+            />
+        <ImageButton
+            android:id="@+id/editListingButton"
+            android:src="@drawable/ic_edit"
+            android:background="@drawable/circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Listing"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toLeftOf="@+id/deleteListingButton"
+            />
+
+    </RelativeLayout>
+
+
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
