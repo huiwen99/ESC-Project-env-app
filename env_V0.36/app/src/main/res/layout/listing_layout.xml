@@ -36,11 +36,12 @@
             android:textColor="@color/colorDarkGreen"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/listing_image"
-            android:textSize="15sp"
+            android:textSize="17sp"
             android:paddingTop="2dp"
             android:paddingHorizontal="5dp"
             android:ellipsize="end"
             android:maxLines="1"
+            android:fontFamily="@font/corbelb"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -50,12 +51,12 @@
             android:textColor="@color/colorDarkGreen"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/listing_title"
-            android:textSize="15sp"
-            android:paddingTop="1dp"
-            android:paddingBottom="10dp"
+            android:textSize="17sp"
+            android:paddingBottom="5dp"
             android:paddingHorizontal="5dp"
             android:ellipsize="end"
             android:maxLines="1"
+            android:fontFamily="@font/corbel"
             />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
