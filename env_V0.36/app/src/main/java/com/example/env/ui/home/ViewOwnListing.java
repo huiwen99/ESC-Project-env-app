@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,8 +38,8 @@ public class ViewOwnListing extends AppCompatActivity {
     TextView listingPrice;
     TextView listingCategory;
     TextView listingDescription;
-    Button editListingButton;
-    Button deleteListingButton;
+    ImageButton editListingButton;
+    ImageButton deleteListingButton;
     //TextView listingEmail;
 
     String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -77,6 +78,7 @@ public class ViewOwnListing extends AppCompatActivity {
         listingCategory.setText(category);
         final String description = extras.getString("DESCRIPTION");
         listingDescription.setText(description);
+        final long id = extras.getLong("ID");
         byte[] byteArray = extras.getByteArray("IMAGE");
         Bitmap image = Utils.byteArrayToBitmap(byteArray);
         listingImage.setImageBitmap(image);
@@ -95,6 +97,7 @@ public class ViewOwnListing extends AppCompatActivity {
             }
         });
 
+        //can delete using id maybe @dan
         deleteListingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,9 +136,11 @@ public class ViewOwnListing extends AppCompatActivity {
                     }
                 };
                 mDatabase.child("testProducts").addListenerForSingleValueEvent(postListener);
-
-
+                Toast.makeText(ViewOwnListing.this, "Listing deleted", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ViewOwnListing.this,MainActivity.class);
+                startActivity(intent);
             }
+
         });
 
     }

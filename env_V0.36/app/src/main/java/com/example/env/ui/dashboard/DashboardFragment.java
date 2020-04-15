@@ -25,6 +25,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -82,13 +83,13 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
         dashboardViewModel =
                 ViewModelProviders.of(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+//        final TextView textView = root.findViewById(R.id.text_dashboard);
+//        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                textView.setText(s);
+//            }
+//        });
 
         //setHasOptionsMenu(true);
 
@@ -99,30 +100,30 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
 
         otherListingRecyclerView = root.findViewById(R.id.otherListingRecyclerView);
 
-        ArrayList<Integer> drawableId = new ArrayList<Integer>();
-            drawableId.add(R.drawable.fan);
-            drawableId.add(R.drawable.peltierchip);
-            drawableId.add(R.drawable.threedprinter);
-            drawableId.add(R.drawable.battery);
-            drawableId.add(R.drawable.plywood);
+//        ArrayList<Integer> drawableId = new ArrayList<Integer>();
+//            drawableId.add(R.drawable.fan);
+//            drawableId.add(R.drawable.peltierchip);
+//            drawableId.add(R.drawable.threedprinter);
+//            drawableId.add(R.drawable.battery);
+//            drawableId.add(R.drawable.plywood);
             masterListings = new UserListings();
             filteredList = new UserListings();
             //TODO: please remove hardcoded listings
-            for(Integer rid:drawableId){
-                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), rid);
-                String imageName = context.getResources().getResourceEntryName(rid);
-                String price = "5";
-                String category = "General";
-                if(rid%2==0){
-                    category = "Microelectronics";
-                }else if(rid%2==1){
-                    category = "Robotic Mechanical";
-                }
-                String description = "test";
-                String user = "env@gmail.com";
-            masterListings.addListing(imageName,price,bitmap, category, description, user);
-            filteredList.addListing(imageName,price,bitmap, category, description, user);
-        }
+//            for(Integer rid:drawableId){
+//                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), rid);
+//                String imageName = context.getResources().getResourceEntryName(rid);
+//                String price = "5";
+//                String category = "General";
+//                if(rid%2==0){
+//                    category = "Microelectronics";
+//                }else if(rid%2==1){
+//                    category = "Robotic Mechanical";
+//                }
+//                String description = "test";
+//                String user = "env@gmail.com";
+//            masterListings.addListing(imageName,price,bitmap, category, description, user);
+//            filteredList.addListing(imageName,price,bitmap, category, description, user);
+//        }
 
         //collect listings from firebase
         ValueEventListener postListener = new ValueEventListener() {
@@ -152,10 +153,13 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
                             String description = itemHashmap.get("description").toString();
                             String user = itemHashmap.get("user").toString();
 
+                            //to be replaced
+                            long id = 0;
 
 
-                            masterListings.addListing(imageName, price, imgBitmap, category, description, user);
-                            filteredList.addListing(imageName, price, imgBitmap, category, description, user);
+
+                            masterListings.addListing(imageName, price, imgBitmap, category, description, user,0);
+                            filteredList.addListing(imageName, price, imgBitmap, category, description, user,0);
 
                             Log.d("DASHBOARD_TAG", "added item");
                             //Log.d("HOME_TAG", String.valueOf(userListings.userListings));
@@ -186,7 +190,8 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
 
         listingAdapter = new ListingAdapter(context, filteredList, this);
         otherListingRecyclerView.setAdapter(listingAdapter);
-        otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context,2);
+        otherListingRecyclerView.setLayoutManager(gridLayoutManager);
 
 
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -224,6 +229,7 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
         extras.putString("CATEGORY",filteredList.getCategory(position));
         extras.putString("DESCRIPTION",filteredList.getDescription(position));
         extras.putString("USER",filteredList.getUser(position));
+        extras.putLong("ID",filteredList.getId(position));
 
         Bitmap image = filteredList.getImage(position);
         byte[] byteArray = Utils.bitmapToByteArray(image);
@@ -319,7 +325,10 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
         Context context = container.getContext();
         listingAdapter = new ListingAdapter(context, listings, this);
         otherListingRecyclerView.setAdapter(listingAdapter);
-        otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context,2);
+        otherListingRecyclerView.setLayoutManager(gridLayoutManager);
+//        otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         listingAdapter.notifyDataSetChanged();
     }
 

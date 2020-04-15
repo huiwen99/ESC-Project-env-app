@@ -1,35 +1,33 @@
 package com.example.env.ui.home;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+<<<<<<< HEAD
 import android.widget.Button;
+=======
+>>>>>>> dbda1cea358767d38e1e3db4eb400f56695e7b2e
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.env.AddListing;
 import com.example.env.Listing;
 import com.example.env.ListingAdapter;
-import com.example.env.ListingForDatabase;
 import com.example.env.MainActivity;
 import com.example.env.R;
 import com.example.env.RecyclerViewItemListener;
@@ -56,8 +54,9 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
 
     RecyclerView recyclerView;
     ListingAdapter listingAdapter;
-    Button addListingButton;
+    ImageButton addListingButton;
     UserListings userListings;
+    TextView username;
     private LinearLayout linearLayout;
 
     final int REQUEST_CODE_IMAGE = 1000;
@@ -78,21 +77,26 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+//        final TextView textView = root.findViewById(R.id.text_home);
+//        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                textView.setText(s);
+//            }
+//        });
+
+
 
         ((MainActivity) getActivity()).showButton();
 
         Context context = container.getContext();
 
         addListingButton = root.findViewById(R.id.addListingButton);
+        username = root.findViewById(R.id.username);
         recyclerView = root.findViewById(R.id.userListingRecyclerView);
         linearLayout = root.findViewById(R.id.linearLayout);
+
+
 
         //adding to userListings
         ArrayList<Integer> drawableId = new ArrayList<Integer>();
@@ -142,13 +146,16 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
                             String description = itemHashmap.get("description").toString();
                             String user = itemHashmap.get("user").toString();
 
+                            //to change this to actual listing id
+                            long id = 1010;
+
                             Log.d("HOME_TAG", currentUser);
                             Log.d("HOME_TAG", user);
                             Log.d("HOME_TAG", String.valueOf(currentUser.equals(user)));
 
 
                             if (user.equals(currentUser)) {
-                                userListings.addListing(imageName, price, imgBitmap, category, description, user);
+                                userListings.addListing(imageName, price, imgBitmap, category, description, user, id);
                                 Log.d("HOME_TAG", "added item");
                                 //Log.d("HOME_TAG", String.valueOf(userListings.userListings));
                                 refreshRecyclerView();
@@ -186,9 +193,21 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         addListingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "SIZE IS "+userListings.userListings.size(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), AddListing.class);
-                startActivityForResult(intent, REQUEST_CODE_IMAGE);
+//                startActivityForResult(intent, REQUEST_CODE_IMAGE);
+                startActivity(intent);
+            }
+        });
+
+        username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "clicked", Toast.LENGTH_SHORT).show();
+<<<<<<< HEAD
+=======
+//                Intent intent = new Intent(getActivity(), AdminPage.class);
+//                startActivity(intent);
+>>>>>>> dbda1cea358767d38e1e3db4eb400f56695e7b2e
             }
         });
 
@@ -196,25 +215,28 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         return root;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == REQUEST_CODE_IMAGE && resultCode== Activity.RESULT_OK){
-            String title = data.getStringExtra(AddListing.KEY_TITLE);
-            String price = data.getStringExtra(AddListing.KEY_PRICE);
-            String category = data.getStringExtra(AddListing.KEY_CATEGORY);
-            String description = data.getStringExtra(AddListing.KEY_DESCRIPTION);
-            String user = data.getStringExtra(AddListing.KEY_USER);
-
-            byte[] byteArray = data.getByteArrayExtra(AddListing.KEY_IMAGE);
-            Bitmap image = Utils.byteArrayToBitmap(byteArray);
-
-            userListings.addListing(title,price,image,category,description,user);
-            Log.d("HOME_TAG", String.valueOf(userListings.userListings));
-            listingAdapter.notifyDataSetChanged();
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if(requestCode == REQUEST_CODE_IMAGE && resultCode== Activity.RESULT_OK){
+//            String title = data.getStringExtra(AddListing.KEY_TITLE);
+//            String price = data.getStringExtra(AddListing.KEY_PRICE);
+//            String category = data.getStringExtra(AddListing.KEY_CATEGORY);
+//            String description = data.getStringExtra(AddListing.KEY_DESCRIPTION);
+//            String user = data.getStringExtra(AddListing.KEY_USER);
+//
+//            //replace this -> get current time or something?? lmk if you wanna pass id through AddListing -hw
+//            long id = 0;
+//
+//            byte[] byteArray = data.getByteArrayExtra(AddListing.KEY_IMAGE);
+//            Bitmap image = Utils.byteArrayToBitmap(byteArray);
+//
+//            userListings.addListing(title,price,image,category,description,user,id);
+//            Log.d("HOME_TAG", String.valueOf(userListings.userListings));
+//            listingAdapter.notifyDataSetChanged();
+//        }
+//    }
 
     @Override
     public void onItemClicked(int position) {
@@ -226,6 +248,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         extras.putString("PRICE",userListings.getPrice(position));
         extras.putString("CATEGORY",userListings.getCategory(position));
         extras.putString("DESCRIPTION",userListings.getDescription(position));
+        extras.putLong("ID",userListings.getId(position));
 
 
         Bitmap image = userListings.getImage(position);
@@ -244,7 +267,11 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         listingAdapter = new ListingAdapter(context, userListings, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView); //added this line for for the swipe gesture
         recyclerView.setAdapter(listingAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context,2);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         listingAdapter.notifyDataSetChanged();
     }
     //swipe to delete listing method

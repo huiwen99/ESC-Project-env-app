@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,7 +25,8 @@ public class ViewOtherListing extends AppCompatActivity {
     TextView otherListingCategory;
     TextView otherListingDescriptionText;
     TextView otherListingDescription;
-    Button chatButton;
+    ImageButton chatButton;
+    ImageButton bookmarkButton;
     TextView otherListingEmail;
 
     @Override
@@ -42,6 +44,7 @@ public class ViewOtherListing extends AppCompatActivity {
         otherListingDescriptionText = findViewById(R.id.otherListingDescriptionText);
         otherListingDescription = findViewById(R.id.otherListingDescription);
         chatButton = findViewById(R.id.chatButton);
+        bookmarkButton = findViewById(R.id.bookmarkButton);
         otherListingEmail = findViewById(R.id.otherListingEmail);
 
 
@@ -60,6 +63,7 @@ public class ViewOtherListing extends AppCompatActivity {
         otherListingImage.setImageBitmap(image);
         String user = extras.getString("USER");
         otherListingEmail.setText(user);
+        final long id = extras.getLong("ID");
 
         setTitle(title+" by "+user);
 
@@ -71,6 +75,14 @@ public class ViewOtherListing extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
+            }
+        });
+
+        bookmarkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //push listing to firebase bookmarks listing for that user
+
             }
         });
 

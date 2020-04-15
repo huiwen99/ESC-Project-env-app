@@ -15,8 +15,8 @@ public class UserListings {
         userListings = new ArrayList<>();
     }
 
-    public void addListing(String title, String price, Bitmap image, String category,String description, String user){
-        Listing listing = new Listing(title, price, image, category, description, user);
+    public void addListing(String title, String price, Bitmap image, String category,String description, String user, long id){
+        Listing listing = new Listing(title, price, image, category, description, user, id);
         userListings.add(listing);
     }
     public void addListing(Listing listing){
@@ -56,6 +56,9 @@ public class UserListings {
     }
     public String getUser(int i){
         return userListings.get(i).getUser();
+    }
+    public long getId(int i){
+        return userListings.get(i).getId();
     }
     public void addListing(int position, Listing item) {
         userListings.add(position, item);

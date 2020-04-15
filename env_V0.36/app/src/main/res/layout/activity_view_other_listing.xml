@@ -22,91 +22,152 @@
 
     <include layout="@layout/content_view_other_listing" />
 
-    <ImageView
-        android:id="@+id/otherListingImage"
-        android:src="@drawable/addpics"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="80dp"
-        android:background="#7000"
-        android:padding="1dp"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp">
 
-    <TextView
-        android:id="@+id/otherListingTitle"
-        android:text="Default Title"
-        android:textStyle="bold"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <ImageView
+                android:id="@+id/otherListingImage"
+                android:src="@drawable/addpics"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="80dp"
+                android:background="#72667860"
+                android:padding="1dp"/>
+
+            <TextView
+                android:id="@+id/otherListingTitle"
+                android:text="Default Title"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/otherListingImage"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="25sp"
+                android:fontFamily="@font/corbel"
+                />
+
+            <TextView
+                android:id="@+id/otherListingEmail"
+                android:text="Other User Email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/otherListingTitle"
+                android:ems="10"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="20sp"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/ic_user"
+                android:drawableTint="@color/colorDarkGreen"
+                android:fontFamily="@font/corbel"
+                android:maxLines="1"
+                />
+
+            <TextView
+                android:id="@+id/otherListingPrice"
+                android:text="Default Price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/otherListingEmail"
+                android:ems="10"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="24sp"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/ic_price"
+                android:drawableTint="@color/colorDarkGreen"
+                android:fontFamily="@font/corbel"/>
+
+            <TextView
+                android:id="@+id/otherListingCategory"
+                android:text="Default Category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/otherListingPrice"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="20sp"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/ic_category"
+                android:drawableTint="@color/colorDarkGreen"
+                android:fontFamily="@font/corbel"/>
+
+            <TextView
+                android:id="@+id/otherListingDescriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/otherListingCategory"
+                android:text="Description:"
+                android:textStyle="italic"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="20sp"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/ic_description"
+                android:drawableTint="@color/colorDarkGreen"
+                android:fontFamily="@font/corbel"
+                />
+
+            <TextView
+                android:id="@+id/otherListingDescription"
+                android:text="Default Description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/otherListingDescriptionText"
+                android:ems="10"
+                android:gravity="start|top"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="18sp"
+                android:fontFamily="@font/corbel"
+                />
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="290dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="25sp"
-        />
+        android:layout_gravity="bottom"
+        android:background="@color/colorLightGreen">
 
-    <TextView
-        android:id="@+id/otherListingPrice"
-        android:text="Default Price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginTop="330dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="20sp"/>
+        <ImageButton
+            android:id="@+id/chatButton"
+            android:src="@drawable/ic_chat"
+            android:background="@drawable/circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_alignParentRight="true"/>
 
-    <TextView
-        android:id="@+id/otherListingCategory"
-        android:text="Default Category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="330dp"
-        android:layout_marginRight="20dp"
-        android:layout_gravity="right"
-        android:textSize="20sp"/>
+        <ImageButton
+            android:id="@+id/bookmarkButton"
+            android:src="@drawable/ic_bookmark"
+            android:background="@drawable/circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toLeftOf="@+id/chatButton"/>
 
-    <TextView
-        android:id="@+id/otherListingDescriptionText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Description:"
-        android:textStyle="italic"
-        android:layout_marginTop="360dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="20sp"
-        />
-
-    <TextView
-        android:id="@+id/otherListingDescription"
-        android:text="Default Description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:gravity="start|top"
-        android:layout_marginTop="388dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:textSize="18sp"
-        />
-    <TextView
-        android:id="@+id/otherListingEmail"
-        android:text="Other User Email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_gravity="bottom|left"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp"
-        android:textSize="18sp"
-        />
-
-
-    <Button
-        android:id="@+id/chatButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="Chat" />
-
+    </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

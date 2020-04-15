@@ -13,14 +13,16 @@ public class Listing {
     private String category;
     private String description;
     private String user;
+    private long id;
 
-    public Listing(String title, String price, Bitmap image, String category,String description, String user){
+    public Listing(String title, String price, Bitmap image, String category,String description, String user, long id){
         this.title = title;
         this.price = numInputToPriceText(price);
         this.image = image;
         this.category = category;
         this.description = description;
         this.user = user;
+        this.id = id;
     }
 
     public void editListingDetails(String title, String price, Bitmap image, String category,String description){
@@ -49,9 +51,15 @@ public class Listing {
     public String getUser(){
         return user;
     }
+    public long getId() {
+        return id;
+    }
 
     public static String numInputToPriceText(String rawPrice){
         BigDecimal p = new BigDecimal(rawPrice);
+        if(p.compareTo(new BigDecimal("9999.99"))>0){
+            p=new BigDecimal("9999.99");
+        }
         p = p.setScale(2, RoundingMode.CEILING);
         String price = "$"+p.toString();  //Note: might want to change this to an int later for calculation and shit - Dan
         return price;
