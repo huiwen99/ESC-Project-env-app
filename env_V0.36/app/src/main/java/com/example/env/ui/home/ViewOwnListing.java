@@ -78,6 +78,7 @@ public class ViewOwnListing extends AppCompatActivity {
         listingCategory.setText(category);
         final String description = extras.getString("DESCRIPTION");
         listingDescription.setText(description);
+        final long id = extras.getLong("ID");
         byte[] byteArray = extras.getByteArray("IMAGE");
         Bitmap image = Utils.byteArrayToBitmap(byteArray);
         listingImage.setImageBitmap(image);
@@ -96,6 +97,7 @@ public class ViewOwnListing extends AppCompatActivity {
             }
         });
 
+        //can delete using id maybe @dan
         deleteListingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

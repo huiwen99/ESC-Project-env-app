@@ -153,10 +153,13 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
                             String description = itemHashmap.get("description").toString();
                             String user = itemHashmap.get("user").toString();
 
+                            //to be replaced
+                            long id = 0;
 
 
-                            masterListings.addListing(imageName, price, imgBitmap, category, description, user);
-                            filteredList.addListing(imageName, price, imgBitmap, category, description, user);
+
+                            masterListings.addListing(imageName, price, imgBitmap, category, description, user,0);
+                            filteredList.addListing(imageName, price, imgBitmap, category, description, user,0);
 
                             Log.d("DASHBOARD_TAG", "added item");
                             //Log.d("HOME_TAG", String.valueOf(userListings.userListings));
@@ -226,6 +229,7 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
         extras.putString("CATEGORY",filteredList.getCategory(position));
         extras.putString("DESCRIPTION",filteredList.getDescription(position));
         extras.putString("USER",filteredList.getUser(position));
+        extras.putLong("ID",filteredList.getId(position));
 
         Bitmap image = filteredList.getImage(position);
         byte[] byteArray = Utils.bitmapToByteArray(image);

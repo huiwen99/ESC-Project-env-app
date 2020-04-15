@@ -148,13 +148,16 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
                             String description = itemHashmap.get("description").toString();
                             String user = itemHashmap.get("user").toString();
 
+                            //to change this to actual listing id
+                            long id = 1010;
+
                             Log.d("HOME_TAG", currentUser);
                             Log.d("HOME_TAG", user);
                             Log.d("HOME_TAG", String.valueOf(currentUser.equals(user)));
 
 
                             if (user.equals(currentUser)) {
-                                userListings.addListing(imageName, price, imgBitmap, category, description, user);
+                                userListings.addListing(imageName, price, imgBitmap, category, description, user, id);
                                 Log.d("HOME_TAG", "added item");
                                 //Log.d("HOME_TAG", String.valueOf(userListings.userListings));
                                 refreshRecyclerView();
@@ -212,10 +215,13 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
             String description = data.getStringExtra(AddListing.KEY_DESCRIPTION);
             String user = data.getStringExtra(AddListing.KEY_USER);
 
+            //replace this -> get current time or something?? lmk if you wanna pass id through AddListing -hw
+            long id = 0;
+
             byte[] byteArray = data.getByteArrayExtra(AddListing.KEY_IMAGE);
             Bitmap image = Utils.byteArrayToBitmap(byteArray);
 
-            userListings.addListing(title,price,image,category,description,user);
+            userListings.addListing(title,price,image,category,description,user,id);
             Log.d("HOME_TAG", String.valueOf(userListings.userListings));
             listingAdapter.notifyDataSetChanged();
         }
@@ -231,6 +237,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         extras.putString("PRICE",userListings.getPrice(position));
         extras.putString("CATEGORY",userListings.getCategory(position));
         extras.putString("DESCRIPTION",userListings.getDescription(position));
+        extras.putLong("ID",userListings.getId(position));
 
 
         Bitmap image = userListings.getImage(position);

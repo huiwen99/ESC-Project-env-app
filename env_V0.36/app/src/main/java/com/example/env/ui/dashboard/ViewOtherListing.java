@@ -63,6 +63,7 @@ public class ViewOtherListing extends AppCompatActivity {
         otherListingImage.setImageBitmap(image);
         String user = extras.getString("USER");
         otherListingEmail.setText(user);
+        final long id = extras.getLong("ID");
 
         setTitle(title+" by "+user);
 

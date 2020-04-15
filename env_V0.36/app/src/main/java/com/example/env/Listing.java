@@ -13,14 +13,16 @@ public class Listing {
     private String category;
     private String description;
     private String user;
+    private long id;
 
-    public Listing(String title, String price, Bitmap image, String category,String description, String user){
+    public Listing(String title, String price, Bitmap image, String category,String description, String user, long id){
         this.title = title;
         this.price = numInputToPriceText(price);
         this.image = image;
         this.category = category;
         this.description = description;
         this.user = user;
+        this.id = id;
     }
 
     public void editListingDetails(String title, String price, Bitmap image, String category,String description){
@@ -48,6 +50,9 @@ public class Listing {
     }
     public String getUser(){
         return user;
+    }
+    public long getId() {
+        return id;
     }
 
     public static String numInputToPriceText(String rawPrice){

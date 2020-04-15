@@ -88,6 +88,10 @@ public class EditListing extends AppCompatActivity {
         editPrice.setText(price);
         category = extras.getString("CATEGORY");
 
+        final long id = extras.getLong("ID");
+
+
+
         //NOTE: might need
         final String oldTitle = title;
 
@@ -219,6 +223,7 @@ public class EditListing extends AppCompatActivity {
 
     //select image from files
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_GET && resultCode == RESULT_OK) {
             Uri fullPhotoUri = data.getData();
             editImage.setImageURI(fullPhotoUri);

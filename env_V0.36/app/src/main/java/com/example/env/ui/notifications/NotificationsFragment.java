@@ -75,7 +75,8 @@ public class NotificationsFragment extends Fragment implements RecyclerViewItemL
                 }
                 String description = "test";
                 String user = "env@gmail.com";
-            bookmarkedListings.addListing(imageName,price,bitmap, category, description, user);
+                long id = 0;
+            bookmarkedListings.addListing(imageName,price,bitmap, category, description, user, id);
         }
 
 
