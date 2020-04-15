@@ -57,7 +57,7 @@
                     android:textSize="20sp"
                     android:fontFamily="@font/corbelb"
                     android:drawablePadding="5dp"
-                    android:drawableLeft="@drawable/ic_edit"
+                    android:drawableLeft="@drawable/ic_description"
                     android:drawableTint="@color/colorDarkGreen"
 
                     />
@@ -160,7 +160,7 @@
                     android:inputType="textMultiLine"
                     android:textSize="18sp"
                     android:fontFamily="@font/corbel"
-                    android:layout_marginBottom="10dp"
+
                     />
             </RelativeLayout>
         </RelativeLayout>

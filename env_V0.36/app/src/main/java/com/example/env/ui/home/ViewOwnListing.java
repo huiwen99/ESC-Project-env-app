@@ -136,9 +136,11 @@ public class ViewOwnListing extends AppCompatActivity {
                     }
                 };
                 mDatabase.child("testProducts").addListenerForSingleValueEvent(postListener);
-
-
+                Toast.makeText(ViewOwnListing.this, "Listing deleted", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ViewOwnListing.this,MainActivity.class);
+                startActivity(intent);
             }
+
         });
 
     }
