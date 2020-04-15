@@ -11,10 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_env_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
         <activity android:name=".AdminPage"></activity>
-=======
->>>>>>> dbda1cea358767d38e1e3db4eb400f56695e7b2e
         <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />

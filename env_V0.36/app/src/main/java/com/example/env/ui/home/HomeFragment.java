@@ -9,10 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
-import android.widget.Button;
-=======
->>>>>>> dbda1cea358767d38e1e3db4eb400f56695e7b2e
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -203,11 +199,8 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "clicked", Toast.LENGTH_SHORT).show();
-<<<<<<< HEAD
-=======
 //                Intent intent = new Intent(getActivity(), AdminPage.class);
 //                startActivity(intent);
->>>>>>> dbda1cea358767d38e1e3db4eb400f56695e7b2e
             }
         });
 
