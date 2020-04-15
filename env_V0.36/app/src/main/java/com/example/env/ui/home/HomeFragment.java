@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.env.AddListing;
+import com.example.env.AdminPage;
 import com.example.env.Listing;
 import com.example.env.ListingAdapter;
 import com.example.env.MainActivity;
@@ -65,6 +66,8 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
     static StorageReference storageRef = storage.getReferenceFromUrl("gs://envfirebaseproject.appspot.com/");
 
     String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+    ArrayList<String> adminUsers = new ArrayList<>();
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -195,12 +198,17 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
             }
         });
 
+        //eventually have adminUsers list pull from firebase a list of admins? or we can just hardcode coz shouldn't change
+        adminUsers.add("j9APkvXmuLhBEJTYzJzYUoTOjxX2");
         username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "clicked", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(getActivity(), AdminPage.class);
-//                startActivity(intent);
+                if(adminUsers.contains(currentUser)) {
+                    Intent intent = new Intent(getActivity(), AdminPage.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getContext(), "User Account", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

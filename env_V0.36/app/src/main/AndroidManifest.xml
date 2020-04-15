@@ -27,6 +27,10 @@
             android:label="@string/title_activity_view_own_listing"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".AdminPage"
+            android:label="@string/title_activity_admin_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".AddListing"
             android:label="@string/title_activity_add_listing"
             android:parentActivityName=".MainActivity"

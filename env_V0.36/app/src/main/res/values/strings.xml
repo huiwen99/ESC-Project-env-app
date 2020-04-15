@@ -13,6 +13,7 @@
     </string-array>
     <string name="title_activity_view_own_listing">ViewOwnListing</string>
     <string name="title_activity_view_other_listing">ViewOtherListing</string>
+    <string name="title_activity_admin_page">Admin Page</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
