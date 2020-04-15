@@ -192,7 +192,6 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         addListingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "SIZE IS "+userListings.userListings.size(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), AddListing.class);
                 startActivityForResult(intent, REQUEST_CODE_IMAGE);
             }
