@@ -60,6 +60,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
     ListingAdapter listingAdapter;
     ImageButton addListingButton;
     UserListings userListings;
+    TextView username;
     private LinearLayout linearLayout;
 
     final int REQUEST_CODE_IMAGE = 1000;
@@ -95,6 +96,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         Context context = container.getContext();
 
         addListingButton = root.findViewById(R.id.addListingButton);
+        username = root.findViewById(R.id.username);
         recyclerView = root.findViewById(R.id.userListingRecyclerView);
         linearLayout = root.findViewById(R.id.linearLayout);
 
@@ -196,7 +198,15 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddListing.class);
-                startActivityForResult(intent, REQUEST_CODE_IMAGE);
+//                startActivityForResult(intent, REQUEST_CODE_IMAGE);
+                startActivity(intent);
+            }
+        });
+
+        username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "clicked", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -204,28 +214,28 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         return root;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == REQUEST_CODE_IMAGE && resultCode== Activity.RESULT_OK){
-            String title = data.getStringExtra(AddListing.KEY_TITLE);
-            String price = data.getStringExtra(AddListing.KEY_PRICE);
-            String category = data.getStringExtra(AddListing.KEY_CATEGORY);
-            String description = data.getStringExtra(AddListing.KEY_DESCRIPTION);
-            String user = data.getStringExtra(AddListing.KEY_USER);
-
-            //replace this -> get current time or something?? lmk if you wanna pass id through AddListing -hw
-            long id = 0;
-
-            byte[] byteArray = data.getByteArrayExtra(AddListing.KEY_IMAGE);
-            Bitmap image = Utils.byteArrayToBitmap(byteArray);
-
-            userListings.addListing(title,price,image,category,description,user,id);
-            Log.d("HOME_TAG", String.valueOf(userListings.userListings));
-            listingAdapter.notifyDataSetChanged();
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if(requestCode == REQUEST_CODE_IMAGE && resultCode== Activity.RESULT_OK){
+//            String title = data.getStringExtra(AddListing.KEY_TITLE);
+//            String price = data.getStringExtra(AddListing.KEY_PRICE);
+//            String category = data.getStringExtra(AddListing.KEY_CATEGORY);
+//            String description = data.getStringExtra(AddListing.KEY_DESCRIPTION);
+//            String user = data.getStringExtra(AddListing.KEY_USER);
+//
+//            //replace this -> get current time or something?? lmk if you wanna pass id through AddListing -hw
+//            long id = 0;
+//
+//            byte[] byteArray = data.getByteArrayExtra(AddListing.KEY_IMAGE);
+//            Bitmap image = Utils.byteArrayToBitmap(byteArray);
+//
+//            userListings.addListing(title,price,image,category,description,user,id);
+//            Log.d("HOME_TAG", String.valueOf(userListings.userListings));
+//            listingAdapter.notifyDataSetChanged();
+//        }
+//    }
 
     @Override
     public void onItemClicked(int position) {

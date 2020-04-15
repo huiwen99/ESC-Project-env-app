@@ -103,8 +103,8 @@ public class AddListing extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                int resultCode = Activity.RESULT_OK;
-                Intent resultIntent = new Intent();
+//                int resultCode = Activity.RESULT_OK;
+//                Intent resultIntent = new Intent();
 
                 String title = newListingTitle.getText().toString();
                 String price = newListingPrice.getText().toString();
@@ -121,15 +121,15 @@ public class AddListing extends AppCompatActivity {
                     Toast.makeText(AddListing.this, "Please fill in the blanks", Toast.LENGTH_SHORT).show();
                 }else{
 
-                    resultIntent.putExtra(KEY_TITLE, title);
-                    resultIntent.putExtra(KEY_PRICE, price);
-                    resultIntent.putExtra(KEY_CATEGORY, category);
-                    resultIntent.putExtra(KEY_DESCRIPTION, description);
-                    //resultIntent.putExtra(KEY_USER, user);
-
+//                    resultIntent.putExtra(KEY_TITLE, title);
+//                    resultIntent.putExtra(KEY_PRICE, price);
+//                    resultIntent.putExtra(KEY_CATEGORY, category);
+//                    resultIntent.putExtra(KEY_DESCRIPTION, description);
+//                    //resultIntent.putExtra(KEY_USER, user);
+//
                     byte[] byteArray = Utils.bitmapToByteArray(bitmap);
-
-                    resultIntent.putExtra(KEY_IMAGE, byteArray);
+//
+//                    resultIntent.putExtra(KEY_IMAGE, byteArray);
 
                     long listingTimestamp = System.currentTimeMillis();
 
@@ -139,8 +139,10 @@ public class AddListing extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                    setResult(resultCode, resultIntent);
-                    finish();
+//                    setResult(resultCode, resultIntent);
+//                    finish();
+                    Intent intent = new Intent(AddListing.this,MainActivity.class);
+                    startActivity(intent);
                 }
 
 
