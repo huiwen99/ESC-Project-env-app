@@ -68,6 +68,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
     String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     ArrayList<String> adminUsers = new ArrayList<>();
+    Boolean adminRightsBool;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -145,7 +146,6 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
                             String description = itemHashmap.get("description").toString();
                             String user = itemHashmap.get("user").toString();
 
-                            //to change this to actual listing id
                             long listingID = Long.parseLong(itemHashmap.get("imgNumber").toString());
 
                             Log.d("HOME_TAG", currentUser);
@@ -198,16 +198,40 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
             }
         });
 
+
+        ValueEventListener adminListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get object and use the values to update the UI
+                Log.d("Admin_test", "getting data");
+                Object adminRightsStatus = dataSnapshot.getValue();
+                Log.d("Admin_test", "got data");
+                adminRightsBool = ((Boolean) adminRightsStatus);
+                refreshRecyclerView();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w("HOME_TAG", "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+        mDatabase.child("usersList").child(currentUser).child("adminRights").addListenerForSingleValueEvent(adminListener);
+
+
         //eventually have adminUsers list pull from firebase a list of admins? or we can just hardcode coz shouldn't change
         // doing firebase now - Dan
-        adminUsers.add("j9APkvXmuLhBEJTYzJzYUoTOjxX2");
+        // adminUsers.add("j9APkvXmuLhBEJTYzJzYUoTOjxX2");
         username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(adminUsers.contains(currentUser)) {
+                if(adminRightsBool) {
+                    Log.d("Admin_test", "is admin yes");
                     Intent intent = new Intent(getActivity(), AdminPage.class);
                     startActivity(intent);
                 }else{
+                    Log.d("Admin_test", "is not admin");
                     Toast.makeText(getContext(), "User Account", Toast.LENGTH_SHORT).show();
                 }
             }
