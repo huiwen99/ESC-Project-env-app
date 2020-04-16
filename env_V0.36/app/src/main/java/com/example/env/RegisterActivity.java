@@ -86,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void register_user(String tele_user, String email, String password) {
+    private void register_user(final String tele_user, final String email, String password) {
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -95,12 +95,17 @@ public class RegisterActivity extends AppCompatActivity {
                     mRegProgress.dismiss();
                     Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
                     mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                    String currentUser = mAuth.getCurrentUser().getUid();
+                    FirebaseUtils.addUser(currentUser, tele_user, email, false);
+
+
                     startActivity(mainIntent);
                     finish();
 
                 }else{
                     mRegProgress.hide();
-                    Toast.makeText(RegisterActivity.this, "You got some error", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, "Error with registration, please try again", Toast.LENGTH_LONG).show();
 
                 }
             }

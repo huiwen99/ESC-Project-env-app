@@ -118,7 +118,7 @@ public class LoginActivityTest {
     public void testRegistrationActivity(){
         pauseTestFor(1);
         //click button
-        onView(withId(R.id.login_to_create)).perform(ViewActions.click());
+        onView(withId(R.id.reg_create_btn)).perform(ViewActions.click());
         pauseTestFor(3);
         try{//check whether it is still login activity via login button
             onView(withId(R.id.reg_create_btn)).check(matches(isDisplayed()));

@@ -150,4 +150,10 @@ public class FirebaseUtils {
     public static void getImage() {
 
     }
+
+    public static void addUser(String UID, String teleID, String email, Boolean adminRights) {
+        UserForFirebase newUser = new UserForFirebase(UID, teleID, email, adminRights);
+        mDatabase.child("usersList").child(UID).setValue(newUser);
+
+    }
 }

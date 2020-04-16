@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
+
         //Toolbar set
 //        mToolbar = (Toolbar) findViewById(R.id.login_toolbar);
 //        setSupportActionBar(mToolbar);
@@ -49,18 +51,21 @@ public class LoginActivity extends AppCompatActivity {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        Log.d("TEST1", "now in login");
 
         mEmail = (TextInputEditText) findViewById(R.id.login_email);
         mPassword = (TextInputEditText) findViewById(R.id.login_password);
         tvRegister = (TextView) findViewById(R.id.tvRegister);
         Button mlogin_btn = (Button) findViewById(R.id.login_btn);
         //Button mregister_btn = (Button) findViewById(R.id.login_to_create);
+        Log.d("TEST1", "got the textboxes");
 
         mlogin_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
+
 
                 if (!(TextUtils.isEmpty(email) || TextUtils.isEmpty(password))) {
 

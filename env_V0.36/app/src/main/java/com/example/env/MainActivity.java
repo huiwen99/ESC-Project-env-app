@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+        Log.d("TEST1", "main: " + mAuth.getCurrentUser().getEmail() + mAuth.getCurrentUser().getDisplayName());
         //Log.d("mw", "onCreate: " + mAuth.getCurrentUser().getEmail() + mAuth.getCurrentUser().getDisplayName());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);

@@ -154,12 +154,12 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
                             String user = itemHashmap.get("user").toString();
 
                             //to be replaced
-                            long id = 0;
+                            long listingID = Long.parseLong(itemHashmap.get("imgNumber").toString());
 
 
 
-                            masterListings.addListing(imageName, price, imgBitmap, category, description, user,0);
-                            filteredList.addListing(imageName, price, imgBitmap, category, description, user,0);
+                            masterListings.addListing(imageName, price, imgBitmap, category, description, user, listingID);
+                            filteredList.addListing(imageName, price, imgBitmap, category, description, user, listingID);
 
                             Log.d("DASHBOARD_TAG", "added item");
                             //Log.d("HOME_TAG", String.valueOf(userListings.userListings));

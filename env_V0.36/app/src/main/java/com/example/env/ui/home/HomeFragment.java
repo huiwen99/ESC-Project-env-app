@@ -146,7 +146,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
                             String user = itemHashmap.get("user").toString();
 
                             //to change this to actual listing id
-                            long id = 1010;
+                            long listingID = Long.parseLong(itemHashmap.get("imgNumber").toString());
 
                             Log.d("HOME_TAG", currentUser);
                             Log.d("HOME_TAG", user);
@@ -154,7 +154,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
 
 
                             if (user.equals(currentUser)) {
-                                userListings.addListing(imageName, price, imgBitmap, category, description, user, id);
+                                userListings.addListing(imageName, price, imgBitmap, category, description, user, listingID);
                                 Log.d("HOME_TAG", "added item");
                                 //Log.d("HOME_TAG", String.valueOf(userListings.userListings));
                                 refreshRecyclerView();
@@ -199,6 +199,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         });
 
         //eventually have adminUsers list pull from firebase a list of admins? or we can just hardcode coz shouldn't change
+        // doing firebase now - Dan
         adminUsers.add("j9APkvXmuLhBEJTYzJzYUoTOjxX2");
         username.setOnClickListener(new View.OnClickListener() {
             @Override
