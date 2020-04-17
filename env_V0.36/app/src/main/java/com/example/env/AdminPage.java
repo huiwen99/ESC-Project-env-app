@@ -40,6 +40,8 @@ public class AdminPage extends AppCompatActivity {
         final Bundle extras = intent.getExtras();
         bannedWords = extras.getStringArrayList("BANNED_WORDS");
 
+        
+
         bannedWordsList = findViewById(R.id.bannedWordsList);
         banWordsButton = findViewById(R.id.banWordsButton);
         bannedUsersList = findViewById(R.id.bannedUsersList);

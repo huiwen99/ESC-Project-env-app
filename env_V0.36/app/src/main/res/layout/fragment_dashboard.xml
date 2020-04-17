@@ -6,12 +6,26 @@
     android:orientation="vertical"
     android:id="@+id/browseContainer">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Filter by Category"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorWhite"
+        android:background="@color/colorVeryDarkGreen"
+        android:padding="5dp"
+        android:textAlignment="center"
+        android:layout_gravity="center_horizontal"
+        android:fontFamily="@font/kyokashob"
+        />
+
     <Spinner
         android:id="@+id/categorySpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/editbox_dropdown_light_frame"
-        android:entries="@array/categories"/>
+        />
 
 
     <androidx.recyclerview.widget.RecyclerView

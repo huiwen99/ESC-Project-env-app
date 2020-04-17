@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 public class StartScreen extends AppCompatActivity {
 
-    private static final long SPLASH_SCREEN = 5000 ; //5s
+    private static final long SPLASH_SCREEN = 4000 ; //5s to go from start screen to login screen
     //Variables
     Animation topAnim, bottomAnim;
     ImageView image; //image of the env logo
@@ -28,19 +28,19 @@ public class StartScreen extends AppCompatActivity {
         setContentView(R.layout.activity_start_screen);
 
         //Animations
-//        topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
-//        bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
+        /*topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
+        bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
 
         //Set ids
 
-//        image = findViewById(R.id.imageView);
-//        env = findViewById(R.id.textView);
-//        slogan = findViewById(R.id.textView2);
-//
-//        image.setAnimation(topAnim);
-//        env.setAnimation(bottomAnim);
-//        slogan.setAnimation(bottomAnim);
+        image = findViewById(R.id.imageView);
+        env = findViewById(R.id.textView);
+        slogan = findViewById(R.id.textView2);
 
+        image.setAnimation(topAnim);
+        env.setAnimation(bottomAnim);
+        slogan.setAnimation(bottomAnim);
+*/
         //5s to navigate to login activity
         new Handler().postDelayed(new Runnable() {
             @Override
