@@ -36,6 +36,7 @@ import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 import org.apache.commons.codec.binary.Hex;
 
@@ -66,6 +67,7 @@ public class AddListing extends AppCompatActivity {
     public final static String KEY_IMAGE = "Image";
     public final static String KEY_USER = "User";
 
+    private ArrayList<String> bannedWordsList;
 
 
     @Override
@@ -76,6 +78,10 @@ public class AddListing extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Intent intent = getIntent();
+        bannedWordsList = intent.getStringArrayListExtra("BANNED_WORDS");
+
 
         imageSelected = findViewById(R.id.imageSelected);
         newListingTitle = findViewById(R.id.newListingTitle);
@@ -119,7 +125,9 @@ public class AddListing extends AppCompatActivity {
                 }else
                     if(title.equals("")||price.equals("")||description.equals("")){
                     Toast.makeText(AddListing.this, "Please fill in the blanks", Toast.LENGTH_SHORT).show();
-                }else{
+                }else if(checkForBannedWords(title)||checkForBannedWords(price)||checkForBannedWords(description)){
+                        Toast.makeText(AddListing.this, "Error: Listing details contains banned words.", Toast.LENGTH_SHORT).show();
+                    } else{
 
 //                    resultIntent.putExtra(KEY_TITLE, title);
 //                    resultIntent.putExtra(KEY_PRICE, price);
@@ -181,6 +189,16 @@ public class AddListing extends AppCompatActivity {
         }
     }
 
+    private boolean checkForBannedWords(String s){
+        boolean hasBannedWord=false;
+        for(String word : bannedWordsList){
+            if(s.contains(word)){
+                hasBannedWord=true;
+                break;
+            }
+        }
+        return hasBannedWord;
+    }
 
 
 }

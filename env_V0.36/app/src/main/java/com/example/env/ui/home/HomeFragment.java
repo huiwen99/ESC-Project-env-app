@@ -70,6 +70,8 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
     ArrayList<String> adminUsers = new ArrayList<>();
     Boolean adminRightsBool;
 
+    ArrayList<String> bannedWordsList = new ArrayList<>(); //to pull from firebase
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -193,6 +195,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddListing.class);
+                intent.putExtra("BANNED_WORDS", bannedWordsList);
 //                startActivityForResult(intent, REQUEST_CODE_IMAGE);
                 startActivity(intent);
             }
@@ -223,12 +226,17 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         //eventually have adminUsers list pull from firebase a list of admins? or we can just hardcode coz shouldn't change
         // doing firebase now - Dan
         // adminUsers.add("j9APkvXmuLhBEJTYzJzYUoTOjxX2");
+        bannedWordsList.add("fuck");
         username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(adminRightsBool) {
                     Log.d("Admin_test", "is admin yes");
                     Intent intent = new Intent(getActivity(), AdminPage.class);
+                    Bundle extras = new Bundle();
+                    extras.putStringArrayList("BANNED_WORDS",bannedWordsList);
+
+                    intent.putExtras(extras);
                     startActivity(intent);
                 }else{
                     Log.d("Admin_test", "is not admin");
@@ -275,6 +283,8 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         extras.putString("CATEGORY",userListings.getCategory(position));
         extras.putString("DESCRIPTION",userListings.getDescription(position));
         extras.putLong("ID",userListings.getId(position));
+
+
 
 
         Bitmap image = userListings.getImage(position);

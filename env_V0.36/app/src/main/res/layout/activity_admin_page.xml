@@ -72,6 +72,16 @@
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginBottom="20dp"
                     />
+                    <EditText
+                        android:id="@+id/wordInput"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/bannedWordsList"
+                        android:layout_toLeftOf="@id/banWordsButton"
+                        android:paddingHorizontal="20dp"
+                        android:hint="Enter word to ban"
+                        android:fontFamily="@font/corbel"
+                        />
 
             </RelativeLayout>
             <RelativeLayout
