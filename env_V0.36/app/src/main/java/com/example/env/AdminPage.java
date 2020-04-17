@@ -37,6 +37,9 @@ public class AdminPage extends AppCompatActivity {
         bannedWords.add("fuck");
         bannedWords.add("bitch");
         bannedWords.add("bastard");
+        bannedWords.add("shit");
+        bannedWords.add("asshole");
+        bannedWords.add("cunt");
 
         bannedWordsList = findViewById(R.id.bannedWordsList);
         banWordsButton = findViewById(R.id.banWordsButton);

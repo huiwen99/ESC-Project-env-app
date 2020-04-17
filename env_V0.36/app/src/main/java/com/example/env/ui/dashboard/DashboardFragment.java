@@ -30,6 +30,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.env.AddListing;
+import com.example.env.CategoryAdapter;
+import com.example.env.CategoryItem;
 import com.example.env.Listing;
 import com.example.env.ListingAdapter;
 import com.example.env.MainActivity;
@@ -54,6 +56,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DashboardFragment extends Fragment implements RecyclerViewItemListener, SearchView.OnQueryTextListener, MenuItem.OnActionExpandListener {
+
+    //declarations for implementing custom spinner
+    private ArrayList<CategoryItem> mCategoryItem;
+    private CategoryAdapter mAdapter;
 
     RecyclerView otherListingRecyclerView;
     ListingAdapter listingAdapter;
@@ -93,10 +99,17 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
 
         //setHasOptionsMenu(true);
 
+        //to show custom spinner when activity is created
+        initList();
+
+        categorySpinner = root.findViewById(R.id.categorySpinner);
+        mAdapter = new CategoryAdapter(getContext(), mCategoryItem);
+        categorySpinner.setAdapter(mAdapter);
+
+
         ((MainActivity) getActivity()).hideButton();
 
         Context context = container.getContext();
-        categorySpinner = root.findViewById(R.id.categorySpinner);
 
         otherListingRecyclerView = root.findViewById(R.id.otherListingRecyclerView);
 
@@ -197,6 +210,9 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CategoryItem clickedItem = (CategoryItem) parent.getItemAtPosition(position);
+                String clickedCountryName = clickedItem.getCategoryName();
+                Toast.makeText(getContext(), clickedCountryName + " selected", Toast.LENGTH_SHORT).show();
                 if (position == 0) { //display all listings if category is "General"
                     defaultListings();
                 } else {
@@ -330,6 +346,13 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
         otherListingRecyclerView.setLayoutManager(gridLayoutManager);
 //        otherListingRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         listingAdapter.notifyDataSetChanged();
+    }
+
+    private void initList() { //method to populate array list for custom spinner
+        mCategoryItem = new ArrayList<>();
+        mCategoryItem.add(new CategoryItem("General", R.drawable.general));
+        mCategoryItem.add(new CategoryItem("Robotic Mechanical", R.drawable.roboticmechanical));
+        mCategoryItem.add(new CategoryItem("Microelectronics", R.drawable.microelectronics));
     }
 
     }

@@ -34,11 +34,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </ImageView>
+
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/login_email"
         android:layout_width="330dp"
         android:layout_height="40dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="228dp"
         android:background="#70FFFFFF"
         android:drawableLeft="@drawable/usericon"
         android:hint="@string/email"
@@ -74,6 +75,7 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="@string/log_in"
+        android:textColor="#000000"
         android:textColorHighlight="#9C27B0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

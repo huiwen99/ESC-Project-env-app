@@ -178,7 +178,7 @@
         android:layout_gravity="bottom"
         android:textSize="20sp"
         android:textColor="@color/colorWhite"
-        android:background="@color/colorDarkGreen"
+        android:background="@drawable/roundedactivitybutton"
         android:fontFamily="@font/kyokashob"
         />
 
