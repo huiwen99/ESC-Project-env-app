@@ -23,9 +23,11 @@ public class AdminPage extends AppCompatActivity {
     Button banUsersButton;
     Button banListingsButton;
     EditText wordInput;
+    EditText userInput;
+    EditText listingInput;
 
     ArrayList<String> bannedWords;
-    ArrayList<String> bannedUsers = new ArrayList<String>();
+    ArrayList<String> bannedUsers = new ArrayList<String>(); //to pull from firebase
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class AdminPage extends AppCompatActivity {
         banUsersButton = findViewById(R.id.banUsersButton);
         banListingsButton = findViewById(R.id.banListingsButton);
         wordInput = findViewById(R.id.wordInput);
+        userInput = findViewById(R.id.userInput);
+        listingInput = findViewById(R.id.listingInput);
 
         bannedWordsList.setText(listToString(bannedWords));
         bannedUsersList.setText(listToString(bannedUsers));
@@ -55,7 +59,7 @@ public class AdminPage extends AppCompatActivity {
         banWordsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String input = wordInput.getText().toString();
+                String input = wordInput.getText().toString().trim();
                 if(!input.equals("")){
                     if(!bannedWords.contains(input)){
                         //to push to firebase, maybe dont need to pull here, just pull in home fragment and i'll pass it through intent
@@ -64,6 +68,42 @@ public class AdminPage extends AppCompatActivity {
                         Toast.makeText(AdminPage.this, "Added word to the banned list.", Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(AdminPage.this, "Word is already banned.", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(AdminPage.this, "Nothing to ban.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        banUsersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String input = userInput.getText().toString().trim();
+                if(!input.equals("")){
+                    if(!bannedUsers.contains(input)){
+                        //to push to firebase
+                        bannedUsers.add(input);
+                        bannedUsersList.setText(listToString(bannedUsers));
+                        Toast.makeText(AdminPage.this, "Added user to the banned list.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(AdminPage.this, "User is already banned.", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(AdminPage.this, "Nothing to ban.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        banListingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String input = listingInput.getText().toString().trim();
+                if(!input.equals("")){
+                    if(true){//replace to check if listing exists or something
+                        //add code to delete listing based on listing ID
+
+                        Toast.makeText(AdminPage.this, "Listing has been deleted.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(AdminPage.this, "No such listing ID.", Toast.LENGTH_SHORT).show();
                     }
                 }else{
                     Toast.makeText(AdminPage.this, "Nothing to ban.", Toast.LENGTH_SHORT).show();

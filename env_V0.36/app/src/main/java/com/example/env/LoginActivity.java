@@ -21,6 +21,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+
 public class LoginActivity extends AppCompatActivity {
 
     private TextInputEditText mEmail;
@@ -33,12 +35,16 @@ public class LoginActivity extends AppCompatActivity {
 
     private ProgressDialog mLoginProgress;
 
+    private ArrayList<String> bannedUsersList = new ArrayList<>(); //to pull from firebase
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
+        bannedUsersList.add("Test@gmail.com");
 
         //Toolbar set
 //        mToolbar = (Toolbar) findViewById(R.id.login_toolbar);
@@ -68,12 +74,15 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 if (!(TextUtils.isEmpty(email) || TextUtils.isEmpty(password))) {
-
-                    mLoginProgress.setTitle("Logging in");
-                    mLoginProgress.setMessage("Please wait while we verify your account");
-                    mLoginProgress.setCanceledOnTouchOutside(false);
-                    mLoginProgress.show();
-                    login_user(email, password);
+                    if(checkUserBan(email)){
+                        Toast.makeText(LoginActivity.this, "User is banned.", Toast.LENGTH_SHORT).show();
+                    }else {
+                        mLoginProgress.setTitle("Logging in");
+                        mLoginProgress.setMessage("Please wait while we verify your account");
+                        mLoginProgress.setCanceledOnTouchOutside(false);
+                        mLoginProgress.show();
+                        login_user(email, password);
+                    }
                 }else{
                     Toast.makeText(LoginActivity.this, "Please enter your email/password", Toast.LENGTH_LONG).show();
                 }
@@ -109,5 +118,16 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
         });
+    }
+
+    private boolean checkUserBan(String email){
+        boolean isBanned=false;
+        for(String user : bannedUsersList){
+            if(email.equals(user)){
+                isBanned=true;
+                break;
+            }
+        }
+        return isBanned;
     }
 }

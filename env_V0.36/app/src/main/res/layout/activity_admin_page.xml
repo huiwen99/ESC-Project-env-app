@@ -128,6 +128,16 @@
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginBottom="20dp"
                     />
+                <EditText
+                    android:id="@+id/userInput"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/bannedUsersList"
+                    android:layout_toLeftOf="@id/banUsersButton"
+                    android:paddingHorizontal="20dp"
+                    android:hint="Enter user email"
+                    android:fontFamily="@font/corbel"
+                    />
 
             </RelativeLayout>
             <RelativeLayout
@@ -149,11 +159,22 @@
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/kyokashob"
                     />
+                <EditText
+                    android:id="@+id/listingInput"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/bannedListingsText"
+                    android:layout_centerHorizontal="true"
+                    android:paddingHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="Enter listing ID"
+                    android:fontFamily="@font/corbel"
+                    />
                 <Button
                     android:id="@+id/banListingsButton"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:layout_below="@id/bannedListingsText"
+                    android:layout_below="@id/listingInput"
                     android:text="Delete Listings"
                     android:padding="5dp"
                     android:background="@color/colorDarkGreen"
@@ -161,7 +182,7 @@
                     android:fontFamily="@font/corbelb"
                     android:textSize="15sp"
                     android:layout_centerHorizontal="true"
-                    android:layout_margin="20dp"
+                    android:layout_marginBottom="20dp"
                     />
 
             </RelativeLayout>
