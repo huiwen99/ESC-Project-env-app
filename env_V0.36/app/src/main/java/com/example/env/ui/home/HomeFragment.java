@@ -1,5 +1,6 @@
 package com.example.env.ui.home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -196,8 +197,8 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddListing.class);
                 intent.putExtra("BANNED_WORDS", bannedWordsList);
-//                startActivityForResult(intent, REQUEST_CODE_IMAGE);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE_IMAGE);
+//                startActivity(intent);
             }
         });
 
@@ -249,28 +250,28 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         return root;
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if(requestCode == REQUEST_CODE_IMAGE && resultCode== Activity.RESULT_OK){
-//            String title = data.getStringExtra(AddListing.KEY_TITLE);
-//            String price = data.getStringExtra(AddListing.KEY_PRICE);
-//            String category = data.getStringExtra(AddListing.KEY_CATEGORY);
-//            String description = data.getStringExtra(AddListing.KEY_DESCRIPTION);
-//            String user = data.getStringExtra(AddListing.KEY_USER);
-//
-//            //replace this -> get current time or something?? lmk if you wanna pass id through AddListing -hw
-//            long id = 0;
-//
-//            byte[] byteArray = data.getByteArrayExtra(AddListing.KEY_IMAGE);
-//            Bitmap image = Utils.byteArrayToBitmap(byteArray);
-//
-//            userListings.addListing(title,price,image,category,description,user,id);
-//            Log.d("HOME_TAG", String.valueOf(userListings.userListings));
-//            listingAdapter.notifyDataSetChanged();
-//        }
-//    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_CODE_IMAGE && resultCode== Activity.RESULT_OK){
+            String title = data.getStringExtra(AddListing.KEY_TITLE);
+            String price = data.getStringExtra(AddListing.KEY_PRICE);
+            String category = data.getStringExtra(AddListing.KEY_CATEGORY);
+            String description = data.getStringExtra(AddListing.KEY_DESCRIPTION);
+            String user = data.getStringExtra(AddListing.KEY_USER);
+
+            //replace this -> get current time or something?? lmk if you wanna pass id through AddListing -hw
+            long id = 0;
+
+            byte[] byteArray = data.getByteArrayExtra(AddListing.KEY_IMAGE);
+            Bitmap image = Utils.byteArrayToBitmap(byteArray);
+
+            userListings.addListing(title,price,image,category,description,user,id);
+            Log.d("HOME_TAG", String.valueOf(userListings.userListings));
+            listingAdapter.notifyDataSetChanged();
+        }
+    }
 
     @Override
     public void onItemClicked(int position) {

@@ -109,8 +109,8 @@ public class AddListing extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                int resultCode = Activity.RESULT_OK;
-//                Intent resultIntent = new Intent();
+                int resultCode = Activity.RESULT_OK;
+                Intent resultIntent = new Intent();
 
                 String title = newListingTitle.getText().toString();
                 String price = newListingPrice.getText().toString();
@@ -129,15 +129,15 @@ public class AddListing extends AppCompatActivity {
                         Toast.makeText(AddListing.this, "Error: Listing details contains banned words.", Toast.LENGTH_SHORT).show();
                     } else{
 
-//                    resultIntent.putExtra(KEY_TITLE, title);
-//                    resultIntent.putExtra(KEY_PRICE, price);
-//                    resultIntent.putExtra(KEY_CATEGORY, category);
-//                    resultIntent.putExtra(KEY_DESCRIPTION, description);
-//                    //resultIntent.putExtra(KEY_USER, user);
+                    resultIntent.putExtra(KEY_TITLE, title);
+                    resultIntent.putExtra(KEY_PRICE, price);
+                    resultIntent.putExtra(KEY_CATEGORY, category);
+                    resultIntent.putExtra(KEY_DESCRIPTION, description);
+                    //resultIntent.putExtra(KEY_USER, user);
 //
                     byte[] byteArray = Utils.bitmapToByteArray(bitmap);
 //
-//                    resultIntent.putExtra(KEY_IMAGE, byteArray);
+                    resultIntent.putExtra(KEY_IMAGE, byteArray);
 
                     long listingTimestamp = System.currentTimeMillis();
 
@@ -147,10 +147,10 @@ public class AddListing extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-//                    setResult(resultCode, resultIntent);
-//                    finish();
-                    Intent intent = new Intent(AddListing.this,MainActivity.class);
-                    startActivity(intent);
+                    setResult(resultCode, resultIntent);
+                    finish();
+//                    Intent intent = new Intent(AddListing.this,MainActivity.class);
+//                    startActivity(intent);
                 }
 
 
@@ -177,7 +177,14 @@ public class AddListing extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_GET && resultCode == RESULT_OK) {
-            Uri fullPhotoUri = data.getData();
+//            Uri fullPhotoUri = data.getData();
+            Uri fullPhotoUri=null;
+            Bundle extras = data.getExtras();
+            if(extras==null || !extras.containsKey(KEY_IMAGE)){
+                fullPhotoUri = data.getData();
+            }else {
+                fullPhotoUri = (Uri) extras.get(KEY_IMAGE);
+            }
             imageSelected.setImageURI(fullPhotoUri);
             try {
                 bitmap = Utils.decodeUri(this, fullPhotoUri, 200, 300);

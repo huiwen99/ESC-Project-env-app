@@ -41,24 +41,7 @@ public class HomeFragmentTest {
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
-//    @Test
-//    public void testAddListing(){
-//        pauseTestFor(3);
-//        onView(withId(R.id.addListingButton)).perform(ViewActions.click());
-//        pauseTestFor(3);
-//
-//        //inside AddListing activity
-//
-//        pauseTestFor(3);
-//        onView(withId(R.id.newListingTitle)).perform(replaceText("TestingTitle"));
-//        pauseTestFor(1);
-//        onView(withId(R.id.newListingPrice)).perform(replaceText("5"));
-//        pauseTestFor(1);
-//        onView(withId(R.id.newListingDescription)).perform(replaceText("TestingDescription"));
-//        pauseTestFor(1);
-//        onView(withId(R.id.addNewListing)).perform(ViewActions.click());
-//        pauseTestFor(5);
-//    }
+
 
     @Test
     public void testViewAndEditListing(){
