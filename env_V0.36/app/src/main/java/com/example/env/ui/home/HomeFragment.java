@@ -228,6 +228,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         // doing firebase now - Dan
         // adminUsers.add("j9APkvXmuLhBEJTYzJzYUoTOjxX2");
         bannedWordsList.add("fuck");
+        bannedWordsList.add("damn");
         username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

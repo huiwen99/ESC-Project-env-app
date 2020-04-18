@@ -197,9 +197,10 @@ public class AddListing extends AppCompatActivity {
     }
 
     private boolean checkForBannedWords(String s){
+        String s1 = s.toLowerCase();
         boolean hasBannedWord=false;
         for(String word : bannedWordsList){
-            if(s.contains(word)){
+            if(s1.contains(word)){
                 hasBannedWord=true;
                 break;
             }

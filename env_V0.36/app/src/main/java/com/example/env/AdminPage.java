@@ -74,6 +74,7 @@ public class AdminPage extends AppCompatActivity {
                 }
             }
         });
+
         banUsersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

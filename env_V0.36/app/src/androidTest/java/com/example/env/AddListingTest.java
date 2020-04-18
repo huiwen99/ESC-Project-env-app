@@ -21,7 +21,9 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.intent.Intents.intending;
 
+import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.rule.ActivityTestRule;
 
@@ -31,8 +33,12 @@ import org.junit.Test;
 
 import org.junit.Rule;
 
+import java.util.Random;
+
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasAction;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static java.lang.Character.toUpperCase;
 import static java.util.regex.Pattern.matches;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
@@ -78,6 +84,48 @@ public class AddListingTest {
 
     }
 
+    @Test
+    public void testBannedWords(){
+        pauseTestFor(5);
+        onView(withId(R.id.addListingButton)).perform(ViewActions.click());
+        pauseTestFor(3);
+
+        //inside AddListing activity
+
+        // Click on the button that will trigger the stubbed intent.
+        onView(withId(R.id.imageSelected)).perform(click());
+        String bannedWord = "damn";
+
+        pauseTestFor(3);
+        onView(withId(R.id.newListingTitle)).perform(replaceText(bannedWord));
+        pauseTestFor(1);
+        onView(withId(R.id.newListingPrice)).perform(replaceText("5"));
+        pauseTestFor(1);
+        onView(withId(R.id.newListingCateogry)).perform(click());
+        pauseTestFor(1);
+        onData(is("Microelectronics")).perform(click());
+        pauseTestFor(1);
+        onView(withId(R.id.newListingDescription)).perform(scrollTo());
+        pauseTestFor(1);
+        onView(withId(R.id.newListingDescription)).perform(replaceText("TestingDescription"));
+        pauseTestFor(1);
+        onView(withId(R.id.addNewListing)).perform(ViewActions.click());
+        pauseTestFor(2);
+        onView(withId(R.id.newListingTitle)).perform(scrollTo());
+        pauseTestFor(1);
+        for(int i=0;i<5;i++) {
+            onView(withId(R.id.newListingTitle)).perform(replaceText(fuzzCapitalize(bannedWord)));
+            pauseTestFor(1);
+            onView(withId(R.id.addNewListing)).perform(ViewActions.click());
+            pauseTestFor(1);
+        }
+        try{
+            onView(withId(R.id.addNewListing)).check(ViewAssertions.matches(isDisplayed()));
+        }catch(NoMatchingViewException e){
+            fail();
+        }
+    }
+
 
     private Instrumentation.ActivityResult createImageCaptureActivityResultStub() {
         // Put the drawable in a bundle.
@@ -110,6 +158,18 @@ public class AddListingTest {
                 + '/' + context.getResources().getResourceTypeName(drawableId)
                 + '/' + context.getResources().getResourceEntryName(drawableId) );
         return imageUri;
+    }
+
+    private static String fuzzCapitalize(String word){
+        char[] charArray = word.toCharArray();
+        Random rand = new Random();
+        int numOfChars = rand.nextInt(charArray.length);
+        for(int j = 0; j<numOfChars; j++) {
+            int i = rand.nextInt(charArray.length);
+            charArray[i] = toUpperCase(charArray[i]);
+        }
+        String newWord = new String(charArray);
+        return newWord;
     }
 
 }

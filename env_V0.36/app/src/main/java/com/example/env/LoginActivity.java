@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
-        bannedUsersList.add("Test@gmail.com");
+        bannedUsersList.add("test@gmail.com");
 
         //Toolbar set
 //        mToolbar = (Toolbar) findViewById(R.id.login_toolbar);
@@ -121,9 +121,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean checkUserBan(String email){
+        String email1 = email.toLowerCase();
+        Log.i("cali",email1);
         boolean isBanned=false;
         for(String user : bannedUsersList){
-            if(email.equals(user)){
+            if(email1.equals(user)){
                 isBanned=true;
                 break;
             }
