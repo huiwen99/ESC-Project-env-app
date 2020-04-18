@@ -71,7 +71,7 @@ public class AddListingTest {
         pauseTestFor(1);
         onView(withId(R.id.newListingPrice)).perform(replaceText("5"));
         pauseTestFor(1);
-        onView(withId(R.id.newListingCateogry)).perform(click());
+        onView(withId(R.id.newListingCategory)).perform(click());
         pauseTestFor(1);
         onData(is("Microelectronics")).perform(click());
         pauseTestFor(1);
@@ -101,7 +101,7 @@ public class AddListingTest {
         pauseTestFor(1);
         onView(withId(R.id.newListingPrice)).perform(replaceText("5"));
         pauseTestFor(1);
-        onView(withId(R.id.newListingCateogry)).perform(click());
+        onView(withId(R.id.newListingCategory)).perform(click());
         pauseTestFor(1);
         onData(is("Microelectronics")).perform(click());
         pauseTestFor(1);

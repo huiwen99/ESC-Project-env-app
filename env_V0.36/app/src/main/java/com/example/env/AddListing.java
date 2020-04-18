@@ -86,7 +86,7 @@ public class AddListing extends AppCompatActivity {
         imageSelected = findViewById(R.id.imageSelected);
         newListingTitle = findViewById(R.id.newListingTitle);
         newListingPrice = findViewById(R.id.newListingPrice);
-        newListingCategory = findViewById(R.id.newListingCateogry);
+        newListingCategory = findViewById(R.id.newListingCategory);
         newListingDescription = findViewById(R.id.newListingDescription);
         addNewListing = findViewById(R.id.addNewListing);
 

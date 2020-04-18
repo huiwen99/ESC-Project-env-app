@@ -67,6 +67,8 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
     UserListings filteredList; // a copy of masterListings
     UserListings categoryList;
     Spinner categorySpinner;
+    CategoryItem search;
+
 
     private SearchView searchView;
     private String searchText;
@@ -101,15 +103,17 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
 
         //to show custom spinner when activity is created
         initList();
+        Context context = container.getContext();
 
         categorySpinner = root.findViewById(R.id.categorySpinner);
+        //categorySpinner.setOnItemSelectedListener();
         mAdapter = new CategoryAdapter(getContext(), mCategoryItem);
         categorySpinner.setAdapter(mAdapter);
 
 
         ((MainActivity) getActivity()).hideButton();
 
-        Context context = container.getContext();
+
 
         otherListingRecyclerView = root.findViewById(R.id.otherListingRecyclerView);
 
@@ -211,12 +215,12 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 CategoryItem clickedItem = (CategoryItem) parent.getItemAtPosition(position);
-                String clickedCountryName = clickedItem.getCategoryName();
-                Toast.makeText(getContext(), clickedCountryName + " selected", Toast.LENGTH_SHORT).show();
+                String clickedCategoryName = clickedItem.getCategoryName();
+                Toast.makeText(getContext(), clickedCategoryName + " selected", Toast.LENGTH_SHORT).show();
                 if (position == 0) { //display all listings if category is "General"
                     defaultListings();
                 } else {
-                    String category = categorySpinner.getSelectedItem().toString();
+                    String category = clickedCategoryName;
                     getCategorizedListing(category);
                     getSearchFilteredListing();
                     refreshRecyclerView(filteredList);
@@ -354,6 +358,10 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
         mCategoryItem.add(new CategoryItem("Robotic Mechanical", R.drawable.roboticmechanical));
         mCategoryItem.add(new CategoryItem("Microelectronics", R.drawable.microelectronics));
     }
+
+//    public void getSelectedItem(View v){
+//        CategoryItem categoryItem = (CategoryItem) categorySpinner.getSelectedItem();
+//    }
 
     }
 

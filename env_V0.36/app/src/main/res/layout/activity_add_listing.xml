@@ -123,7 +123,7 @@
                     android:drawableTint="@color/colorDarkGreen"
                     />
                 <Spinner
-                    android:id="@+id/newListingCateogry"
+                    android:id="@+id/newListingCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/categories"

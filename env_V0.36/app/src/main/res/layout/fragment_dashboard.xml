@@ -21,10 +21,11 @@
         />
 
     <Spinner
+        android:entries="@array/categories"
         android:id="@+id/categorySpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:drawable/editbox_dropdown_light_frame"
+        android:background="@drawable/roundedspinner"
         />
 
 
