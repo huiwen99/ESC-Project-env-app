@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.env.AddListing;
 import com.example.env.AdminPage;
+import com.example.env.FirebaseUtils;
 import com.example.env.Listing;
 import com.example.env.ListingAdapter;
 import com.example.env.MainActivity;
@@ -105,9 +106,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         ArrayList<Integer> drawableId = new ArrayList<Integer>();
         drawableId.add(R.drawable.fan);
         userListings = new UserListings();
-
-
-
+        
         //TODO: display this info
 
 //        for(Integer rid:drawableId){

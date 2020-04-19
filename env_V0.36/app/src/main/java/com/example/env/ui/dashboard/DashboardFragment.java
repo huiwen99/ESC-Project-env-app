@@ -32,6 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.env.AddListing;
 import com.example.env.CategoryAdapter;
 import com.example.env.CategoryItem;
+import com.example.env.FirebaseUtils;
 import com.example.env.Listing;
 import com.example.env.ListingAdapter;
 import com.example.env.MainActivity;
@@ -253,6 +254,7 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
         extras.putString("DESCRIPTION",filteredList.getDescription(position));
         extras.putString("USER",filteredList.getUser(position));
         extras.putLong("ID",filteredList.getId(position));
+        FirebaseUtils.getTelegramFromUID(filteredList.getUser(position));
 
         Bitmap image = filteredList.getImage(position);
         byte[] byteArray = Utils.bitmapToByteArray(image);

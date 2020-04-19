@@ -4,40 +4,10 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.env.AddListing;
-import com.example.env.ListingAdapter;
-import com.example.env.ListingForDatabase;
-import com.example.env.MainActivity;
-import com.example.env.R;
-import com.example.env.RecyclerViewItemListener;
-import com.example.env.UserListings;
-import com.example.env.Utils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,23 +16,19 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 
 public class FirebaseUtils {
+
+    public interface firebaseCallback<T> {
+        void onCallback(T value);
+    }
+
+    public static String telegramID = "blyat";
 
 
     static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -155,5 +121,23 @@ public class FirebaseUtils {
         UserForFirebase newUser = new UserForFirebase(UID, teleID, email, adminRights);
         mDatabase.child("usersList").child(UID).setValue(newUser);
 
+    }
+
+    public static void getTelegramFromUID(String UID) {
+        mDatabase.child("usersList").child(UID).child("teleID").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("GET_TELE", "getting Tele id");
+                String teleID = (String) dataSnapshot.getValue();
+                telegramID = teleID;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("GET_TELE", "get teleID failed");
+                telegramID = null;
+                System.out.println(databaseError.getDetails());
+            }
+        });
     }
 }

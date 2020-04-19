@@ -7,12 +7,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.env.FirebaseUtils;
 import com.example.env.MainActivity;
 import com.example.env.R;
 import com.example.env.Utils;
@@ -65,12 +67,14 @@ public class ViewOtherListing extends AppCompatActivity {
         otherListingEmail.setText(user);
         final long id = extras.getLong("ID");
 
+
         setTitle(title+" by "+user);
 
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://t.me/HeizerSpider";
+                String url = "https://t.me/"+ FirebaseUtils.telegramID;
+                Log.d("TELE_ID", url);
 //              string url will be changed to a dynamic url, concatenating the telegram username(from firebase) at the end of "https://t.me/"
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));

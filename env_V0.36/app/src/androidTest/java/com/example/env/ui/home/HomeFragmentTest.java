@@ -55,7 +55,7 @@ public class HomeFragmentTest {
         onView(withId(R.id.editPrice)).perform(replaceText("1"));
         pauseTestFor(1);
 
-        onView(withId(R.id.editCateogry)).perform(click());
+        onView(withId(R.id.editCategory)).perform(click());
         pauseTestFor(1);
         onData(is("Microelectronics")).perform(click());
         pauseTestFor(1);
