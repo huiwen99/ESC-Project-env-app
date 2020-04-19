@@ -220,6 +220,9 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
                 if (position == 0) { //display all listings if category is "General"
                     defaultListings();
                 } else {
+                    Log.d("mw","value of categorySpinner.getSelectedItem().toString();" + categorySpinner.getSelectedItem().toString());
+                    Log.d("mw","value of clickedCategoryName" + clickedCategoryName);
+                    Log.d("mw", "value of categorySpinner.getSelectedItem()" + categorySpinner.getSelectedItem());
                     String category = clickedCategoryName;
                     getCategorizedListing(category);
                     getSearchFilteredListing();
@@ -291,8 +294,10 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        String selectedCategoryItem = mCategoryItem.get(categorySpinner.getSelectedItemPosition()).getCategoryName();
+        Log.d("mw","value of mCategoryItem.get(categorySpinner.getSelectedItemPosition()).getCategoryName();" + mCategoryItem.get(categorySpinner.getSelectedItemPosition()).getCategoryName());
         searchText = newText;
-        getCategorizedListing(categorySpinner.getSelectedItem().toString());
+        getCategorizedListing(selectedCategoryItem);
         getSearchFilteredListing();
         refreshRecyclerView(filteredList);
 
