@@ -62,7 +62,7 @@ public class AdminPage extends AppCompatActivity {
                 String input = wordInput.getText().toString().trim();
                 if(!input.equals("")){
                     if(!bannedWords.contains(input)){
-                        //to push to firebase, maybe dont need to pull here, just pull in home fragment and i'll pass it through intent
+                        FirebaseUtils.addBannedWord(input);
                         bannedWords.add(input);
                         bannedWordsList.setText(listToString(bannedWords));
                         Toast.makeText(AdminPage.this, "Added word to the banned list.", Toast.LENGTH_SHORT).show();

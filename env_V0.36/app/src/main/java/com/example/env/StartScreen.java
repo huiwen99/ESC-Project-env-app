@@ -41,6 +41,8 @@ public class StartScreen extends AppCompatActivity {
         env.setAnimation(bottomAnim);
         slogan.setAnimation(bottomAnim);
 
+        FirebaseUtils.getBannedUsers();
+
         //4s to navigate to login activity
         new Handler().postDelayed(new Runnable() {
             @Override

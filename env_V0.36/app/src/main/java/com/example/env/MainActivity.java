@@ -43,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d("TEST1", "main: " + mAuth.getCurrentUser().getEmail() + mAuth.getCurrentUser().getDisplayName());
         //Log.d("mw", "onCreate: " + mAuth.getCurrentUser().getEmail() + mAuth.getCurrentUser().getDisplayName());
 
+
+
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -69,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        Log.d("MAIN_ACTIVITY", "blyat");
+        Log.d("MAIN_ACTIVITY", currentUser.getUid());
         if(currentUser == null){
             sendToStart();
         }

@@ -20,6 +20,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -37,6 +42,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private ArrayList<String> bannedUsersList = new ArrayList<>(); //to pull from firebase
 
+    static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
 
-        bannedUsersList.add("test@gmail.com");
+        //bannedUsersList.add("test@gmail.com");
 
         //Toolbar set
 //        mToolbar = (Toolbar) findViewById(R.id.login_toolbar);
@@ -99,17 +106,23 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void login_user(String email, String password) {
+    private void login_user(final String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
-                            mLoginProgress.dismiss();
-                            Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
-                            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(mainIntent);
-                            finish();
+                            boolean isBanned = checkUserBan2(email);
+                            if (!isBanned) {
+                                mLoginProgress.dismiss();
+                                Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                                mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(mainIntent);
+                                finish();
+                            } else {
+                                mLoginProgress.hide();
+                                Toast.makeText(LoginActivity.this, "You are banned", Toast.LENGTH_LONG).show();
+                            }
 
                         } else {
                             mLoginProgress.hide();
@@ -130,6 +143,21 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             }
         }
+        Log.i("cali",String.valueOf(isBanned));
+        return isBanned;
+    }
+
+    private boolean checkUserBan2(String userEmail) {
+        Log.i("banned", "checking ban now");
+        Log.i("banned", "checking "+userEmail);
+        boolean isBanned = false;
+        for (String user : FirebaseUtils.bannedUsersList) {
+            if(userEmail.equals(user)) {
+                isBanned = true;
+                break;
+            }
+        }
+        Log.i("banned", String.valueOf(isBanned));
         return isBanned;
     }
 }

@@ -8,6 +8,8 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,6 +23,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 
 public class FirebaseUtils {
 
@@ -29,6 +34,7 @@ public class FirebaseUtils {
     }
 
     public static String telegramID = "blyat";
+    public static ArrayList<String> bannedUsersList = new ArrayList<>();
 
 
     static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -136,6 +142,30 @@ public class FirebaseUtils {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("GET_TELE", "get teleID failed");
                 telegramID = null;
+                System.out.println(databaseError.getDetails());
+            }
+        });
+    }
+
+    public static void addBannedWord(String word) {
+        long timestamp = System.currentTimeMillis();
+        mDatabase.child("bannedWords").child(String.valueOf(timestamp)).setValue(word);
+    }
+
+    public static void getBannedUsers() {
+        mDatabase.child("bannedUsers").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                HashMap bannedUsers = (HashMap) dataSnapshot.getValue();
+                ArrayList<String> bannedUsersArray = new ArrayList<>(bannedUsers.values());
+                for (String user : bannedUsersArray) {
+                    bannedUsersList.add(user);
+                }
+                Log.d("GET_BANNED", bannedUsersList.toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 System.out.println(databaseError.getDetails());
             }
         });
