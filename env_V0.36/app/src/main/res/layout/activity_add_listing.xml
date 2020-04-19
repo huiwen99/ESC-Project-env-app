@@ -122,6 +122,7 @@
                     android:drawableLeft="@drawable/ic_category"
                     android:drawableTint="@color/colorDarkGreen"
                     />
+
                 <Spinner
                     android:id="@+id/newListingCategory"
                     android:layout_width="wrap_content"

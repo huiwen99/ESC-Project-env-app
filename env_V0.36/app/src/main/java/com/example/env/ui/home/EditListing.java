@@ -20,6 +20,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.env.AddListing;
+import com.example.env.CategoryAdapter;
+import com.example.env.CategoryItem;
 import com.example.env.FirebaseUtils;
 import com.example.env.Listing;
 import com.example.env.R;
@@ -36,11 +38,15 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.example.env.AddListing.REQUEST_IMAGE_GET;
 
 public class EditListing extends AppCompatActivity {
+
+    private ArrayList<CategoryItem> mCategoryItemForEditListing;
+    private CategoryAdapter mAdapterForEditListing;
 
     ImageView editImage;
     EditText editTitle;
@@ -70,11 +76,17 @@ public class EditListing extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //custom spinner
+        initListForEditListing();
+
+        editCategory = findViewById(R.id.editCategory);
+
+        mAdapterForEditListing = new CategoryAdapter(this, mCategoryItemForEditListing);
+        editCategory.setAdapter(mAdapterForEditListing);
 
         editImage = findViewById(R.id.editImage);
         editTitle = findViewById(R.id.editTitle);
         editPrice = findViewById(R.id.editPrice);
-        editCategory = findViewById(R.id.editCateogry);
         editDescription = findViewById(R.id.editDescription);
         editListing = findViewById(R.id.editListing);
 
@@ -97,14 +109,15 @@ public class EditListing extends AppCompatActivity {
 
 
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.categories, android.R.layout.simple_spinner_item);
+/*        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.categories, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         editCategory.setAdapter(adapter);
+        
         if (category != null) {
-            int spinnerPosition = adapter.getPosition(category);
+            int spinnerPosition = mAdapterForEditListing.getPosition(category);
             editCategory.setSelection(spinnerPosition);
         }
-
+*/
         description = extras.getString("DESCRIPTION");
         final String oldDescription = description;
         editDescription.setText(description);
@@ -181,7 +194,7 @@ public class EditListing extends AppCompatActivity {
                     title = editTitle.getText().toString();
                     price = editPrice.getText().toString();
                     price = Listing.numInputToPriceText(price);
-                    category = editCategory.getSelectedItem().toString();
+                    category = mCategoryItemForEditListing.get(editCategory.getSelectedItemPosition()).getCategoryName();
                     description = editDescription.getText().toString();
 
                     extras.putString("TITLE",title);
@@ -237,6 +250,25 @@ public class EditListing extends AppCompatActivity {
                 Toast.makeText(this, "Exception caught", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+    private void initListForEditListing() { //method to populate array list for custom spinner
+        mCategoryItemForEditListing = new ArrayList<>();
+        mCategoryItemForEditListing.add(new CategoryItem("Acrylic", R.drawable.acrylic));
+        mCategoryItemForEditListing.add(new CategoryItem("Arts and Crafts", R.drawable.artsandcrafts));
+        mCategoryItemForEditListing.add(new CategoryItem("Adhesives", R.drawable.adhesives));
+        mCategoryItemForEditListing.add(new CategoryItem("Cables and Wires", R.drawable.cablesandwires));
+        mCategoryItemForEditListing.add(new CategoryItem("Electronics", R.drawable.electronics));
+        mCategoryItemForEditListing.add(new CategoryItem("Events", R.drawable.events));
+        mCategoryItemForEditListing.add(new CategoryItem("General", R.drawable.general));
+        mCategoryItemForEditListing.add(new CategoryItem("Hardware", R.drawable.hardware));
+        mCategoryItemForEditListing.add(new CategoryItem("Lighting", R.drawable.lighting));
+        mCategoryItemForEditListing.add(new CategoryItem("Microelectronics", R.drawable.microelectronics));
+        mCategoryItemForEditListing.add(new CategoryItem("Robotic Mechanical", R.drawable.roboticmechanical));
+        mCategoryItemForEditListing.add(new CategoryItem("Sealants and Tapes", R.drawable.sealantsandtape));
+        mCategoryItemForEditListing.add(new CategoryItem("Software", R.drawable.software));
+        mCategoryItemForEditListing.add(new CategoryItem("Tools", R.drawable.tools));
+        mCategoryItemForEditListing.add(new CategoryItem("Wood", R.drawable.wood));
+        mCategoryItemForEditListing.add(new CategoryItem("Microelectronics", R.drawable.microelectronics));
     }
 
 

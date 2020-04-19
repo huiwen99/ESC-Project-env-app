@@ -24,6 +24,7 @@ import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -43,6 +44,10 @@ import org.apache.commons.codec.binary.Hex;
 import static android.graphics.ImageDecoder.createSource;
 
 public class AddListing extends AppCompatActivity {
+    //variables declarations for custom spinner in AddListing
+    private ArrayList<CategoryItem> mCategoryItemForAddListing;
+    private CategoryAdapter mAdapterForAddListing;
+
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
     //NOTE: wtf is this declaration correct im not sure - Dan
@@ -76,6 +81,13 @@ public class AddListing extends AppCompatActivity {
         setContentView(R.layout.activity_add_listing);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //custom spinner
+        initListForAddListing();
+        newListingCategory = findViewById(R.id.newListingCategory);
+
+        mAdapterForAddListing = new CategoryAdapter(this, mCategoryItemForAddListing);
+        newListingCategory.setAdapter(mAdapterForAddListing);
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -86,11 +98,24 @@ public class AddListing extends AppCompatActivity {
         imageSelected = findViewById(R.id.imageSelected);
         newListingTitle = findViewById(R.id.newListingTitle);
         newListingPrice = findViewById(R.id.newListingPrice);
-        newListingCategory = findViewById(R.id.newListingCategory);
         newListingDescription = findViewById(R.id.newListingDescription);
         addNewListing = findViewById(R.id.addNewListing);
 
         //newListingUser = findViewById(R.id.newListingUser);
+
+        newListingCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CategoryItem clickedItemForAddListing = (CategoryItem) parent.getItemAtPosition(position);
+                String clickedCategoryNameForAddListing = clickedItemForAddListing.getCategoryName();
+                Toast.makeText(AddListing.this, clickedCategoryNameForAddListing + " selected", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         imageSelected.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +139,7 @@ public class AddListing extends AppCompatActivity {
 
                 String title = newListingTitle.getText().toString();
                 String price = newListingPrice.getText().toString();
-                String category = newListingCategory.getSelectedItem().toString();
+                String category = mCategoryItemForAddListing.get(newListingCategory.getSelectedItemPosition()).getCategoryName();
                 String description = newListingDescription.getText().toString();
                 //String user = newListingUser.getText().toString();
 
@@ -208,5 +233,24 @@ public class AddListing extends AppCompatActivity {
         return hasBannedWord;
     }
 
+    private void initListForAddListing() { //method to populate array list for custom spinner
+        mCategoryItemForAddListing = new ArrayList<>();
+        mCategoryItemForAddListing.add(new CategoryItem("Acrylic", R.drawable.acrylic));
+        mCategoryItemForAddListing.add(new CategoryItem("Arts and Crafts", R.drawable.artsandcrafts));
+        mCategoryItemForAddListing.add(new CategoryItem("Adhesives", R.drawable.adhesives));
+        mCategoryItemForAddListing.add(new CategoryItem("Cables and Wires", R.drawable.cablesandwires));
+        mCategoryItemForAddListing.add(new CategoryItem("Electronics", R.drawable.electronics));
+        mCategoryItemForAddListing.add(new CategoryItem("Events", R.drawable.events));
+        mCategoryItemForAddListing.add(new CategoryItem("General", R.drawable.general));
+        mCategoryItemForAddListing.add(new CategoryItem("Hardware", R.drawable.hardware));
+        mCategoryItemForAddListing.add(new CategoryItem("Lighting", R.drawable.lighting));
+        mCategoryItemForAddListing.add(new CategoryItem("Microelectronics", R.drawable.microelectronics));
+        mCategoryItemForAddListing.add(new CategoryItem("Robotic Mechanical", R.drawable.roboticmechanical));
+        mCategoryItemForAddListing.add(new CategoryItem("Sealants and Tapes", R.drawable.sealantsandtape));
+        mCategoryItemForAddListing.add(new CategoryItem("Software", R.drawable.software));
+        mCategoryItemForAddListing.add(new CategoryItem("Tools", R.drawable.tools));
+        mCategoryItemForAddListing.add(new CategoryItem("Wood", R.drawable.wood));
+        mCategoryItemForAddListing.add(new CategoryItem("Microelectronics", R.drawable.microelectronics));
+    }
 
 }

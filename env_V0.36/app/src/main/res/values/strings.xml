@@ -7,22 +7,21 @@
     <string name="category_prompt">Pick Category</string>
 
     <string-array name="categories">
-        <item>General</item>
-        <item>Robotic Mechanical</item>
-        <item>Microelectronics</item>
+        <item>Acrylic</item>
         <item>Arts and Crafts</item>
-        <item>Accessories</item>
         <item>Adhesives</item>
         <item>Cables and wires</item>
         <item>Electronics</item>
         <item>Events</item>
+        <item>General</item>
         <item>Hardware</item>
         <item>Lighting</item>
+        <item>Microelectronics</item>
+        <item>Robotic Mechanical</item>
         <item>Sealants and Tape</item>
         <item>Software</item>
         <item>Tools</item>
-        <item>Thermoelectric</item>
-        <item>Wood and Acrylic</item>
+        <item>Wood</item>
     </string-array>
     <string name="title_activity_view_own_listing">ViewOwnListing</string>
     <string name="title_activity_view_other_listing">ViewOtherListing</string>

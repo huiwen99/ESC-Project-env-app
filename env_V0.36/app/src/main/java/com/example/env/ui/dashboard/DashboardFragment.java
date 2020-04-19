@@ -359,14 +359,27 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
 
     private void initList() { //method to populate array list for custom spinner
         mCategoryItem = new ArrayList<>();
+        mCategoryItem.add(new CategoryItem("Acrylic", R.drawable.acrylic));
+        mCategoryItem.add(new CategoryItem("Arts and Crafts", R.drawable.artsandcrafts));
+        mCategoryItem.add(new CategoryItem("Adhesives", R.drawable.adhesives));
+        mCategoryItem.add(new CategoryItem("Cables and Wires", R.drawable.cablesandwires));
+        mCategoryItem.add(new CategoryItem("Electronics", R.drawable.electronics));
+        mCategoryItem.add(new CategoryItem("Events", R.drawable.events));
         mCategoryItem.add(new CategoryItem("General", R.drawable.general));
-        mCategoryItem.add(new CategoryItem("Robotic Mechanical", R.drawable.roboticmechanical));
+        mCategoryItem.add(new CategoryItem("Hardware", R.drawable.hardware));
+        mCategoryItem.add(new CategoryItem("Lighting", R.drawable.lighting));
         mCategoryItem.add(new CategoryItem("Microelectronics", R.drawable.microelectronics));
+        mCategoryItem.add(new CategoryItem("Robotic Mechanical", R.drawable.roboticmechanical));
+        mCategoryItem.add(new CategoryItem("Sealants and Tapes", R.drawable.sealantsandtape));
+        mCategoryItem.add(new CategoryItem("Software", R.drawable.software));
+        mCategoryItem.add(new CategoryItem("Tools", R.drawable.tools));
+        mCategoryItem.add(new CategoryItem("Wood", R.drawable.wood));
+        mCategoryItem.add(new CategoryItem("Microelectronics", R.drawable.microelectronics));
+
     }
 
 //    public void getSelectedItem(View v){
 //        CategoryItem categoryItem = (CategoryItem) categorySpinner.getSelectedItem();
 //    }
-
     }
 

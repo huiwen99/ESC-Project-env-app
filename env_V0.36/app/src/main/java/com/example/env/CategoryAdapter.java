@@ -51,4 +51,5 @@ public class CategoryAdapter extends ArrayAdapter<CategoryItem> {
 
         return convertView;
     }
+
 }
