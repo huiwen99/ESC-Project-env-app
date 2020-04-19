@@ -106,7 +106,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         ArrayList<Integer> drawableId = new ArrayList<Integer>();
         drawableId.add(R.drawable.fan);
         userListings = new UserListings();
-        
+
         //TODO: display this info
 
 //        for(Integer rid:drawableId){
@@ -221,6 +221,25 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
             }
         };
         mDatabase.child("usersList").child(currentUser).child("adminRights").addListenerForSingleValueEvent(adminListener);
+
+        //update bannedWordsList from firebase
+        mDatabase.child("bannedWords").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("BANNED_WORD", dataSnapshot.getValue().toString());
+                HashMap bannedWords = (HashMap) dataSnapshot.getValue();
+                for (Object word : bannedWords.values()) {
+                    Log.d("BANNED_WORD", word.toString());
+                    bannedWordsList.add(word.toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("GET_TELE", "get teleID failed");
+                System.out.println(databaseError.getDetails());
+            }
+        });
 
 
         //eventually have adminUsers list pull from firebase a list of admins? or we can just hardcode coz shouldn't change
