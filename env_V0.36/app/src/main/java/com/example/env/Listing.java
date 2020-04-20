@@ -14,8 +14,11 @@ public class Listing {
     private String description;
     private String user;
     private long id;
+    private String email;
+    private String telegramID;
 
-    public Listing(String title, String price, Bitmap image, String category,String description, String user, long id){
+    public Listing(String title, String price, Bitmap image, String category,String description, String user, long id,
+                   String email, String telegramID){
         this.title = title;
         this.price = numInputToPriceText(price);
         this.image = image;
@@ -23,6 +26,8 @@ public class Listing {
         this.description = description;
         this.user = user;
         this.id = id;
+        this.email = email;
+        this.telegramID = telegramID;
     }
 
     public void editListingDetails(String title, String price, Bitmap image, String category,String description){
@@ -53,6 +58,14 @@ public class Listing {
     }
     public long getId() {
         return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getTelegramID() {
+        return telegramID;
     }
 
     public static String numInputToPriceText(String rawPrice){

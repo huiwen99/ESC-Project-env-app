@@ -45,6 +45,7 @@ import com.example.env.ui.home.ViewOwnListing;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -81,7 +82,7 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
     // Create a storage reference from our app
     static StorageReference storageRef = storage.getReferenceFromUrl("gs://envfirebaseproject.appspot.com/");
 
-    String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
     private DashboardViewModel dashboardViewModel;
@@ -170,14 +171,18 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
                             String category = itemHashmap.get("category").toString();
                             String description = itemHashmap.get("description").toString();
                             String user = itemHashmap.get("user").toString();
+                            String email = itemHashmap.get("email").toString();
+                            String telegramID = itemHashmap.get("telegramID").toString();
 
                             //to be replaced
                             long listingID = Long.parseLong(itemHashmap.get("imgNumber").toString());
 
 
 
-                            masterListings.addListing(imageName, price, imgBitmap, category, description, user, listingID);
-                            filteredList.addListing(imageName, price, imgBitmap, category, description, user, listingID);
+                            masterListings.addListing(imageName, price, imgBitmap, category, description, user, listingID,
+                                    email, telegramID);
+                            filteredList.addListing(imageName, price, imgBitmap, category, description, user, listingID,
+                                    email, telegramID);
 
                             Log.d("DASHBOARD_TAG", "added item");
                             //Log.d("HOME_TAG", String.valueOf(userListings.userListings));
@@ -254,7 +259,10 @@ public class DashboardFragment extends Fragment implements RecyclerViewItemListe
         extras.putString("DESCRIPTION",filteredList.getDescription(position));
         extras.putString("USER",filteredList.getUser(position));
         extras.putLong("ID",filteredList.getId(position));
-        FirebaseUtils.getTelegramFromUID(filteredList.getUser(position));
+        extras.putString("EMAIL",filteredList.getEmail(position));
+        extras.putString("TELEGRAMID",filteredList.getTelegramID(position));
+        Log.d("TELE_ID", filteredList.getTelegramID(position));
+        //FirebaseUtils.getTelegramFromUID(filteredList.getUser(position));
 
         Bitmap image = filteredList.getImage(position);
         byte[] byteArray = Utils.bitmapToByteArray(image);

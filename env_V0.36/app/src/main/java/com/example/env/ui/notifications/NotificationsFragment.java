@@ -76,7 +76,10 @@ public class NotificationsFragment extends Fragment implements RecyclerViewItemL
                 String description = "test";
                 String user = "env@gmail.com";
                 long id = 0;
-            bookmarkedListings.addListing(imageName,price,bitmap, category, description, user, id);
+                String email = "env@gmail.com";
+                String teleID = "S4tan1zing";
+            bookmarkedListings.addListing(imageName,price,bitmap, category, description, user, id,
+                    email, teleID);
         }
 
 
@@ -98,6 +101,7 @@ public class NotificationsFragment extends Fragment implements RecyclerViewItemL
         extras.putString("CATEGORY",bookmarkedListings.getCategory(position));
         extras.putString("DESCRIPTION",bookmarkedListings.getDescription(position));
         extras.putString("USER",bookmarkedListings.getUser(position));
+
 
         Bitmap image = bookmarkedListings.getImage(position);
         byte[] byteArray = Utils.bitmapToByteArray(image);

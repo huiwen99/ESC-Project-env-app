@@ -29,6 +29,7 @@ import com.example.env.Utils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -62,7 +63,7 @@ public class EditListing extends AppCompatActivity {
     String category;
     String description;
 
-    String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     // for Firebase Storage
     static FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -101,6 +102,9 @@ public class EditListing extends AppCompatActivity {
         category = extras.getString("CATEGORY");
 
         final long id = extras.getLong("ID");
+        String user = extras.getString("USER");
+        String email = extras.getString("EMAIL");
+        final String telegramID = extras.getString("TELEGRAMID");
 
 
 
@@ -151,45 +155,45 @@ public class EditListing extends AppCompatActivity {
                 }else{
                     Intent intent = new Intent(EditListing.this,ViewOwnListing.class);
 
-                    // delete old listing, reuse this for delete button also
-                    ValueEventListener postListener = new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            // Get object and use the values to update the UI
-                            Log.d("EDIT_TAG", "getting values");
-                            Object allListing = dataSnapshot.getValue();
-                            // ...
-                            HashMap allListingHashmap = ((HashMap) allListing); // cast this bitch into a hashmap
-                            //System.out.println(allListingHashmap);
-
-                            for (Object item : allListingHashmap.values()) {
-                                final HashMap itemHashmap = ((HashMap) item); // this is the hashmap of each item
-                                System.out.println(itemHashmap);
-                                String cloudTitle = (String) itemHashmap.get("title");
-                                String cloudPrice = (String) itemHashmap.get("price");
-                                String cloudDescription = (String) itemHashmap.get("description");
-                                Log.d("EDIT_TAG", "Cloud: " + cloudTitle +" "+ cloudPrice +" "+ cloudDescription);
-                                Log.d("EDIT_TAG", "Old: " + oldTitle +" "+ oldPrice +" "+ oldDescription);
-
-                                if (cloudTitle.equals(oldTitle) && cloudDescription.equals(oldDescription)
-                                && cloudPrice.equals(oldPrice)) {
-                                    DatabaseReference toDelete = mDatabase.child("testProducts").child((String) itemHashmap.get("imgNumber"));
-                                    toDelete.removeValue();
-                                }
-
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            // Getting Post failed, log a message
-                            Log.w("HOME_TAG", "loadPost:onCancelled", databaseError.toException());
-                            // ...
-                        }
-                    };
-                    mDatabase.child("testProducts").addListenerForSingleValueEvent(postListener);
-
-                    //end of workaround
+//                    // delete old listing, reuse this for delete button also
+//                    ValueEventListener postListener = new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            // Get object and use the values to update the UI
+//                            Log.d("EDIT_TAG", "getting values");
+//                            Object allListing = dataSnapshot.getValue();
+//                            // ...
+//                            HashMap allListingHashmap = ((HashMap) allListing); // cast this bitch into a hashmap
+//                            //System.out.println(allListingHashmap);
+//
+//                            for (Object item : allListingHashmap.values()) {
+//                                final HashMap itemHashmap = ((HashMap) item); // this is the hashmap of each item
+//                                System.out.println(itemHashmap);
+//                                String cloudTitle = (String) itemHashmap.get("title");
+//                                String cloudPrice = (String) itemHashmap.get("price");
+//                                String cloudDescription = (String) itemHashmap.get("description");
+//                                Log.d("EDIT_TAG", "Cloud: " + cloudTitle +" "+ cloudPrice +" "+ cloudDescription);
+//                                Log.d("EDIT_TAG", "Old: " + oldTitle +" "+ oldPrice +" "+ oldDescription);
+//
+//                                if (cloudTitle.equals(oldTitle) && cloudDescription.equals(oldDescription)
+//                                && cloudPrice.equals(oldPrice)) {
+//                                    DatabaseReference toDelete = mDatabase.child("testProducts").child((String) itemHashmap.get("imgNumber"));
+//                                    toDelete.removeValue();
+//                                }
+//
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//                            // Getting Post failed, log a message
+//                            Log.w("HOME_TAG", "loadPost:onCancelled", databaseError.toException());
+//                            // ...
+//                        }
+//                    };
+//                    mDatabase.child("testProducts").addListenerForSingleValueEvent(postListener);
+//
+//                    //end of workaround
 
                     title = editTitle.getText().toString();
                     price = editPrice.getText().toString();
@@ -207,7 +211,7 @@ public class EditListing extends AppCompatActivity {
                     extras.putByteArray("IMAGE",byteArray);
 
                     //push this to firebase
-                    long listingTimestamp = System.currentTimeMillis();
+                    long listingTimestamp = id;
                     try {
                         Log.d("EDIT_TAG", "prepare to push listing");
                         FirebaseUtils.pushListing(listingTimestamp, title, price.substring(1), byteArray, category, description, currentUser);

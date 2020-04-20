@@ -64,16 +64,22 @@ public class ViewOtherListing extends AppCompatActivity {
         Bitmap image = Utils.byteArrayToBitmap(byteArray);
         otherListingImage.setImageBitmap(image);
         String user = extras.getString("USER");
-        otherListingEmail.setText(user);
+
         final long id = extras.getLong("ID");
+        String email = extras.getString("EMAIL");
+        otherListingEmail.setText(email);
+        final String telegramID = extras.getString("TELEGRAMID");
+        //Log.d("TELE_ID", "viewotherlisting "+email);
+        //Log.d("TELE_ID", "viewotherlisting "+telegramID);
 
 
-        setTitle(title+" by "+user);
+
+        setTitle(title+" by "+email);
 
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://t.me/"+ FirebaseUtils.telegramID;
+                String url = "https://t.me/"+ telegramID;
                 Log.d("TELE_ID", url);
 //              string url will be changed to a dynamic url, concatenating the telegram username(from firebase) at the end of "https://t.me/"
                 Intent i = new Intent(Intent.ACTION_VIEW);

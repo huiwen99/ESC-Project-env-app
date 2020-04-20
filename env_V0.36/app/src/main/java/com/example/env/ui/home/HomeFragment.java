@@ -147,6 +147,8 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
                             String category = itemHashmap.get("category").toString();
                             String description = itemHashmap.get("description").toString();
                             String user = itemHashmap.get("user").toString();
+                            String email = itemHashmap.get("email").toString();
+                            String telegramID = itemHashmap.get("telegramID").toString();
 
                             long listingID = Long.parseLong(itemHashmap.get("imgNumber").toString());
 
@@ -156,7 +158,8 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
 
 
                             if (user.equals(currentUser)) {
-                                userListings.addListing(imageName, price, imgBitmap, category, description, user, listingID);
+                                userListings.addListing(imageName, price, imgBitmap, category, description, user, listingID,
+                                        email, telegramID);
                                 Log.d("HOME_TAG", "added item");
                                 //Log.d("HOME_TAG", String.valueOf(userListings.userListings));
                                 refreshRecyclerView();
@@ -273,23 +276,23 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == REQUEST_CODE_IMAGE && resultCode== Activity.RESULT_OK){
-            String title = data.getStringExtra(AddListing.KEY_TITLE);
-            String price = data.getStringExtra(AddListing.KEY_PRICE);
-            String category = data.getStringExtra(AddListing.KEY_CATEGORY);
-            String description = data.getStringExtra(AddListing.KEY_DESCRIPTION);
-            String user = data.getStringExtra(AddListing.KEY_USER);
-
-            //replace this -> get current time or something?? lmk if you wanna pass id through AddListing -hw
-            long id = 0;
-
-            byte[] byteArray = data.getByteArrayExtra(AddListing.KEY_IMAGE);
-            Bitmap image = Utils.byteArrayToBitmap(byteArray);
-
-            userListings.addListing(title,price,image,category,description,user,id);
-            Log.d("HOME_TAG", String.valueOf(userListings.userListings));
-            listingAdapter.notifyDataSetChanged();
-        }
+//        if(requestCode == REQUEST_CODE_IMAGE && resultCode== Activity.RESULT_OK){
+//            String title = data.getStringExtra(AddListing.KEY_TITLE);
+//            String price = data.getStringExtra(AddListing.KEY_PRICE);
+//            String category = data.getStringExtra(AddListing.KEY_CATEGORY);
+//            String description = data.getStringExtra(AddListing.KEY_DESCRIPTION);
+//            String user = data.getStringExtra(AddListing.KEY_USER);
+//
+//            //replace this -> get current time or something?? lmk if you wanna pass id through AddListing -hw
+//            long id = 0;
+//
+//            byte[] byteArray = data.getByteArrayExtra(AddListing.KEY_IMAGE);
+//            Bitmap image = Utils.byteArrayToBitmap(byteArray);
+//
+//            userListings.addListing(title,price,image,category,description,user,id,);
+//            Log.d("HOME_TAG", String.valueOf(userListings.userListings));
+//            listingAdapter.notifyDataSetChanged();
+//        }
     }
 
     @Override
@@ -303,8 +306,9 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         extras.putString("CATEGORY",userListings.getCategory(position));
         extras.putString("DESCRIPTION",userListings.getDescription(position));
         extras.putLong("ID",userListings.getId(position));
-
-
+        extras.putString("USER", currentUser);
+        extras.putString("EMAIL",userListings.getEmail(position));
+        extras.putString("TELGRAMID",userListings.getTelegramID(position));
 
 
         Bitmap image = userListings.getImage(position);

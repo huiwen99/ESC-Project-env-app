@@ -32,7 +32,8 @@ public class FirebaseUtils {
     public interface firebaseCallback<T> {
         void onCallback(T value);
     }
-
+    public static FirebaseUser myCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+    public static String currentTelegramID = "";
     public static String telegramID = "blyat";
     public static ArrayList<String> bannedUsersList = new ArrayList<>();
 
@@ -45,7 +46,7 @@ public class FirebaseUtils {
 
 
 
-    public static void pushListing(long timestamp, String title, String price, byte[] imageBytes, String category, String description, String currentUser) throws InterruptedException {
+    public static void pushListing(long timestamp, String title, String price, byte[] imageBytes, String category, String description, FirebaseUser currentUser) throws InterruptedException {
         // will be the item name in our DB
 
         //long listingTimestamp = System.currentTimeMillis();
@@ -111,7 +112,9 @@ public class FirebaseUtils {
 
         System.out.println("declared stringurl");*/
 
-        ListingForDatabase listing = new ListingForDatabase(title, price, String.valueOf(timestamp), category, description, currentUser);
+        ListingForDatabase listing = new ListingForDatabase(title, price, String.valueOf(timestamp), category, description,
+                myCurrentUser.getUid(), myCurrentUser.getEmail(), currentTelegramID);
+        Log.d("UTIL_TEST", listing.getEmail() + " " + listing.getTelegramID());
         mDatabase.child("testProducts").child(String.valueOf(timestamp)).setValue(listing);
         //String imageHexString = new String(Hex.encodeHex(imageHex));
         //Log.d(TAG, "Converted to hex string");
@@ -142,6 +145,24 @@ public class FirebaseUtils {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("GET_TELE", "get teleID failed");
                 telegramID = null;
+                System.out.println(databaseError.getDetails());
+            }
+        });
+    }
+
+    public static void updateCurrentTelegramID() {
+        mDatabase.child("usersList").child(myCurrentUser.getUid()).child("teleID").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("GET_TELE", "getting Tele id of current user");
+                String teleID = (String) dataSnapshot.getValue();
+                currentTelegramID = teleID;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("GET_TELE", "get teleID failed");
+                currentTelegramID = "";
                 System.out.println(databaseError.getDetails());
             }
         });

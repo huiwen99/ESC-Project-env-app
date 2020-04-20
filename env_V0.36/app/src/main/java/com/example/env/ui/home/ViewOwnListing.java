@@ -82,7 +82,9 @@ public class ViewOwnListing extends AppCompatActivity {
         byte[] byteArray = extras.getByteArray("IMAGE");
         Bitmap image = Utils.byteArrayToBitmap(byteArray);
         listingImage.setImageBitmap(image);
-        String user = extras.getString("User");
+        String user = extras.getString("USER");
+        String email = extras.getString("EMAIL");
+        final String telegramID = extras.getString("TELEGRAMID");
         //listingEmail.setText(user);
 
         setTitle(title); //title of the activity is set to title of listing
@@ -105,27 +107,30 @@ public class ViewOwnListing extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         // Get object and use the values to update the UI
-                        Log.d("EDIT_TAG", "getting values");
-                        Object allListing = dataSnapshot.getValue();
-                        // ...
-                        HashMap allListingHashmap = ((HashMap) allListing); // cast this bitch into a hashmap
-                        //System.out.println(allListingHashmap);
-
-                        for (Object item : allListingHashmap.values()) {
-                            final HashMap itemHashmap = ((HashMap) item); // this is the hashmap of each item
-                            System.out.println(itemHashmap);
-                            String cloudTitle = (String) itemHashmap.get("title");
-                            String cloudPrice = (String) itemHashmap.get("price");
-                            String cloudDescription = (String) itemHashmap.get("description");
-                            Log.d("EDIT_TAG", "Cloud: " + cloudTitle +" "+ cloudPrice +" "+ cloudDescription);
-                            Log.d("EDIT_TAG", "Old: " + title +" "+ price +" "+ description);
-
-                            if (cloudTitle.equals(title) && cloudDescription.equals(description)
-                                    && cloudPrice.equals(price)) {
-                                DatabaseReference toDelete = mDatabase.child("testProducts").child((String) itemHashmap.get("imgNumber"));
-                                toDelete.removeValue();
-                            }
-                        }
+                        Log.d("OWN_LISTING_TAG", "prepare to delete");
+                        DatabaseReference toDelete = mDatabase.child("testProducts").child(String.valueOf(id));
+                        toDelete.removeValue();
+                        Log.d("OWN_LISTING_TAG", "delete complete");
+//                        Object allListing = dataSnapshot.getValue();
+//                        // ...
+//                        HashMap allListingHashmap = ((HashMap) allListing); // cast this bitch into a hashmap
+//                        //System.out.println(allListingHashmap);
+//
+//                        for (Object item : allListingHashmap.values()) {
+//                            final HashMap itemHashmap = ((HashMap) item); // this is the hashmap of each item
+//                            System.out.println(itemHashmap);
+//                            String cloudTitle = (String) itemHashmap.get("title");
+//                            String cloudPrice = (String) itemHashmap.get("price");
+//                            String cloudDescription = (String) itemHashmap.get("description");
+//                            Log.d("EDIT_TAG", "Cloud: " + cloudTitle +" "+ cloudPrice +" "+ cloudDescription);
+//                            Log.d("EDIT_TAG", "Old: " + title +" "+ price +" "+ description);
+//
+//                            if (cloudTitle.equals(title) && cloudDescription.equals(description)
+//                                    && cloudPrice.equals(price)) {
+//                                DatabaseReference toDelete = mDatabase.child("testProducts").child((String) itemHashmap.get("imgNumber"));
+//                                toDelete.removeValue();
+//                            }
+//                        }
                     }
 
                     @Override
