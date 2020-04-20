@@ -12,6 +12,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 public class StartScreen extends AppCompatActivity {
 
     private static final long SPLASH_SCREEN = 4000 ; //4s to go from start screen to login screen
@@ -26,6 +31,12 @@ public class StartScreen extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //getActionBar().hide();
         setContentView(R.layout.activity_start_screen);
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        // for Firebase Storage
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        // Create a storage reference from our app
+        StorageReference storageRef = storage.getReferenceFromUrl("gs://envfirebaseproject.appspot.com/");
 
         //Animations
         topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
@@ -42,7 +53,11 @@ public class StartScreen extends AppCompatActivity {
         slogan.setAnimation(bottomAnim);
 
         FirebaseUtils.getBannedUsers();
+        Log.d("START_SCREEN", "got banned users, now getting emails");
         FirebaseUtils.updateCurrentEmail();
+        Log.d("START_SCREEN", "got emails, now getting listings");
+        FirebaseUtils.getAllListings();
+        Log.d("START_SCREEN", "got listings, done");
 
         //4s to navigate to login activity
         new Handler().postDelayed(new Runnable() {

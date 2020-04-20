@@ -76,7 +76,7 @@ public class AddAndRetrieve {
     public void testPushListing() throws InterruptedException {
         //this test pushes a listing and checks if it's in the database
         final long timestamp = System.currentTimeMillis();
-        FirebaseUtils.pushListing(timestamp, title, price, bmBytes, category, description, user);
+        //FirebaseUtils.pushListing(timestamp, title, price, bmBytes, category, description, user);
 
         pauseTestFor(5);
 
@@ -111,7 +111,7 @@ public class AddAndRetrieve {
 
     }
 
-    public Bitmap getBitmapFromURL(String src) {
+    public static Bitmap getBitmapFromURL(String src) {
         try {
             java.net.URL url = new java.net.URL(src);
             HttpURLConnection connection = (HttpURLConnection) url

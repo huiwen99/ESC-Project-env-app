@@ -169,11 +169,12 @@ public class AddListing extends AppCompatActivity {
 
                         try {
                             FirebaseUtils.pushListing(listingTimestamp, title, price, byteArray, category, description, currentUser);
+                            FirebaseUtils.getAllListings();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
 
-                    setResult(resultCode, resultIntent);
+                        setResult(resultCode, resultIntent);
                     finish();
 //                    Intent intent = new Intent(AddListing.this,MainActivity.class);
 //                    startActivity(intent);
