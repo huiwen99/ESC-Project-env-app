@@ -116,6 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (!isBanned) {
                                 //setup the required variables and stuff
                                 FirebaseUtils.updateCurrentTelegramID();
+                                FirebaseUtils.updateCurrentEmail();
 
                                 mLoginProgress.dismiss();
                                 Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);

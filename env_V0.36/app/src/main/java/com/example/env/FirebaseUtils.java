@@ -34,6 +34,7 @@ public class FirebaseUtils {
     }
     public static FirebaseUser myCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
     public static String currentTelegramID = "";
+    public static String currentEmail = "test";
     public static String telegramID = "blyat";
     public static ArrayList<String> bannedUsersList = new ArrayList<>();
 
@@ -163,6 +164,24 @@ public class FirebaseUtils {
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("GET_TELE", "get teleID failed");
                 currentTelegramID = "";
+                System.out.println(databaseError.getDetails());
+            }
+        });
+    }
+
+    public static void updateCurrentEmail() {
+        mDatabase.child("usersList").child(myCurrentUser.getUid()).child("email").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("GET_EMAIL", "getting email of current user");
+                String emailAdd = (String) dataSnapshot.getValue();
+                currentEmail = emailAdd;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("GET_TELE", "get teleID failed");
+                currentEmail = "";
                 System.out.println(databaseError.getDetails());
             }
         });

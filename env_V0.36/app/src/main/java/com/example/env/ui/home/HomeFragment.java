@@ -97,6 +97,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
 
         addListingButton = root.findViewById(R.id.addListingButton);
         username = root.findViewById(R.id.username);
+        username.setText(FirebaseUtils.currentEmail);
         recyclerView = root.findViewById(R.id.userListingRecyclerView);
         linearLayout = root.findViewById(R.id.linearLayout);
 
