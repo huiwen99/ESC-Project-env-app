@@ -79,6 +79,7 @@ public class AddListingTest {
         pauseTestFor(5);
         onView(withId(R.id.newListingTitle)).perform(replaceText("TestingTitle"));
         pauseTestFor(1);
+        onView(withId(R.id.newListingPrice)).perform(scrollTo());
         onView(withId(R.id.newListingPrice)).perform(replaceText("5"));
         pauseTestFor(1);
         //onView(withId(R.id.newListingCategory)).perform(click());

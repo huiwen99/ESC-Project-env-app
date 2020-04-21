@@ -288,6 +288,26 @@ public class FirebaseUtils {
 
     }
 
+    public static void deleteLisitng(String id) {
+        DatabaseReference toDelete = mDatabase.child("testProducts").child(String.valueOf(id));
+        Log.d("Own_listing", String.valueOf(id));
+
+        for (Listing i : FirebaseUtils.myUserListings.userListings) {
+            if (id.equals(String.valueOf(i.getId()))) {
+                FirebaseUtils.myUserListings.removeListing(i);
+                break;
+            }
+        }
+
+        for (Listing i : HomeFragment.homeUserListings.userListings) {
+            if (id.equals(String.valueOf(i.getId()))) {
+                HomeFragment.homeUserListings.removeListing(i);
+                break;
+            }
+        }
+
+        toDelete.removeValue();
+    }
 
 
     public static void addUser(String UID, String teleID, String email, Boolean adminRights) {
@@ -372,5 +392,10 @@ public class FirebaseUtils {
                 System.out.println(databaseError.getDetails());
             }
         });
+    }
+
+    public static void addBannedUser(String email) {
+        long timestamp = System.currentTimeMillis();
+        mDatabase.child("bannedUsers").child(String.valueOf(timestamp)).setValue(email);
     }
 }

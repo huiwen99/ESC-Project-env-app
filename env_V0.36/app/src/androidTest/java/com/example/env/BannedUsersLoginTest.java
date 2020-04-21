@@ -28,12 +28,12 @@ public class BannedUsersLoginTest {
     @Rule
     public IntentsTestRule<StartScreen> mIntentsRule = new IntentsTestRule<>(StartScreen.class);
 
-    private final String username = "dangn511@gmail.com "; //banned user id
+    private final String username = "trashacc0511@gmail.com "; //banned user id
     private final String password = "wtf420666";
 
     @Test
     public void testBannedUserInputLogin() {
-        pauseTestFor(4);
+        pauseTestFor(8);
         onView(withId(R.id.login_email)).perform(replaceText(username));
         pauseTestFor(2);
         onView(withId(R.id.login_password)).perform(replaceText(password));

@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         Log.d("TEST1", "now in login");
 
-
+        FirebaseUtils.getBannedUsers();
 
         mEmail = (TextInputEditText) findViewById(R.id.login_email);
         mPassword = (TextInputEditText) findViewById(R.id.login_password);

@@ -29,6 +29,7 @@ public class AdminPage extends AppCompatActivity {
     ArrayList<String> bannedWords;
     ArrayList<String> bannedUsers = new ArrayList<String>(); //to pull from firebase
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +54,12 @@ public class AdminPage extends AppCompatActivity {
         userInput = findViewById(R.id.userInput);
         listingInput = findViewById(R.id.listingInput);
 
+        bannedUsers = FirebaseUtils.bannedUsersList;
+
         bannedWordsList.setText(listToString(bannedWords));
         bannedUsersList.setText(listToString(bannedUsers));
+
+
 
         banWordsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +89,7 @@ public class AdminPage extends AppCompatActivity {
                         //to push to firebase
                         bannedUsers.add(input);
                         bannedUsersList.setText(listToString(bannedUsers));
+                        FirebaseUtils.addBannedUser(input);
                         Toast.makeText(AdminPage.this, "Added user to the banned list.", Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(AdminPage.this, "User is already banned.", Toast.LENGTH_SHORT).show();
@@ -101,6 +107,7 @@ public class AdminPage extends AppCompatActivity {
                 if(!input.equals("")){
                     if(true){//replace to check if listing exists or something
                         //add code to delete listing based on listing ID
+                        FirebaseUtils.deleteLisitng(input);
 
                         Toast.makeText(AdminPage.this, "Listing has been deleted.", Toast.LENGTH_SHORT).show();
                     }else{
