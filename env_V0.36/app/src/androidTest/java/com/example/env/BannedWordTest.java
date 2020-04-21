@@ -45,7 +45,7 @@ import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
 
 
-public class AddListingTest {
+public class BannedWordTest {
     @Rule
     public IntentsTestRule<StartScreen> mIntentsRule = new IntentsTestRule<>(StartScreen.class);
 
@@ -65,79 +65,50 @@ public class AddListingTest {
 
     }
 
+
     @Test
-    public void testAddingListing(){
-        pauseTestFor(7);
-        onView(withId(R.id.addListingButton)).perform(ViewActions.click());
+    public void testBannedWords(){
         pauseTestFor(5);
+        onView(withId(R.id.addListingButton)).perform(ViewActions.click());
+        pauseTestFor(3);
 
         //inside AddListing activity
 
         // Click on the button that will trigger the stubbed intent.
         onView(withId(R.id.imageSelected)).perform(click());
+        String bannedWord = "damn";
 
-        pauseTestFor(5);
-        onView(withId(R.id.newListingTitle)).perform(replaceText("TestingTitle"));
+        pauseTestFor(3);
+        onView(withId(R.id.newListingTitle)).perform(replaceText(bannedWord));
         pauseTestFor(1);
         onView(withId(R.id.newListingPrice)).perform(scrollTo());
+        pauseTestFor(1);
         onView(withId(R.id.newListingPrice)).perform(replaceText("5"));
         pauseTestFor(1);
-        //onView(withId(R.id.newListingCategory)).perform(click());
-        //pauseTestFor(1);
-        //onData(is("Microelectronics")).perform(click());
-        //pauseTestFor(1);
+//        onView(withId(R.id.newListingCategory)).perform(click());
+//        pauseTestFor(1);
+//        onData(is("Microelectronics")).perform(click());
+//        pauseTestFor(1);
         onView(withId(R.id.newListingDescription)).perform(scrollTo());
         pauseTestFor(1);
         onView(withId(R.id.newListingDescription)).perform(replaceText("TestingDescription"));
         pauseTestFor(1);
         onView(withId(R.id.addNewListing)).perform(ViewActions.click());
-        pauseTestFor(5);
-
+        pauseTestFor(2);
+        onView(withId(R.id.newListingTitle)).perform(scrollTo());
+        pauseTestFor(1);
+        for(int i=0;i<5;i++) {
+            onView(withId(R.id.newListingTitle)).perform(replaceText(fuzzCapitalize(bannedWord)));
+            pauseTestFor(1);
+            onView(withId(R.id.addNewListing)).perform(ViewActions.click());
+            pauseTestFor(1);
+        }
+        try{
+            onView(withId(R.id.addNewListing)).check(ViewAssertions.matches(isDisplayed()));
+        }catch(NoMatchingViewException e){
+            fail();
+        }
     }
-
-//    @Test
-//    public void testBannedWords(){
-//        pauseTestFor(5);
-//        onView(withId(R.id.addListingButton)).perform(ViewActions.click());
-//        pauseTestFor(3);
-//
-//        //inside AddListing activity
-//
-//        // Click on the button that will trigger the stubbed intent.
-//        onView(withId(R.id.imageSelected)).perform(click());
-//        String bannedWord = "damn";
-//
-//        pauseTestFor(3);
-//        onView(withId(R.id.newListingTitle)).perform(replaceText(bannedWord));
-//        pauseTestFor(1);
-//        onView(withId(R.id.newListingPrice)).perform(scrollTo());
-//        pauseTestFor(1);
-//        onView(withId(R.id.newListingPrice)).perform(replaceText("5"));
-//        pauseTestFor(1);
-////        onView(withId(R.id.newListingCategory)).perform(click());
-////        pauseTestFor(1);
-////        onData(is("Microelectronics")).perform(click());
-////        pauseTestFor(1);
-//        onView(withId(R.id.newListingDescription)).perform(scrollTo());
-//        pauseTestFor(1);
-//        onView(withId(R.id.newListingDescription)).perform(replaceText("TestingDescription"));
-//        pauseTestFor(1);
-//        onView(withId(R.id.addNewListing)).perform(ViewActions.click());
-//        pauseTestFor(2);
-//        onView(withId(R.id.newListingTitle)).perform(scrollTo());
-//        pauseTestFor(1);
-//        for(int i=0;i<5;i++) {
-//            onView(withId(R.id.newListingTitle)).perform(replaceText(fuzzCapitalize(bannedWord)));
-//            pauseTestFor(1);
-//            onView(withId(R.id.addNewListing)).perform(ViewActions.click());
-//            pauseTestFor(1);
-//        }
-//        try{
-//            onView(withId(R.id.addNewListing)).check(ViewAssertions.matches(isDisplayed()));
-//        }catch(NoMatchingViewException e){
-//            fail();
-//        }
-//    }
 
 
     private Instrumentation.ActivityResult createImageCaptureActivityResultStub() {

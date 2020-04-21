@@ -88,9 +88,9 @@ public class FirebaseUtils {
                             Log.d("HOME_TAG", "Name " + imageName +
                                     " PRICE " + price +
                                     " CATE " + category +
-                                    " DESC "+ description
-                            + " USER " + user
-                                    + " MAIL "+ email
+                                    " DESC " + description
+                                    + " USER " + user
+                                    + " MAIL " + email
                                     + " TELE " + telegramID +
                                     " ID " + listingID);
 
@@ -190,7 +190,7 @@ public class FirebaseUtils {
                 timestamp, currentUser.getEmail(), currentTelegramID);
         myUserListings.addListing(listingToBePassed);
         HomeFragment.homeUserListings.addListing(listingToBePassed);
-        
+
         mDatabase.child("testProducts").child(String.valueOf(timestamp)).setValue(listing);
 
     }
@@ -420,10 +420,12 @@ public class FirebaseUtils {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d("GET_BOOKMARKS", "getting bookmarks of current user");
 
-                HashMap bookmarks = (HashMap) dataSnapshot.getValue();
-                ArrayList<Long> bookmarksArray = new ArrayList<>(bookmarks.values());
-                for (Long bookmark : bookmarksArray) {
-                    myBookmarks.add(bookmark);
+                if (dataSnapshot.getValue() != null) {
+                    HashMap bookmarks = (HashMap) dataSnapshot.getValue();
+                    ArrayList<Long> bookmarksArray = new ArrayList<>(bookmarks.values());
+                    for (Long bookmark : bookmarksArray) {
+                        myBookmarks.add(bookmark);
+                    }
                 }
             }
 

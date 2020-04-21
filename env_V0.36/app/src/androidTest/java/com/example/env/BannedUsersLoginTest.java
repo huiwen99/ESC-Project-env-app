@@ -33,7 +33,7 @@ public class BannedUsersLoginTest {
 
     @Test
     public void testBannedUserInputLogin() {
-        pauseTestFor(8);
+        pauseTestFor(6);
         onView(withId(R.id.login_email)).perform(replaceText(username));
         pauseTestFor(2);
         onView(withId(R.id.login_password)).perform(replaceText(password));
