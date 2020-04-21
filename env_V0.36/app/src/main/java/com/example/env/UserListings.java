@@ -33,7 +33,7 @@ public class UserListings {
         userListings.remove(position);
     }
 
-    void removeListing(Listing listing){
+    public void removeListing(Listing listing){
         userListings.remove(listing);
     }
 

@@ -57,16 +57,16 @@ public class AddListingTest {
 
     @Test
     public void testAddListing(){
-        pauseTestFor(5);
+        pauseTestFor(7);
         onView(withId(R.id.addListingButton)).perform(ViewActions.click());
-        pauseTestFor(3);
+        pauseTestFor(5);
 
         //inside AddListing activity
 
         // Click on the button that will trigger the stubbed intent.
         onView(withId(R.id.imageSelected)).perform(click());
 
-        pauseTestFor(3);
+        pauseTestFor(5);
         onView(withId(R.id.newListingTitle)).perform(replaceText("TestingTitle"));
         pauseTestFor(1);
         onView(withId(R.id.newListingPrice)).perform(replaceText("5"));
@@ -99,12 +99,14 @@ public class AddListingTest {
         pauseTestFor(3);
         onView(withId(R.id.newListingTitle)).perform(replaceText(bannedWord));
         pauseTestFor(1);
+        onView(withId(R.id.newListingPrice)).perform(scrollTo());
+        pauseTestFor(1);
         onView(withId(R.id.newListingPrice)).perform(replaceText("5"));
         pauseTestFor(1);
-        onView(withId(R.id.newListingCategory)).perform(click());
-        pauseTestFor(1);
-        onData(is("Microelectronics")).perform(click());
-        pauseTestFor(1);
+//        onView(withId(R.id.newListingCategory)).perform(click());
+//        pauseTestFor(1);
+//        onData(is("Microelectronics")).perform(click());
+//        pauseTestFor(1);
         onView(withId(R.id.newListingDescription)).perform(scrollTo());
         pauseTestFor(1);
         onView(withId(R.id.newListingDescription)).perform(replaceText("TestingDescription"));

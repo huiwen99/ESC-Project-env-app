@@ -108,6 +108,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         ArrayList<Integer> drawableId = new ArrayList<Integer>();
         drawableId.add(R.drawable.fan);
         homeUserListings = new UserListings();
+        homeUserListings.userListings.clear();
 
         //TODO: display this info
 

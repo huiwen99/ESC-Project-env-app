@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import com.example.env.FirebaseUtils;
+import com.example.env.Listing;
 import com.example.env.MainActivity;
 import com.example.env.Utils;
 
@@ -103,46 +105,28 @@ public class ViewOwnListing extends AppCompatActivity {
         deleteListingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ValueEventListener postListener = new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // Get object and use the values to update the UI
-                        Log.d("OWN_LISTING_TAG", "prepare to delete");
-                        DatabaseReference toDelete = mDatabase.child("testProducts").child(String.valueOf(id));
-                        toDelete.removeValue();
-                        Log.d("OWN_LISTING_TAG", "delete complete");
-//                        Object allListing = dataSnapshot.getValue();
-//                        // ...
-//                        HashMap allListingHashmap = ((HashMap) allListing); // cast this bitch into a hashmap
-//                        //System.out.println(allListingHashmap);
-//
-//                        for (Object item : allListingHashmap.values()) {
-//                            final HashMap itemHashmap = ((HashMap) item); // this is the hashmap of each item
-//                            System.out.println(itemHashmap);
-//                            String cloudTitle = (String) itemHashmap.get("title");
-//                            String cloudPrice = (String) itemHashmap.get("price");
-//                            String cloudDescription = (String) itemHashmap.get("description");
-//                            Log.d("EDIT_TAG", "Cloud: " + cloudTitle +" "+ cloudPrice +" "+ cloudDescription);
-//                            Log.d("EDIT_TAG", "Old: " + title +" "+ price +" "+ description);
-//
-//                            if (cloudTitle.equals(title) && cloudDescription.equals(description)
-//                                    && cloudPrice.equals(price)) {
-//                                DatabaseReference toDelete = mDatabase.child("testProducts").child((String) itemHashmap.get("imgNumber"));
-//                                toDelete.removeValue();
-//                            }
-//                        }
-                    }
+                DatabaseReference toDelete = mDatabase.child("testProducts").child(String.valueOf(id));
+                Log.d("Own_listing", String.valueOf(id));
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        // Getting Post failed, log a message
-                        Log.w("OWN_LISTING_TAG", "loadPost:onCancelled", databaseError.toException());
-                        // ...
+                for (Listing i : FirebaseUtils.myUserListings.userListings) {
+                    if (i.getId() == id) {
+                        FirebaseUtils.myUserListings.removeListing(i);
+                        break;
                     }
-                };
-                mDatabase.child("testProducts").addListenerForSingleValueEvent(postListener);
+                }
+
+                for (Listing i : HomeFragment.homeUserListings.userListings) {
+                    if (i.getId() == id) {
+                        HomeFragment.homeUserListings.removeListing(i);
+                        break;
+                    }
+                }
+
+                toDelete.removeValue();
+                Log.d("OWN_LISTING_TAG", "delete complete");
+
                 Toast.makeText(ViewOwnListing.this, "Listing deleted", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ViewOwnListing.this,MainActivity.class);
+                Intent intent = new Intent(ViewOwnListing.this, MainActivity.class);
                 startActivity(intent);
             }
 
@@ -152,7 +136,7 @@ public class ViewOwnListing extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() { //make back button go back to home fragment
-        Intent intent = new Intent(ViewOwnListing.this,MainActivity.class);
+        Intent intent = new Intent(ViewOwnListing.this, MainActivity.class);
         startActivity(intent);
         return true;
     }
