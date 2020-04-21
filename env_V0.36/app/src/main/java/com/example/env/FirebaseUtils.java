@@ -41,6 +41,7 @@ public class FirebaseUtils {
     public static String telegramID = "blyat";
     public static ArrayList<String> bannedUsersList = new ArrayList<>();
     public static UserListings myUserListings = new UserListings();
+    public static ArrayList<Long> myBookmarks = new ArrayList<>();
 
 
     static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -397,5 +398,41 @@ public class FirebaseUtils {
     public static void addBannedUser(String email) {
         long timestamp = System.currentTimeMillis();
         mDatabase.child("bannedUsers").child(String.valueOf(timestamp)).setValue(email);
+    }
+
+    public static void submitFeedback(String text, long id) {
+        long timestamp = System.currentTimeMillis();
+        mDatabase.child("feedback").child(String.valueOf(timestamp)).child("message").setValue(text);
+        mDatabase.child("feedback").child(String.valueOf(timestamp)).child("ID").setValue(String.valueOf(id));
+    }
+
+    public static void addBookmark(String UID, long listingID) {
+        long timestamp = System.currentTimeMillis();
+        myBookmarks.add(listingID);
+        mDatabase.child("usersList").child(myCurrentUser.getUid()).child("bookmarks").child(String.valueOf(timestamp)).
+                setValue(listingID);
+        getAllListings();
+    }
+
+    public static void getMyBookmarks() {
+        mDatabase.child("usersList").child(myCurrentUser.getUid()).child("bookmarks").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("GET_BOOKMARKS", "getting bookmarks of current user");
+
+                HashMap bookmarks = (HashMap) dataSnapshot.getValue();
+                ArrayList<Long> bookmarksArray = new ArrayList<>(bookmarks.values());
+                for (Long bookmark : bookmarksArray) {
+                    myBookmarks.add(bookmark);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("get_bookmarks", "get bookmarks failed");
+                myBookmarks.clear();
+                System.out.println(databaseError.getDetails());
+            }
+        });
     }
 }

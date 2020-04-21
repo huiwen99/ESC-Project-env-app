@@ -12,7 +12,10 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.env.FirebaseUtils;
+import com.example.env.LoginActivity;
 import com.example.env.R;
 import com.example.env.Utils;
 import com.example.env.Feedback;
@@ -91,8 +94,8 @@ public class ViewOtherListing extends AppCompatActivity {
         bookmarkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //push listing to firebase bookmarks listing for that user
-
+                FirebaseUtils.addBookmark(FirebaseUtils.myCurrentUser.getUid(), id);
+                Toast.makeText(getApplicationContext(), "Added to your bookmarks", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -100,6 +103,7 @@ public class ViewOtherListing extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent mainIntent = new Intent(ViewOtherListing.this, Feedback.class);
+                mainIntent.putExtras(extras);
                 startActivity(mainIntent);
                 finish();
             }

@@ -28,7 +28,7 @@ public class BannedUsersLoginTest {
     @Rule
     public IntentsTestRule<StartScreen> mIntentsRule = new IntentsTestRule<>(StartScreen.class);
 
-    private final String username = "trashacc0511@gmail.com "; //banned user id
+    private final String username = "dangn511@gmail.com"; //banned user id
     private final String password = "wtf420666";
 
     @Test

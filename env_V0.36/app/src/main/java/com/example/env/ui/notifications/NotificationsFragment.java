@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.env.FirebaseUtils;
+import com.example.env.Listing;
 import com.example.env.ListingAdapter;
 import com.example.env.MainActivity;
 import com.example.env.R;
@@ -57,29 +60,21 @@ public class NotificationsFragment extends Fragment implements RecyclerViewItemL
         bookmarksRecyclerView = root.findViewById(R.id.bookmarksRecyclerView);
         bookmarkedListings = new UserListings();
 
-        ArrayList<Integer> drawableId = new ArrayList<Integer>();
-        drawableId.add(R.drawable.fan);
-        drawableId.add(R.drawable.peltierchip);
-        drawableId.add(R.drawable.threedprinter);
-        drawableId.add(R.drawable.battery);
-        drawableId.add(R.drawable.plywood);
-        for(Integer rid:drawableId){
-                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), rid);
-                String imageName = context.getResources().getResourceEntryName(rid);
-                String price = "5";
-                String category = "General";
-                if(rid%2==0){
-                    category = "Microelectronics";
-                }else if(rid%2==1){
-                    category = "Robotic Mechanical";
+        for (Listing i : FirebaseUtils.myUserListings.userListings) {
+
+            if (FirebaseUtils.myBookmarks.contains(i.getId())) {
+                Boolean alreadyIn = false;
+                for (Listing j : bookmarkedListings.userListings) {
+                    if (j.getId() == i.getId()) {
+                        alreadyIn = true;
+                    }
                 }
-                String description = "test";
-                String user = "env@gmail.com";
-                long id = 0;
-                String email = "env@gmail.com";
-                String teleID = "S4tan1zing";
-            bookmarkedListings.addListing(imageName,price,bitmap, category, description, user, id,
-                    email, teleID);
+                if (alreadyIn.equals(false)) {
+                    bookmarkedListings.addListing(i);
+                }
+
+                //refreshRecyclerView();
+            }
         }
 
 

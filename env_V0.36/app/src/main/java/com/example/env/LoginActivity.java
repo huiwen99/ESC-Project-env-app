@@ -119,6 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                                 //setup the required variables and stuff
                                 FirebaseUtils.updateCurrentTelegramID();
                                 FirebaseUtils.updateCurrentEmail();
+                                FirebaseUtils.getMyBookmarks();
 
                                 mLoginProgress.dismiss();
                                 Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
