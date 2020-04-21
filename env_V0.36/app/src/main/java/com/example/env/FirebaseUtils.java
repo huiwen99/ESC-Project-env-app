@@ -195,6 +195,77 @@ public class FirebaseUtils {
 
     }
 
+    public static void pushListingAlt(long timestamp, String title, String price, byte[] imageBytes,
+                                      String category, String description, String userID, String userEmail,
+                                      String teleID) throws InterruptedException {
+        // will be the item name in our DB
+
+        //long listingTimestamp = System.currentTimeMillis();
+        //Log.d(TAG, "Entering pushListing function");
+
+        String imageName = String.format("%d.jpg", timestamp);
+
+        final StorageReference imageref = storageRef.child(imageName);
+
+        Bitmap myBitmap = Utils.byteArrayToBitmap(imageBytes);
+
+        UploadTask uploadTask = imageref.putBytes(imageBytes);
+        System.out.println("upload task created");
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+                System.out.println("Upload failed");
+                System.out.println(exception);
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                // ...
+                System.out.println("Successful upload");
+                System.out.println(taskSnapshot.getMetadata());
+            }
+        });
+
+        System.out.println("preparing for urltask");
+
+
+        //supposed to get us the URL to download this image
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                // Continue with the task to get the download URL
+                return imageref.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                     @Override
+                                     public void onComplete(@NonNull Task<Uri> task) {
+                                         if (task.isSuccessful()) {
+
+                                             System.out.println("Get Uri successful");
+                                             Uri downloadUri = task.getResult();
+
+                                         } else {
+                                             System.out.println("Get Uri failed");
+                                         }
+
+                                     }
+                                 }
+        );
+
+        ListingForDatabase listing = new ListingForDatabase(title, price, String.valueOf(timestamp), category, description,
+                userID, userEmail, teleID);
+        Log.d("UTIL_TEST", listing.getEmail() + " " + listing.getTelegramID());
+
+        mDatabase.child("testProducts").child(String.valueOf(timestamp)).setValue(listing);
+
+    }
+
     public static void editListing(long timestamp, String title, String price, byte[] imageBytes, String category, String description, FirebaseUser currentUser) throws InterruptedException {
         // will be the item name in our DB
 
@@ -289,6 +360,77 @@ public class FirebaseUtils {
 
     }
 
+    public static void editListingAlt(long timestamp, String title, String price, byte[] imageBytes, String category,
+                                      String description, String userID, String userEmail,
+                                      String teleID) throws InterruptedException {
+        // will be the item name in our DB
+
+        //long listingTimestamp = System.currentTimeMillis();
+        //Log.d(TAG, "Entering pushListing function");
+
+        String imageName = String.format("%d.jpg", timestamp);
+
+        final StorageReference imageref = storageRef.child(imageName);
+
+        Bitmap myBitmap = Utils.byteArrayToBitmap(imageBytes);
+
+        UploadTask uploadTask = imageref.putBytes(imageBytes);
+        System.out.println("upload task created");
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+                System.out.println("Upload failed");
+                System.out.println(exception);
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                // ...
+                System.out.println("Successful upload");
+                System.out.println(taskSnapshot.getMetadata());
+            }
+        });
+
+        System.out.println("preparing for urltask");
+
+
+        //supposed to get us the URL to download this image
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                // Continue with the task to get the download URL
+                return imageref.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                     @Override
+                                     public void onComplete(@NonNull Task<Uri> task) {
+                                         if (task.isSuccessful()) {
+
+                                             System.out.println("Get Uri successful");
+                                             Uri downloadUri = task.getResult();
+
+                                         } else {
+                                             System.out.println("Get Uri failed");
+                                         }
+
+                                     }
+                                 }
+        );
+
+        ListingForDatabase listing = new ListingForDatabase(title, price, String.valueOf(timestamp), category, description,
+                userID, userEmail, teleID);
+        Log.d("UTIL_TEST", listing.getEmail() + " " + listing.getTelegramID());
+
+        mDatabase.child("testProducts").child(String.valueOf(timestamp)).setValue(listing);
+
+    }
+
     public static void deleteLisitng(String id) {
         DatabaseReference toDelete = mDatabase.child("testProducts").child(String.valueOf(id));
         Log.d("Own_listing", String.valueOf(id));
@@ -306,6 +448,13 @@ public class FirebaseUtils {
                 break;
             }
         }
+
+        toDelete.removeValue();
+    }
+
+    public static void deleteLisitngAlt(String id) {
+        DatabaseReference toDelete = mDatabase.child("testProducts").child(String.valueOf(id));
+        Log.d("Own_listing", String.valueOf(id));
 
         toDelete.removeValue();
     }
@@ -409,13 +558,37 @@ public class FirebaseUtils {
     public static void addBookmark(String UID, long listingID) {
         long timestamp = System.currentTimeMillis();
         myBookmarks.add(listingID);
-        mDatabase.child("usersList").child(myCurrentUser.getUid()).child("bookmarks").child(String.valueOf(timestamp)).
+        mDatabase.child("usersList").child(UID).child("bookmarks").child(String.valueOf(timestamp)).
                 setValue(listingID);
         getAllListings();
     }
 
     public static void getMyBookmarks() {
         mDatabase.child("usersList").child(myCurrentUser.getUid()).child("bookmarks").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("GET_BOOKMARKS", "getting bookmarks of current user");
+
+                if (dataSnapshot.getValue() != null) {
+                    HashMap bookmarks = (HashMap) dataSnapshot.getValue();
+                    ArrayList<Long> bookmarksArray = new ArrayList<>(bookmarks.values());
+                    for (Long bookmark : bookmarksArray) {
+                        myBookmarks.add(bookmark);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("get_bookmarks", "get bookmarks failed");
+                myBookmarks.clear();
+                System.out.println(databaseError.getDetails());
+            }
+        });
+    }
+
+    public static void getMyBookmarksAlt(String UID) {
+        mDatabase.child("usersList").child(UID).child("bookmarks").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d("GET_BOOKMARKS", "getting bookmarks of current user");
