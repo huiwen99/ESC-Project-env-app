@@ -2,6 +2,7 @@ package com.example.env;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -73,6 +74,16 @@ public class RegisterActivity extends AppCompatActivity {
                     mRegProgress.setCanceledOnTouchOutside(false);
                     mRegProgress.show();
                     register_user(tele_user, email, password);
+                }
+
+                try {
+
+                    Intent telegramIntent = new Intent(Intent.ACTION_VIEW);
+                    telegramIntent.setData(Uri.parse("http://telegram.me/HeizerSpider"));
+                    startActivity(telegramIntent);
+
+                } catch (Exception e) {
+                    // show error message
                 }
             }
         });

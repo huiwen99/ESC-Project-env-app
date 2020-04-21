@@ -168,6 +168,18 @@
             android:layout_marginBottom="5dp"
             android:layout_toLeftOf="@+id/chatButton"/>
 
+        <ImageButton
+            android:id="@+id/reportUserButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toLeftOf="@+id/bookmarkButton"
+            android:background="@drawable/circle"
+            android:src="@drawable/ic_bookmark" />
+
     </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

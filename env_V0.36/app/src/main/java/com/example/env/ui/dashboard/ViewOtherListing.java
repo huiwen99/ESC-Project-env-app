@@ -9,15 +9,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.env.FirebaseUtils;
-import com.example.env.MainActivity;
 import com.example.env.R;
 import com.example.env.Utils;
+import com.example.env.Feedback;
 
 public class ViewOtherListing extends AppCompatActivity {
 
@@ -29,6 +27,7 @@ public class ViewOtherListing extends AppCompatActivity {
     TextView otherListingDescription;
     ImageButton chatButton;
     ImageButton bookmarkButton;
+    ImageButton reportUserButton;
     TextView otherListingEmail;
 
     @Override
@@ -47,6 +46,7 @@ public class ViewOtherListing extends AppCompatActivity {
         otherListingDescription = findViewById(R.id.otherListingDescription);
         chatButton = findViewById(R.id.chatButton);
         bookmarkButton = findViewById(R.id.bookmarkButton);
+        reportUserButton = findViewById(R.id.reportUserButton);
         otherListingEmail = findViewById(R.id.otherListingEmail);
 
 
@@ -93,6 +93,15 @@ public class ViewOtherListing extends AppCompatActivity {
             public void onClick(View v) {
                 //push listing to firebase bookmarks listing for that user
 
+            }
+        });
+
+        reportUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(ViewOtherListing.this, Feedback.class);
+                startActivity(mainIntent);
+                finish();
             }
         });
 

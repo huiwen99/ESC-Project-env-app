@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:orientation="vertical" android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent">-->
+
+<!--</LinearLayout>-->
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:listing_layout="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/listing_layout"
+    android:layout_margin="5dp"
+    listing_layout:cardCornerRadius="10dp"
+     >
+
+    <RelativeLayout
+        android:id="@+id/ard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhiteGreen"
+        >
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:id="@+id/listing_image"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:contentDescription="TODO"
+            android:background="#7000"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listing_title"
+            android:text="Title"
+            android:textColor="@color/colorDarkGreen"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/listing_image"
+            android:textSize="17sp"
+            android:paddingTop="2dp"
+            android:paddingHorizontal="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:fontFamily="@font/corbelb"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/listing_price"
+            android:text="Price"
+            android:textColor="@color/colorDarkGreen"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/listing_title"
+            android:textSize="17sp"
+            android:paddingBottom="5dp"
+            android:paddingHorizontal="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:fontFamily="@font/corbel"
+            />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

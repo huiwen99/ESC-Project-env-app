@@ -227,7 +227,7 @@ public class EditListing extends AppCompatActivity {
                     long listingTimestamp = id;
                     try {
                         Log.d("EDIT_TAG", "prepare to push listing");
-                        FirebaseUtils.pushListing(listingTimestamp, title, price.substring(1), byteArray, category, description, currentUser);
+                        FirebaseUtils.editListing(listingTimestamp, title, price.substring(1), byteArray, category, description, currentUser);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
