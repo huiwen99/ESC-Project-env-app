@@ -53,6 +53,8 @@
     <string name="don_t_have_an_account">Don\'t Have an Account?</string>
     <string name="login">Login</string>
     <string name="telegram_username">Telegram Username</string>
+    <string name="enter_feedback_here">Enter feedback here</string>
+    <string name="submit">Submit</string>
 
 
 </resources>
