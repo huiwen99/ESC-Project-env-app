@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.EditListing">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/content_edit_listing" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <ImageView
+                android:id="@+id/editImage"
+                android:src="@drawable/addpics"
+                android:layout_width="300dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="80dp"
+                android:background="#72667860"
+                android:padding="1dp"/>
+            <RelativeLayout
+                android:id="@+id/editListingTitleView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editImage"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp">
+                <TextView
+                    android:id="@+id/editTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Title:"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/corbelb"
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@drawable/ic_edit"
+                    android:drawableTint="@color/colorDarkGreen"
+                    />
+                <EditText
+                    android:id="@+id/editTitle"
+                    android:hint="Enter Title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/editTitleText"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/corbel"
+                    android:layout_centerHorizontal="true"
+                    />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/editListingPriceView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editListingTitleView"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp">
+                <TextView
+                    android:id="@+id/editPriceText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price:"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/corbelb"
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@drawable/ic_price"
+                    android:drawableTint="@color/colorDarkGreen"
+                    />
+                <EditText
+                    android:id="@+id/editPrice"
+                    android:hint="Enter Price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/editPriceText"
+                    android:ems="10"
+                    android:inputType="numberDecimal"
+                    android:textSize="20sp"
+                    android:maxLines="1"
+                    android:fontFamily="@font/corbel"
+                    android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/editListingCategoryView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editListingPriceView"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:paddingVertical="5dp">
+                <TextView
+                    android:id="@+id/editCategoryText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Category:"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/corbelb"
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@drawable/ic_category"
+                    android:drawableTint="@color/colorDarkGreen"
+                    />
+                <Spinner
+                    android:id="@+id/editCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/categories"
+                    android:prompt="@string/category_prompt"
+                    android:layout_toRightOf="@id/editCategoryText"
+                    android:textSize="20sp"
+                    />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editListingCategoryView"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp">
+                <TextView
+                    android:id="@+id/editDescriptionText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description:"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/corbelb"
+                    android:drawablePadding="5dp"
+                    android:drawableLeft="@drawable/ic_description"
+                    android:drawableTint="@color/colorDarkGreen"
+                    />
+
+                <EditText
+                    android:id="@+id/editDescription"
+                    android:hint="Enter Description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/editDescriptionText"
+                    android:ems="10"
+                    android:inputType="textMultiLine"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/corbel"
+                    android:layout_marginBottom="10dp"
+                    />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/editListing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit Listing"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="bottom"
+        android:textSize="20sp"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/roundedactivitybutton"
+        android:fontFamily="@font/kyokashob"
+        />
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

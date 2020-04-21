@@ -67,6 +67,8 @@ public class LoginActivity extends AppCompatActivity {
         Log.d("TEST1", "now in login");
 
 
+
+        mEmail = (TextInputEditText) findViewById(R.id.login_email);
         mPassword = (TextInputEditText) findViewById(R.id.login_password);
         tvRegister = (TextView) findViewById(R.id.tvRegister);
         Button mlogin_btn = (Button) findViewById(R.id.login_btn);

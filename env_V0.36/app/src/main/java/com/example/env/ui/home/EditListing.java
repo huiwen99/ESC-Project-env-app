@@ -122,6 +122,19 @@ public class EditListing extends AppCompatActivity {
             editCategory.setSelection(spinnerPosition);
         }
 */
+//local variable to find previous spinner position
+        int tempPos = 0, spinnerPosition = 0;
+        if (category != null) {
+            // fetch element of the list with all category names and iamges
+            for (CategoryItem item : mCategoryItemForEditListing) {
+                if (item.getCategoryName().equals(category)) {
+                    spinnerPosition = tempPos;
+                }
+                tempPos++;
+            }
+            editCategory.setSelection(spinnerPosition);
+        }
+
         description = extras.getString("DESCRIPTION");
         final String oldDescription = description;
         editDescription.setText(description);
@@ -214,7 +227,7 @@ public class EditListing extends AppCompatActivity {
                     long listingTimestamp = id;
                     try {
                         Log.d("EDIT_TAG", "prepare to push listing");
-                        FirebaseUtils.pushListing(listingTimestamp, title, price.substring(1), byteArray, category, description, currentUser);
+                        FirebaseUtils.editListing(listingTimestamp, title, price.substring(1), byteArray, category, description, currentUser);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -257,13 +270,13 @@ public class EditListing extends AppCompatActivity {
     }
     private void initListForEditListing() { //method to populate array list for custom spinner
         mCategoryItemForEditListing = new ArrayList<>();
+        mCategoryItemForEditListing.add(new CategoryItem("General", R.drawable.general));
         mCategoryItemForEditListing.add(new CategoryItem("Acrylic", R.drawable.acrylic));
         mCategoryItemForEditListing.add(new CategoryItem("Arts and Crafts", R.drawable.artsandcrafts));
         mCategoryItemForEditListing.add(new CategoryItem("Adhesives", R.drawable.adhesives));
         mCategoryItemForEditListing.add(new CategoryItem("Cables and Wires", R.drawable.cablesandwires));
         mCategoryItemForEditListing.add(new CategoryItem("Electronics", R.drawable.electronics));
         mCategoryItemForEditListing.add(new CategoryItem("Events", R.drawable.events));
-        mCategoryItemForEditListing.add(new CategoryItem("General", R.drawable.general));
         mCategoryItemForEditListing.add(new CategoryItem("Hardware", R.drawable.hardware));
         mCategoryItemForEditListing.add(new CategoryItem("Lighting", R.drawable.lighting));
         mCategoryItemForEditListing.add(new CategoryItem("Microelectronics", R.drawable.microelectronics));
@@ -272,7 +285,6 @@ public class EditListing extends AppCompatActivity {
         mCategoryItemForEditListing.add(new CategoryItem("Software", R.drawable.software));
         mCategoryItemForEditListing.add(new CategoryItem("Tools", R.drawable.tools));
         mCategoryItemForEditListing.add(new CategoryItem("Wood", R.drawable.wood));
-        mCategoryItemForEditListing.add(new CategoryItem("Microelectronics", R.drawable.microelectronics));
     }
 
 

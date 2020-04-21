@@ -169,11 +169,12 @@ public class AddListing extends AppCompatActivity {
 
                         try {
                             FirebaseUtils.pushListing(listingTimestamp, title, price, byteArray, category, description, currentUser);
+                            FirebaseUtils.getAllListings();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
 
-                    setResult(resultCode, resultIntent);
+                        setResult(resultCode, resultIntent);
                     finish();
 //                    Intent intent = new Intent(AddListing.this,MainActivity.class);
 //                    startActivity(intent);
@@ -236,13 +237,13 @@ public class AddListing extends AppCompatActivity {
 
     private void initListForAddListing() { //method to populate array list for custom spinner
         mCategoryItemForAddListing = new ArrayList<>();
+        mCategoryItemForAddListing.add(new CategoryItem("General", R.drawable.general));
         mCategoryItemForAddListing.add(new CategoryItem("Acrylic", R.drawable.acrylic));
         mCategoryItemForAddListing.add(new CategoryItem("Arts and Crafts", R.drawable.artsandcrafts));
         mCategoryItemForAddListing.add(new CategoryItem("Adhesives", R.drawable.adhesives));
         mCategoryItemForAddListing.add(new CategoryItem("Cables and Wires", R.drawable.cablesandwires));
         mCategoryItemForAddListing.add(new CategoryItem("Electronics", R.drawable.electronics));
         mCategoryItemForAddListing.add(new CategoryItem("Events", R.drawable.events));
-        mCategoryItemForAddListing.add(new CategoryItem("General", R.drawable.general));
         mCategoryItemForAddListing.add(new CategoryItem("Hardware", R.drawable.hardware));
         mCategoryItemForAddListing.add(new CategoryItem("Lighting", R.drawable.lighting));
         mCategoryItemForAddListing.add(new CategoryItem("Microelectronics", R.drawable.microelectronics));
@@ -251,7 +252,6 @@ public class AddListing extends AppCompatActivity {
         mCategoryItemForAddListing.add(new CategoryItem("Software", R.drawable.software));
         mCategoryItemForAddListing.add(new CategoryItem("Tools", R.drawable.tools));
         mCategoryItemForAddListing.add(new CategoryItem("Wood", R.drawable.wood));
-        mCategoryItemForAddListing.add(new CategoryItem("Microelectronics", R.drawable.microelectronics));
     }
 
 }

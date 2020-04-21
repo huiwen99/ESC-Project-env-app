@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
     RecyclerView recyclerView;
     ListingAdapter listingAdapter;
     ImageButton addListingButton;
-    UserListings userListings;
+    public static UserListings homeUserListings;
     TextView username;
     private LinearLayout linearLayout;
 
@@ -94,6 +94,7 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         ((MainActivity) getActivity()).showButton();
 
         Context context = container.getContext();
+        Log.d("HOME_TAG", "got context?");
 
         addListingButton = root.findViewById(R.id.addListingButton);
         username = root.findViewById(R.id.username);
@@ -106,7 +107,8 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         //adding to userListings
         ArrayList<Integer> drawableId = new ArrayList<Integer>();
         drawableId.add(R.drawable.fan);
-        userListings = new UserListings();
+        homeUserListings = new UserListings();
+        homeUserListings.userListings.clear();
 
         //TODO: display this info
 
@@ -121,74 +123,91 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
 //            Log.d("HOME_TAG", String.valueOf(userListings.userListings));
 //        }
 
-        //collect listings from firebase
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get object and use the values to update the UI
-                Log.d("HOME_TAG", "getting value");
-                Object allListing = dataSnapshot.getValue();
-                // ...
-                HashMap allListingHashmap = ((HashMap) allListing); // cast this bitch into a hashmap
-                System.out.println(allListingHashmap);
+//        //collect listings from firebase
+//        ValueEventListener postListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // Get object and use the values to update the UI
+//                Log.d("HOME_TAG", "getting value");
+//                Object allListing = dataSnapshot.getValue();
+//                // ...
+//                HashMap allListingHashmap = ((HashMap) allListing); // cast this bitch into a hashmap
+//                System.out.println(allListingHashmap);
+//
+//                for (Object item : allListingHashmap.values()) {
+//                    final HashMap itemHashmap = ((HashMap) item); // this is the hashmap of each item
+//                    System.out.println(itemHashmap);
+//
+//                    String imageName = String.format("%s.jpg", itemHashmap.get("imgNumber").toString());
+//                    StorageReference imageref = storageRef.child(imageName);
+//
+//                    imageref.getBytes(1024*1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//                        @Override
+//                        public void onSuccess(byte[] bytes) {
+//                            Bitmap imgBitmap = Utils.byteArrayToBitmap(bytes);
+//                            String imageName = itemHashmap.get("title").toString();
+//                            String price = itemHashmap.get("price").toString().substring(1);
+//                            String category = itemHashmap.get("category").toString();
+//                            String description = itemHashmap.get("description").toString();
+//                            String user = itemHashmap.get("user").toString();
+//                            String email = itemHashmap.get("email").toString();
+//                            String telegramID = itemHashmap.get("telegramID").toString();
+//
+//                            long listingID = Long.parseLong(itemHashmap.get("imgNumber").toString());
+//
+//                            Log.d("HOME_TAG", currentUser);
+//                            Log.d("HOME_TAG", user);
+//                            Log.d("HOME_TAG", String.valueOf(currentUser.equals(user)));
+//
+//
+//                            if (user.equals(currentUser)) {
+//                                homeUserListings.addListing(imageName, price, imgBitmap, category, description, user, listingID,
+//                                        email, telegramID);
+//                                Log.d("HOME_TAG", "added item");
+//                                //Log.d("HOME_TAG", String.valueOf(userListings.userListings));
+//                                refreshRecyclerView();
+//                            }
+//
+//
+//                        }
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception exception) {
+//                            Log.d("HOME_TAG", String.valueOf(exception));
+//                        }
+//                    });
+//
+//                }
+//                refreshRecyclerView();
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                // Getting Post failed, log a message
+//                Log.w("HOME_TAG", "loadPost:onCancelled", databaseError.toException());
+//                // ...
+//            }
+//        };
+//        mDatabase.child("testProducts").addListenerForSingleValueEvent(postListener);
 
-                for (Object item : allListingHashmap.values()) {
-                    final HashMap itemHashmap = ((HashMap) item); // this is the hashmap of each item
-                    System.out.println(itemHashmap);
 
-                    String imageName = String.format("%s.jpg", itemHashmap.get("imgNumber").toString());
-                    StorageReference imageref = storageRef.child(imageName);
-
-                    imageref.getBytes(1024*1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                        @Override
-                        public void onSuccess(byte[] bytes) {
-                            Bitmap imgBitmap = Utils.byteArrayToBitmap(bytes);
-                            String imageName = itemHashmap.get("title").toString();
-                            String price = itemHashmap.get("price").toString().substring(1);
-                            String category = itemHashmap.get("category").toString();
-                            String description = itemHashmap.get("description").toString();
-                            String user = itemHashmap.get("user").toString();
-                            String email = itemHashmap.get("email").toString();
-                            String telegramID = itemHashmap.get("telegramID").toString();
-
-                            long listingID = Long.parseLong(itemHashmap.get("imgNumber").toString());
-
-                            Log.d("HOME_TAG", currentUser);
-                            Log.d("HOME_TAG", user);
-                            Log.d("HOME_TAG", String.valueOf(currentUser.equals(user)));
-
-
-                            if (user.equals(currentUser)) {
-                                userListings.addListing(imageName, price, imgBitmap, category, description, user, listingID,
-                                        email, telegramID);
-                                Log.d("HOME_TAG", "added item");
-                                //Log.d("HOME_TAG", String.valueOf(userListings.userListings));
-                                refreshRecyclerView();
-                            }
-
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            Log.d("HOME_TAG", String.valueOf(exception));
-                        }
-                    });
-
+        for (Listing i : FirebaseUtils.myUserListings.userListings) {
+            Log.d("HOME_TAG", i.getUser());
+            if (i.getUser().equals(currentUser)) {
+                Boolean alreadyIn = false;
+                for (Listing j : homeUserListings.userListings) {
+                    if (j.getId() == i.getId()) {
+                        alreadyIn = true;
+                    }
                 }
-                refreshRecyclerView();
+                if (alreadyIn.equals(false)) {
+                    homeUserListings.addListing(i);
+                }
+
+                //refreshRecyclerView();
             }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w("HOME_TAG", "loadPost:onCancelled", databaseError.toException());
-                // ...
-            }
-        };
-        mDatabase.child("testProducts").addListenerForSingleValueEvent(postListener);
-
-
+        }
+//        refreshRecyclerView();
         //initializing recyclerview
 //        listingAdapter = new ListingAdapter(context, userListings, this);
 //        recyclerView.setAdapter(listingAdapter);
@@ -249,8 +268,8 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
         //eventually have adminUsers list pull from firebase a list of admins? or we can just hardcode coz shouldn't change
         // doing firebase now - Dan
         // adminUsers.add("j9APkvXmuLhBEJTYzJzYUoTOjxX2");
-        bannedWordsList.add("fuck");
-        bannedWordsList.add("damn");
+//        bannedWordsList.add("fuck");
+//        bannedWordsList.add("damn");
         username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -302,17 +321,17 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
 
         Bundle extras = new Bundle();
 
-        extras.putString("TITLE",userListings.getTitle(position));
-        extras.putString("PRICE",userListings.getPrice(position));
-        extras.putString("CATEGORY",userListings.getCategory(position));
-        extras.putString("DESCRIPTION",userListings.getDescription(position));
-        extras.putLong("ID",userListings.getId(position));
+        extras.putString("TITLE",homeUserListings.getTitle(position));
+        extras.putString("PRICE",homeUserListings.getPrice(position));
+        extras.putString("CATEGORY",homeUserListings.getCategory(position));
+        extras.putString("DESCRIPTION",homeUserListings.getDescription(position));
+        extras.putLong("ID",homeUserListings.getId(position));
         extras.putString("USER", currentUser);
-        extras.putString("EMAIL",userListings.getEmail(position));
-        extras.putString("TELGRAMID",userListings.getTelegramID(position));
+        extras.putString("EMAIL",homeUserListings.getEmail(position));
+        extras.putString("TELGRAMID",homeUserListings.getTelegramID(position));
 
 
-        Bitmap image = userListings.getImage(position);
+        Bitmap image = homeUserListings.getImage(position);
         byte[] byteArray = Utils.bitmapToByteArray(image);
 
         extras.putByteArray("IMAGE",byteArray);
@@ -323,9 +342,11 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
     }
 
     private void refreshRecyclerView(){
+        Log.d("HOME_TAG", "gonna refresh recycler");
         ViewGroup container = (ViewGroup) getView().getParent();
         Context context = container.getContext();
-        listingAdapter = new ListingAdapter(context, userListings, this);
+        Log.d("HOME_TAG", "refreshing recycler");
+        listingAdapter = new ListingAdapter(context, homeUserListings, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView); //added this line for for the swipe gesture
         recyclerView.setAdapter(listingAdapter);
 
@@ -345,11 +366,11 @@ public class HomeFragment extends Fragment implements RecyclerViewItemListener {
 
         @Override
         public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
-            String name = userListings.getTitle(viewHolder.getAdapterPosition());
+            String name = homeUserListings.getTitle(viewHolder.getAdapterPosition());
             //listingAdapter.notifyDataSetChanged();
 
             //backup of removed item for undo purpose
-            final Listing deletedItem = userListings.get(viewHolder.getAdapterPosition());
+            final Listing deletedItem = homeUserListings.get(viewHolder.getAdapterPosition());
             final int position = viewHolder.getAdapterPosition();
 
             //removing item from recyclerview
