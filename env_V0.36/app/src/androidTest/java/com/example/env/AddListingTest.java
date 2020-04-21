@@ -47,16 +47,26 @@ import static org.junit.Assert.*;
 
 public class AddListingTest {
     @Rule
-    public IntentsTestRule<MainActivity> mIntentsRule = new IntentsTestRule<>(MainActivity.class);
+    public IntentsTestRule<StartScreen> mIntentsRule = new IntentsTestRule<>(StartScreen.class);
+
+    private final String username = "koh.huiwen99@gmail.com";
+    private final String password = "1003593";
 
     @Before
     public void stubCameraIntent(){
         Instrumentation.ActivityResult result = createImageCaptureActivityResultStub();
         intending(hasAction(Intent.ACTION_GET_CONTENT)).respondWith(result);
+        pauseTestFor(5);
+        onView(withId(R.id.login_email)).perform(replaceText(username));
+        onView(withId(R.id.login_password)).perform(replaceText(password));
+        //click button
+        onView(withId(R.id.login_btn)).perform(ViewActions.click());
+        pauseTestFor(5);
+
     }
 
     @Test
-    public void testAddListing(){
+    public void testAddingListing(){
         pauseTestFor(7);
         onView(withId(R.id.addListingButton)).perform(ViewActions.click());
         pauseTestFor(5);
@@ -71,10 +81,10 @@ public class AddListingTest {
         pauseTestFor(1);
         onView(withId(R.id.newListingPrice)).perform(replaceText("5"));
         pauseTestFor(1);
-        onView(withId(R.id.newListingCategory)).perform(click());
-        pauseTestFor(1);
-        onData(is("Microelectronics")).perform(click());
-        pauseTestFor(1);
+        //onView(withId(R.id.newListingCategory)).perform(click());
+        //pauseTestFor(1);
+        //onData(is("Microelectronics")).perform(click());
+        //pauseTestFor(1);
         onView(withId(R.id.newListingDescription)).perform(scrollTo());
         pauseTestFor(1);
         onView(withId(R.id.newListingDescription)).perform(replaceText("TestingDescription"));
