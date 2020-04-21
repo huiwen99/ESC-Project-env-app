@@ -54,7 +54,7 @@ public class StartScreen extends AppCompatActivity {
 
         FirebaseUtils.getBannedUsers();
         Log.d("START_SCREEN", "got banned users, now getting emails");
-        FirebaseUtils.updateCurrentEmail();
+//        FirebaseUtils.updateCurrentEmail();
         Log.d("START_SCREEN", "got emails, now getting listings");
         FirebaseUtils.getAllListings();
         Log.d("START_SCREEN", "got listings, done");

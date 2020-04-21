@@ -70,10 +70,10 @@ public class AddListingTest {
         onView(withId(R.id.newListingTitle)).perform(replaceText("TestingTitle"));
         pauseTestFor(1);
         onView(withId(R.id.newListingPrice)).perform(replaceText("5"));
-        pauseTestFor(1);
-        onView(withId(R.id.newListingCategory)).perform(click());
-        pauseTestFor(1);
-        onData(is("Microelectronics")).perform(click());
+        //pauseTestFor(1);
+        //onView(withId(R.id.newListingCategory)).perform(click());
+        //pauseTestFor(1);
+        //onData(is("Microelectronics")).perform(click());
         pauseTestFor(1);
         onView(withId(R.id.newListingDescription)).perform(scrollTo());
         pauseTestFor(1);
@@ -94,16 +94,16 @@ public class AddListingTest {
 
         // Click on the button that will trigger the stubbed intent.
         onView(withId(R.id.imageSelected)).perform(click());
-        String bannedWord = "damn";
+        String bannedWord = "shit";
 
         pauseTestFor(3);
         onView(withId(R.id.newListingTitle)).perform(replaceText(bannedWord));
         pauseTestFor(1);
         onView(withId(R.id.newListingPrice)).perform(replaceText("5"));
-        pauseTestFor(1);
-        onView(withId(R.id.newListingCategory)).perform(click());
-        pauseTestFor(1);
-        onData(is("Microelectronics")).perform(click());
+        //pauseTestFor(1);
+        //onView(withId(R.id.newListingCategory)).perform(click());
+        //pauseTestFor(1);
+        //onData(is("Microelectronics")).perform(click());
         pauseTestFor(1);
         onView(withId(R.id.newListingDescription)).perform(scrollTo());
         pauseTestFor(1);

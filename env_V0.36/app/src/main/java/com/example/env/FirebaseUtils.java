@@ -249,7 +249,7 @@ public class FirebaseUtils {
             }
         });
     }
-
+/*
     public static void updateCurrentEmail() {
         mDatabase.child("usersList").child(myCurrentUser.getUid()).child("email").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -267,7 +267,7 @@ public class FirebaseUtils {
             }
         });
     }
-
+*/
     public static void addBannedWord(String word) {
         long timestamp = System.currentTimeMillis();
         mDatabase.child("bannedWords").child(String.valueOf(timestamp)).setValue(word);
