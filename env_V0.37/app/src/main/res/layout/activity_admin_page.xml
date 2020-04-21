@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminPage"
+    android:background="@color/colorWhiteGreen">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/bannedWordsView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/bannedWordsText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Banned Words"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"
+                    android:background="@color/colorVeryDarkGreen"
+                    android:layout_marginTop="55dp"
+                    android:padding="5dp"
+                    android:textAlignment="center"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/kyokashob"
+                    />
+                <TextView
+                    android:id="@+id/bannedWordsList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bannedWordsText"
+                    android:text="Banned words placeholder"
+                    android:layout_margin="20dp"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/corbel"
+                    />
+                <Button
+                    android:id="@+id/banWordsButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/bannedWordsList"
+                    android:text="Add Words"
+                    android:padding="5dp"
+                    android:background="@color/colorDarkGreen"
+                    android:textColor="@color/colorWhite"
+                    android:fontFamily="@font/corbelb"
+                    android:textSize="15sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="20dp"
+                    />
+                    <EditText
+                        android:id="@+id/wordInput"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/bannedWordsList"
+                        android:layout_toLeftOf="@id/banWordsButton"
+                        android:paddingHorizontal="20dp"
+                        android:hint="Enter word to ban"
+                        android:fontFamily="@font/corbel"
+                        />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/bannedUsersView"
+                android:layout_below="@id/bannedWordsView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/bannedUsersText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Banned Users"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"
+                    android:background="@color/colorVeryDarkGreen"
+                    android:padding="5dp"
+                    android:textAlignment="center"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/kyokashob"
+                    />
+                <TextView
+                    android:id="@+id/bannedUsersList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/bannedUsersText"
+                    android:text="Banned Users placeholder"
+                    android:layout_margin="20dp"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/corbel"
+                    />
+                <Button
+                    android:id="@+id/banUsersButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/bannedUsersList"
+                    android:text="Ban Users"
+                    android:padding="5dp"
+                    android:background="@color/colorDarkGreen"
+                    android:textColor="@color/colorWhite"
+                    android:fontFamily="@font/corbelb"
+                    android:textSize="15sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="20dp"
+                    />
+                <EditText
+                    android:id="@+id/userInput"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/bannedUsersList"
+                    android:layout_toLeftOf="@id/banUsersButton"
+                    android:paddingHorizontal="20dp"
+                    android:hint="Enter user email"
+                    android:fontFamily="@font/corbel"
+                    />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/bannedListingsView"
+                android:layout_below="@id/bannedUsersView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/bannedListingsText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ban Listings"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"
+                    android:background="@color/colorVeryDarkGreen"
+                    android:padding="5dp"
+                    android:textAlignment="center"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/kyokashob"
+                    />
+                <EditText
+                    android:id="@+id/listingInput"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/bannedListingsText"
+                    android:layout_centerHorizontal="true"
+                    android:paddingHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="Enter listing ID"
+                    android:fontFamily="@font/corbel"
+                    />
+                <Button
+                    android:id="@+id/banListingsButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/listingInput"
+                    android:text="Delete Listings"
+                    android:padding="5dp"
+                    android:background="@color/colorDarkGreen"
+                    android:textColor="@color/colorWhite"
+                    android:fontFamily="@font/corbelb"
+                    android:textSize="15sp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="20dp"
+                    />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
