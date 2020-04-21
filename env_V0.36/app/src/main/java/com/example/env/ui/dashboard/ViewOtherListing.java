@@ -9,18 +9,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.env.FirebaseUtils;
-import com.example.env.LoginActivity;
-import com.example.env.MainActivity;
 import com.example.env.R;
-import com.example.env.RegisterActivity;
 import com.example.env.Utils;
-import com.example.env.ui.Feedback;
+import com.example.env.Feedback;
 
 public class ViewOtherListing extends AppCompatActivity {
 
@@ -51,6 +46,7 @@ public class ViewOtherListing extends AppCompatActivity {
         otherListingDescription = findViewById(R.id.otherListingDescription);
         chatButton = findViewById(R.id.chatButton);
         bookmarkButton = findViewById(R.id.bookmarkButton);
+        reportUserButton = findViewById(R.id.reportUserButton);
         otherListingEmail = findViewById(R.id.otherListingEmail);
 
 
