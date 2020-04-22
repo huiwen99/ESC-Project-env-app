@@ -32,6 +32,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.AllOf.allOf;
 import static org.junit.Assert.*;
 
 public class DashboardFragmentTest {
@@ -58,14 +59,14 @@ public class DashboardFragmentTest {
 
         onView(withId(R.id.categorySpinner)).perform(click());
         pauseTestFor(1);
-        onData(is("Robotic Mechanical")).perform(click());
+        onView(allOf(withId(R.id.textViewCategory), withText("Hardware"))).perform(click());
         pauseTestFor(1);
         try{
             onView(withId(R.id.otherListingRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
             pauseTestFor(1);
             try{
                 onView(withId(R.id.chatButton)).check(matches(isDisplayed()));
-                onView(withId(R.id.otherListingCategory)).check(matches(withText("Robotic Mechanical")));
+                onView(withId(R.id.otherListingCategory)).check(matches(withText("Hardware")));
             }catch(NoMatchingViewException e){
                 fail();
             }
@@ -82,12 +83,12 @@ public class DashboardFragmentTest {
 
         onView(withId(R.id.categorySpinner)).perform(click());
         pauseTestFor(1);
-        onData(is("Microelectronics")).perform(click());
+        onView(allOf(withId(R.id.textViewCategory), withText("Hardware"))).perform(click());
         pauseTestFor(1);
 
         onView(withId(R.id.action_search)).perform(click());
         pauseTestFor(1);
-        String stringToSearch = "peltier"; //can be changed to suit our existing listings
+        String stringToSearch = "another"; //can be changed to suit our existing listings
         onView(isAssignableFrom(EditText.class)).perform(typeText(stringToSearch), pressKey(KeyEvent.KEYCODE_ENTER));
         closeSoftKeyboard();
         pauseTestFor(1);
@@ -96,7 +97,7 @@ public class DashboardFragmentTest {
             pauseTestFor(1);
             try{
                 onView(withId(R.id.chatButton)).check(matches(isDisplayed()));
-                onView(withId(R.id.otherListingCategory)).check(matches(withText("Microelectronics")));
+                onView(withId(R.id.otherListingCategory)).check(matches(withText("Hardware")));
                 onView(withText(stringToSearch));
 
             }catch(NoMatchingViewException e){

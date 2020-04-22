@@ -57,7 +57,7 @@ public class HomeFragmentTest {
 
         onView(withId(R.id.editCategory)).perform(click());
         pauseTestFor(1);
-        onData(is("Microelectronics")).perform(click());
+        onView(allOf(withId(R.id.textViewCategory), withText("Hardware"))).perform(click());
         pauseTestFor(1);
 
         onView(withId(R.id.editDescription)).perform(replaceText("editedDescription"));
@@ -67,7 +67,7 @@ public class HomeFragmentTest {
 
         onView(withId(R.id.listingTitle)).check(matches(withText("editedTitle")));
         onView(withId(R.id.listingPrice)).check(matches(withText("$1.00")));
-        onView(withId(R.id.listingCategory)).check(matches(withText("Microelectronics")));
+        onView(withId(R.id.listingCategory)).check(matches(withText("Hardware")));
         onView(withId(R.id.listingDescription)).check(matches(withText("editedDescription")));
 
     }

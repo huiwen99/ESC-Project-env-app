@@ -117,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (!isBanned) {
                                 //setup the required variables and stuff
                                 FirebaseUtils.updateCurrentTelegramID();
-                                FirebaseUtils.updateCurrentEmail();
+                               // FirebaseUtils.updateCurrentEmail();
                                 FirebaseUtils.getMyBookmarks();
 
                                 mLoginProgress.dismiss();
