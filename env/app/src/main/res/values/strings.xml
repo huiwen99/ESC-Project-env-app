@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">env</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Browse</string>
-    <string name="title_notifications">Chats</string>
-</resources>
