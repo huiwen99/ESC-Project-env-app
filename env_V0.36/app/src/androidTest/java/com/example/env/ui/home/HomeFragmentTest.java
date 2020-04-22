@@ -1,5 +1,7 @@
 package com.example.env.ui.home;
 
+import android.app.Instrumentation;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
@@ -14,8 +16,10 @@ import androidx.test.rule.ActivityTestRule;
 import com.example.env.LoginActivity;
 import com.example.env.MainActivity;
 import com.example.env.R;
+import com.example.env.StartScreen;
 
 import org.hamcrest.Matcher;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -29,6 +33,8 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.intent.Intents.intending;
+import static androidx.test.espresso.intent.matcher.IntentMatchers.hasAction;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
@@ -39,12 +45,18 @@ import static org.junit.Assert.*;
 
 public class HomeFragmentTest {
     @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<StartScreen> mActivityTestRule = new ActivityTestRule<>(StartScreen.class);
 
-
-
+    private final String username = "koh.huiwen99@gmail.com";
+    private final String password = "1003593";
+    
     @Test
     public void testViewAndEditListing(){
+        pauseTestFor(5);
+        onView(withId(R.id.login_email)).perform(replaceText(username));
+        onView(withId(R.id.login_password)).perform(replaceText(password));
+        //click button
+        onView(withId(R.id.login_btn)).perform(ViewActions.click());
         pauseTestFor(5);
         onView(withId(R.id.userListingRecyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
         pauseTestFor(1);
