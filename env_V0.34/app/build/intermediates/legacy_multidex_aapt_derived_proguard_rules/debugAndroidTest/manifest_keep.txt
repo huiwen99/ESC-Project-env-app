@@ -1,0 +1,2 @@
+# Referenced at C:\Users\65842\Documents\GitHub\ESC-clone\ESC-Project-env-app-master\env_V0.33\app\build\intermediates\merged_manifests\debugAndroidTest\AndroidManifest.xml:9
+-keep class androidx.test.runner.AndroidJUnitRunner { <init>(); }
