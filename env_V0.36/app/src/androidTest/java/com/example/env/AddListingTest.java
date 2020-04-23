@@ -99,9 +99,9 @@ public class AddListingTest {
 
     @Test
     public void testBannedWords(){
-        pauseTestFor(5);
+        pauseTestFor(7);
         onView(withId(R.id.addListingButton)).perform(ViewActions.click());
-        pauseTestFor(3);
+        pauseTestFor(5);
 
         //inside AddListing activity
 

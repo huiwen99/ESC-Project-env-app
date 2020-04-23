@@ -84,8 +84,14 @@ public class HomeFragmentTest {
 
     }
 
+
     @Test
     public void logOutTest(){
+        pauseTestFor(5);
+        onView(withId(R.id.login_email)).perform(replaceText(username));
+        onView(withId(R.id.login_password)).perform(replaceText(password));
+        //click button
+        onView(withId(R.id.login_btn)).perform(ViewActions.click());
         pauseTestFor(5);
         onView(withId(R.id.sign_out_button)).perform(click());
         pauseTestFor(2);

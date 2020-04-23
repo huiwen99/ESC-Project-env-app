@@ -6,11 +6,14 @@ import android.widget.EditText;
 
 import androidx.test.espresso.NoMatchingViewException;
 import androidx.test.espresso.PerformException;
+import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.rule.ActivityTestRule;
 
+import com.example.env.LoginActivity;
 import com.example.env.MainActivity;
 import com.example.env.R;
+import com.example.env.StartScreen;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -37,10 +40,18 @@ import static org.junit.Assert.*;
 
 public class DashboardFragmentTest {
     @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
+
+    private final String username = "koh.huiwen99@gmail.com";
+    private final String password = "1003593";
 
     @Test
     public void testNavigationBrowse(){
+        pauseTestFor(5);
+        onView(withId(R.id.login_email)).perform(replaceText(username));
+        onView(withId(R.id.login_password)).perform(replaceText(password));
+        //click button
+        onView(withId(R.id.login_btn)).perform(ViewActions.click());
         pauseTestFor(5);
         onView(withContentDescription("Browse")).perform(click());
         pauseTestFor(5);
@@ -53,6 +64,11 @@ public class DashboardFragmentTest {
 
     @Test
     public void testSearchCategory(){
+        pauseTestFor(5);
+        onView(withId(R.id.login_email)).perform(replaceText(username));
+        onView(withId(R.id.login_password)).perform(replaceText(password));
+        //click button
+        onView(withId(R.id.login_btn)).perform(ViewActions.click());
         pauseTestFor(5);
         onView(withContentDescription("Browse")).perform(click());
         pauseTestFor(5);
@@ -77,6 +93,11 @@ public class DashboardFragmentTest {
 
     @Test
     public void testSearchTitleAndCategory(){
+        pauseTestFor(5);
+        onView(withId(R.id.login_email)).perform(replaceText(username));
+        onView(withId(R.id.login_password)).perform(replaceText(password));
+        //click button
+        onView(withId(R.id.login_btn)).perform(ViewActions.click());
         pauseTestFor(5);
         onView(withContentDescription("Browse")).perform(click());
         pauseTestFor(5);
